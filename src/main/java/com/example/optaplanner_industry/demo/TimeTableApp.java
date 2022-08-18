@@ -1,11 +1,11 @@
-package com.example.optaplanner_industry;
+package com.example.optaplanner_industry.demo;
 
 
-import com.example.optaplanner_industry.domain.Lesson;
-import com.example.optaplanner_industry.domain.Room;
-import com.example.optaplanner_industry.domain.TimeTable;
-import com.example.optaplanner_industry.domain.Timeslot;
-import com.example.optaplanner_industry.solver.TimeTableConstraintProvider;
+import com.example.optaplanner_industry.demo.domain.Lesson;
+import com.example.optaplanner_industry.demo.domain.Room;
+import com.example.optaplanner_industry.demo.domain.TimeTable;
+import com.example.optaplanner_industry.demo.domain.Timeslot;
+import com.example.optaplanner_industry.demo.solver.TimeTableConstraintProvider;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.core.config.solver.SolverConfig;

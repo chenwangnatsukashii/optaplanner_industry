@@ -1,4 +1,4 @@
-package com.example.optaplanner_industry.industry.entity;
+package com.example.optaplanner_industry.industry.domain;
 
 
 import lombok.AllArgsConstructor;

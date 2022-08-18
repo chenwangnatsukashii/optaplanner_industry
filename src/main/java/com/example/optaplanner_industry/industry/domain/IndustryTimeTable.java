@@ -1,9 +1,6 @@
-package com.example.optaplanner_industry.industry.entity;
+package com.example.optaplanner_industry.industry.domain;
 
 
-import com.example.optaplanner_industry.domain.Lesson;
-import com.example.optaplanner_industry.domain.Room;
-import com.example.optaplanner_industry.domain.Timeslot;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;

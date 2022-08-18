@@ -1,7 +1,6 @@
-package com.example.optaplanner_industry.industry.entity;
+package com.example.optaplanner_industry.industry.domain;
 
 
-import com.example.optaplanner_industry.domain.Timeslot;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

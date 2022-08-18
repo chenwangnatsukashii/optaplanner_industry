@@ -1,7 +1,6 @@
 package com.example.optaplanner_industry.industry.solver;
 
-import com.example.optaplanner_industry.domain.Lesson;
-import com.example.optaplanner_industry.industry.entity.Task;
+import com.example.optaplanner_industry.industry.domain.Task;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.core.api.score.stream.Constraint;
 import org.optaplanner.core.api.score.stream.ConstraintFactory;
