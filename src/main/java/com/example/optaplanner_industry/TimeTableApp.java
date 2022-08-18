@@ -86,7 +86,7 @@ public class TimeTableApp {
         lessonList.add(new Lesson(id++, "Geography", "C. Darwin", "10th grade"));
         lessonList.add(new Lesson(id++, "History", "I. Jones", "10th grade"));
         lessonList.add(new Lesson(id++, "English", "P. Cruz", "10th grade"));
-        lessonList.add(new Lesson(id++, "Spanish", "P. Cruz", "10th grade"));
+        lessonList.add(new Lesson(id, "Spanish", "P. Cruz", "10th grade"));
 
         return new TimeTable(timeslotList, roomList, lessonList);
     }

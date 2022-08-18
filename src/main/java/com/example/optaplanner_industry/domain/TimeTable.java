@@ -1,5 +1,6 @@
 package com.example.optaplanner_industry.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
