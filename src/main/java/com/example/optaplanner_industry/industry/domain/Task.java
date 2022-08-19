@@ -16,10 +16,10 @@ public class Task {
 
     @PlanningId
     private Long id;
-
-    private String taskType;
-
+    private String taskName;
+    private Integer quantity;
     private Integer taskOrder;
+    private Integer layerNumber;
 
     @PlanningVariable(valueRangeProviderRefs = "processTimeslotRange")
     private ProcessTimeslot processTimeslot;
@@ -29,4 +29,21 @@ public class Task {
 
     @PlanningVariable(valueRangeProviderRefs = "machineRange")
     private Machine machine;
+
+    public Task(long id, String taskName, Integer quantity, Integer taskOrder, Integer layerNumber) {
+        this.id = id;
+        this.taskName = taskName;
+        this.quantity = quantity;
+        this.taskOrder = taskOrder;
+        this.layerNumber = layerNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "taskName='" + taskName + '\'' +
+                ", layerNumber=" + layerNumber +
+                ", taskOrder=" + taskOrder +
+                '}';
+    }
 }

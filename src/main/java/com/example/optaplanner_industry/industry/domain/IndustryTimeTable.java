@@ -23,11 +23,11 @@ public class IndustryTimeTable {
 
     @ProblemFactCollectionProperty
     @ValueRangeProvider(id = "workerRange")
-    private List<Worker> workerList;
+    private List<Resource> workerList;
 
     @ProblemFactCollectionProperty
     @ValueRangeProvider(id = "machineRange")
-    private List<Machine> machineList;
+    private List<Resource> machineList;
 
     @PlanningEntityCollectionProperty
     private List<Task> taskList;
@@ -35,7 +35,7 @@ public class IndustryTimeTable {
     @PlanningScore
     private HardSoftScore score;
 
-    public IndustryTimeTable(List<ProcessTimeslot> processTimeslotList, List<Worker> workerList, List<Machine> machineList, List<Task> taskList) {
+    public IndustryTimeTable(List<ProcessTimeslot> processTimeslotList, List<Resource> workerList, List<Resource> machineList, List<Task> taskList) {
         this.processTimeslotList = processTimeslotList;
         this.workerList = workerList;
         this.machineList = machineList;

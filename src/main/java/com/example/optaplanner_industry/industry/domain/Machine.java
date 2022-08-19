@@ -1,16 +1,18 @@
 package com.example.optaplanner_industry.industry.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 
-@Data
 @AllArgsConstructor
-public class Machine {
+public class Machine extends Resource {
 
-    private String machineName;
+    private Integer oneHourProduction;
 
-    @Override
-    public String toString() {
-        return machineName;
+    public Machine(long machineId, String resourceCode, Integer[] machineType, Integer oneHourProduction) {
+        this.resourceId = machineId;
+        this.resourceCode = resourceCode;
+        this.resourceType = machineType;
+        this.oneHourProduction = oneHourProduction;
+
     }
+
 }
