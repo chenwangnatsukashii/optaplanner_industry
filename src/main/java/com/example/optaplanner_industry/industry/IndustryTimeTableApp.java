@@ -1,9 +1,6 @@
 package com.example.optaplanner_industry.industry;
 
 
-import com.example.optaplanner_industry.demo.domain.Lesson;
-import com.example.optaplanner_industry.demo.domain.Room;
-import com.example.optaplanner_industry.demo.domain.TimeTable;
 import com.example.optaplanner_industry.industry.builder.IndustryResourceBuilder;
 import com.example.optaplanner_industry.industry.builder.IndustryTaskBuilder;
 import com.example.optaplanner_industry.industry.builder.ResourceBuilder;
@@ -73,6 +70,8 @@ public class IndustryTimeTableApp {
                 .addMachine(new String[]{"Resource04-1", "Resource04-2", "Resource04-3", "Resource04-4"}, 4, new Integer[]{4}, 300)
                 .builderResource();
 
+        System.out.println(machineList);
+
         ResourceBuilder workerBuilder = new IndustryResourceBuilder();
         List<Resource> workerList = workerBuilder
                 .addWorker("worker01", new Integer[]{1, 2}, 1)
@@ -81,10 +80,12 @@ public class IndustryTimeTableApp {
                 .addWorker("worker04", new Integer[]{3, 4}, 1)
                 .builderResource();
 
+        System.out.println(workerList);
+
         TaskBuilder taskBuilder = new IndustryTaskBuilder();
         List<Task> taskList = taskBuilder
-                .addTask("工单01(20220819-01)", 300, 10, LocalDate.of(2022, 8, 20), LocalDate.of(2022, 8, 30), 10)
-                .addTask("工单02(20220819-02)", 500, 6, LocalDate.of(2022, 8, 24), LocalDate.of(2022, 8, 28), 4)
+                .addTask("产品01(20220819-01)", 300, 10, LocalDate.of(2022, 8, 20), LocalDate.of(2022, 8, 30), 10)
+                .addTask("产品02(20220819-02)", 500, 6, LocalDate.of(2022, 8, 24), LocalDate.of(2022, 8, 28), 4)
                 .builderTask();
 
 

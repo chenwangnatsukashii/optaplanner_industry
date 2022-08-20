@@ -21,17 +21,17 @@ public class TimeTable {
     private List<Timeslot> timeslotList;
     @ProblemFactCollectionProperty
     @ValueRangeProvider(id = "roomRange")
-    private List<Room> roomList;
+    private List<Machine> machineList;
     @PlanningEntityCollectionProperty
-    private List<Lesson> lessonList;
+    private List<Task> taskList;
 
     @PlanningScore
     private HardSoftScore score;
 
-    public TimeTable(List<Timeslot> timeslotList, List<Room> roomList, List<Lesson> lessonList) {
+    public TimeTable(List<Timeslot> timeslotList, List<Machine> machineList, List<Task> taskList) {
         this.timeslotList = timeslotList;
-        this.roomList = roomList;
-        this.lessonList = lessonList;
+        this.machineList = machineList;
+        this.taskList = taskList;
     }
 
 }

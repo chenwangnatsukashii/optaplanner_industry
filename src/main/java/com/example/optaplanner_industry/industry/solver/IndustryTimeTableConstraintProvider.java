@@ -10,12 +10,17 @@ import org.optaplanner.core.api.score.stream.Joiners;
 public class IndustryTimeTableConstraintProvider implements ConstraintProvider {
     @Override
     public Constraint[] defineConstraints(ConstraintFactory constraintFactory) {
-        return new Constraint[0];
+        return new Constraint[]{
+                // Hard constraints
+                workerConflict(constraintFactory),
+                machineConflict(constraintFactory),
+                // Soft constraints
+        };
     }
 
-    // 一个工人在同一个时刻只能操作一台设备
+
     Constraint workerConflict(ConstraintFactory constraintFactory) {
-        // A room can accommodate at most one lesson at the same time.
+        // A worker can operate at most one task at the same time.
         return constraintFactory
                 // Select each pair of 2 different lessons ...
                 .forEachUniquePair(Task.class,
@@ -26,4 +31,30 @@ public class IndustryTimeTableConstraintProvider implements ConstraintProvider {
                 // ... and penalize each pair with a hard weight.
                 .penalize("Worker conflict", HardSoftScore.ONE_HARD);
     }
+
+    Constraint machineConflict(ConstraintFactory constraintFactory) {
+        // A machine can work at most one task at the same time.
+        return constraintFactory
+                // Select each pair of 2 different lessons ...
+                .forEachUniquePair(Task.class,
+                        // ... in the same timeslot ...
+                        Joiners.equal(Task::getProcessTimeslot),
+                        // ... in the same room ...
+                        Joiners.equal(Task::getMachine))
+                // ... and penalize each pair with a hard weight.
+                .penalize("Machine conflict", HardSoftScore.ONE_HARD);
+    }
+
+//    Constraint taskOrderConflict(ConstraintFactory constraintFactory) {
+//        // The taskOrder is fixed
+//        return constraintFactory
+//                // Select each pair of 2 different lessons ...
+//                .forEachUniquePair(Task.class,
+//                        // ... in the same timeslot ...
+//                        Joiners.equal(Task::getProcessTimeslot),
+//                        // ... in the same room ...
+//                        Joiners.equal(Task::getWorker))
+//                // ... and penalize each pair with a hard weight.
+//                .penalize("Worker conflict", HardSoftScore.ONE_HARD);
+//    }
 }

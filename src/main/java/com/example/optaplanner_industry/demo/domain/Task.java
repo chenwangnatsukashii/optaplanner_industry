@@ -11,25 +11,25 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 @NoArgsConstructor
 @AllArgsConstructor
 @PlanningEntity
-public class Lesson {
+public class Task {
 
     @PlanningId
     private Long id;
 
     private String subject;
-    private String teacher;
-    private String studentGroup;
+    private String worker;
+    private String taskOrder;
 
     @PlanningVariable(valueRangeProviderRefs = "timeslotRange")
     private Timeslot timeslot;
     @PlanningVariable(valueRangeProviderRefs = "roomRange")
-    private Room room;
+    private Machine machine;
 
-    public Lesson(long id, String subject, String teacher, String studentGroup) {
+    public Task(long id, String subject, String worker, String taskOrder) {
         this.id = id;
         this.subject = subject;
-        this.teacher = teacher;
-        this.studentGroup = studentGroup;
+        this.worker = worker;
+        this.taskOrder = taskOrder;
     }
 
     @Override

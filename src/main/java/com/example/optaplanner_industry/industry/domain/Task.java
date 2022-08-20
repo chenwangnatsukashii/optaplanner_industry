@@ -25,10 +25,10 @@ public class Task {
     private ProcessTimeslot processTimeslot;
 
     @PlanningVariable(valueRangeProviderRefs = "workerRange")
-    private Worker worker;
+    private Resource worker;
 
     @PlanningVariable(valueRangeProviderRefs = "machineRange")
-    private Machine machine;
+    private Resource machine;
 
     public Task(long id, String taskName, Integer quantity, Integer taskOrder, Integer layerNumber) {
         this.id = id;

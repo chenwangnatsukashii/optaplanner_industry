@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Room {
+public class Machine {
 
     private String name;
 
