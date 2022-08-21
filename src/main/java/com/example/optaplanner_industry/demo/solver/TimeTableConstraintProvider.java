@@ -16,10 +16,10 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
     public Constraint[] defineConstraints(ConstraintFactory constraintFactory) {
         return new Constraint[]{
                 // Hard constraints
-                roomConflict(constraintFactory),
-                teacherConflict(constraintFactory),
-//                studentGroupConflict(constraintFactory),
-//                workerMatchMachine(constraintFactory)
+                machineConflict(constraintFactory),
+                workerConflict(constraintFactory),
+                taskOrderConflict(constraintFactory),
+                workerMatchMachine(constraintFactory)
                 // Soft constraints
 //                teacherRoomStability(constraintFactory),
 //                teacherTimeEfficiency(constraintFactory),
@@ -27,7 +27,7 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         };
     }
 
-    Constraint roomConflict(ConstraintFactory constraintFactory) {
+    Constraint machineConflict(ConstraintFactory constraintFactory) {
         // A room can accommodate at most one lesson at the same time.
         return constraintFactory
                 .forEachUniquePair(Task.class,
@@ -36,22 +36,22 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 .penalize("Machine conflict", HardSoftScore.ONE_HARD);
     }
 
-    Constraint teacherConflict(ConstraintFactory constraintFactory) {
+    Constraint workerConflict(ConstraintFactory constraintFactory) {
         // A worker can operate at most one machine at the same time.
         return constraintFactory
                 .forEachUniquePair(Task.class,
                         Joiners.equal(Task::getTimeslot),
                         Joiners.equal(Task::getWorker))
-                .penalize("Teacher conflict", HardSoftScore.ONE_HARD);
+                .penalize("Worker conflict", HardSoftScore.ONE_HARD);
     }
 
-    Constraint studentGroupConflict(ConstraintFactory constraintFactory) {
+    Constraint taskOrderConflict(ConstraintFactory constraintFactory) {
         // A student can attend at most one lesson at the same time.
         return constraintFactory
                 .forEachUniquePair(Task.class,
                         Joiners.equal(Task::getTimeslot),
                         Joiners.equal(Task::getTaskOrder))
-                .penalize("Student group conflict", HardSoftScore.ONE_HARD);
+                .penalize("Task order conflict", HardSoftScore.ONE_HARD);
     }
 
     Constraint workerMatchMachine(ConstraintFactory constraintFactory) {
@@ -61,7 +61,7 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                         Joiners.equal(Task::getSubject),
                         Joiners.equal((task) ->Objects.equals(task.getSubject(), task.getMachine().getName())))
 //                .filter((task1, task2) -> Objects.equals(task1.getSubject(), task2.getMachine().getName()))
-                .penalize("Teacher room stability", HardSoftScore.ONE_HARD);
+                .penalize("Teacher room stability", HardSoftScore.ofHard(5));
     }
 
     Constraint teacherRoomStability(ConstraintFactory constraintFactory) {

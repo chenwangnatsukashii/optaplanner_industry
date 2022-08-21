@@ -86,7 +86,7 @@ public class TimeTableApp {
         taskList.add(new Task(id++, "机器01", "工人01", "工序01"));
         taskList.add(new Task(id++, "机器03", "工人03", "工序03"));
         taskList.add(new Task(id++, "机器02", "工人02", "工序02"));
-        taskList.add(new Task(id, "机器02", "工人02", "工序02"));
+
 
         return new TimeTable(timeslotList, machineList, taskList);
     }

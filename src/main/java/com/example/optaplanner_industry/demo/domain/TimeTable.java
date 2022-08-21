@@ -20,7 +20,7 @@ public class TimeTable {
     @ValueRangeProvider(id = "timeslotRange")
     private List<Timeslot> timeslotList;
     @ProblemFactCollectionProperty
-    @ValueRangeProvider(id = "roomRange")
+    @ValueRangeProvider(id = "machineRange")
     private List<Machine> machineList;
     @PlanningEntityCollectionProperty
     private List<Task> taskList;

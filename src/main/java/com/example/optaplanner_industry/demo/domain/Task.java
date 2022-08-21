@@ -22,7 +22,7 @@ public class Task {
 
     @PlanningVariable(valueRangeProviderRefs = "timeslotRange")
     private Timeslot timeslot;
-    @PlanningVariable(valueRangeProviderRefs = "roomRange")
+    @PlanningVariable(valueRangeProviderRefs = "machineRange")
     private Machine machine;
 
     public Task(long id, String subject, String worker, String taskOrder) {
