@@ -42,7 +42,7 @@ public class IndustryTimeTableConstraintProvider implements ConstraintProvider {
                         // ... in the same room ...
                         Joiners.equal(Task::getMachine))
                 // ... and penalize each pair with a hard weight.
-                .penalize("Machine conflict", HardSoftScore.ONE_HARD);
+                .penalize("WorkGroup conflict", HardSoftScore.ONE_HARD);
     }
 
 //    Constraint taskOrderConflict(ConstraintFactory constraintFactory) {

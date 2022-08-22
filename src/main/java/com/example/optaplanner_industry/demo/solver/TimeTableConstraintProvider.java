@@ -16,8 +16,8 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
     public Constraint[] defineConstraints(ConstraintFactory constraintFactory) {
         return new Constraint[]{
                 // Hard constraints
-                roomConflict(constraintFactory),
-                teacherConflict(constraintFactory),
+                workGroupConflict(constraintFactory),
+//                workConflict(constraintFactory),
 //                studentGroupConflict(constraintFactory),
 //                workerMatchMachine(constraintFactory)
                 // Soft constraints
@@ -27,30 +27,30 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         };
     }
 
-    Constraint roomConflict(ConstraintFactory constraintFactory) {
-        // A room can accommodate at most one lesson at the same time.
+    Constraint workGroupConflict(ConstraintFactory constraintFactory) {
+        // A machine can work at most one task at the same time.
         return constraintFactory
                 .forEachUniquePair(Task.class,
                         Joiners.equal(Task::getTimeslot),
-                        Joiners.equal(Task::getMachine))
-                .penalize("Machine conflict", HardSoftScore.ONE_HARD);
+                        Joiners.equal(Task::getWorkGroup))
+                .penalize("WorkGroup conflict", HardSoftScore.ONE_HARD);
     }
 
-    Constraint teacherConflict(ConstraintFactory constraintFactory) {
-        // A worker can operate at most one machine at the same time.
-        return constraintFactory
-                .forEachUniquePair(Task.class,
-                        Joiners.equal(Task::getTimeslot),
-                        Joiners.equal(Task::getWorker))
-                .penalize("Teacher conflict", HardSoftScore.ONE_HARD);
-    }
+//    Constraint workConflict(ConstraintFactory constraintFactory) {
+//        // A worker can operate at most one machine at the same time.
+//        return constraintFactory
+//                .forEachUniquePair(Task.class,
+//                        Joiners.equal(Task::getTimeslot),
+//                        Joiners.equal(Task::getWorker))
+//                .penalize("Worker conflict", HardSoftScore.ONE_HARD);
+//    }
 
     Constraint studentGroupConflict(ConstraintFactory constraintFactory) {
         // A student can attend at most one lesson at the same time.
         return constraintFactory
                 .forEachUniquePair(Task.class,
                         Joiners.equal(Task::getTimeslot),
-                        Joiners.equal(Task::getTaskOrder))
+                        Joiners.equal(Task::getSubject))
                 .penalize("Student group conflict", HardSoftScore.ONE_HARD);
     }
 
@@ -58,34 +58,34 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         // A worker must match to a specific machine.
         return constraintFactory
                 .forEachUniquePair(Task.class,
-                        Joiners.equal(Task::getSubject),
-                        Joiners.equal((task) ->Objects.equals(task.getSubject(), task.getMachine().getName())))
-//                .filter((task1, task2) -> Objects.equals(task1.getSubject(), task2.getMachine().getName()))
+                        Joiners.equal(Task::getTimeslot),
+                        Joiners.equal((task) -> Objects.equals(task.getSubject(), task.getWorkGroup().getName())))
+//                .filter((task1, task2) -> Objects.equals(task1.getSubject(), task2.getWorkGroup().getName()))
                 .penalize("Teacher room stability", HardSoftScore.ONE_HARD);
     }
 
-    Constraint teacherRoomStability(ConstraintFactory constraintFactory) {
-        // A teacher prefers to teach in a single room.
-        return constraintFactory
-                .forEachUniquePair(Task.class,
-                        Joiners.equal(Task::getWorker))
-                .filter((task1, task2) -> task1.getMachine() != task2.getMachine())
-                .penalize("Teacher room stability", HardSoftScore.ONE_SOFT);
-    }
-
-    Constraint teacherTimeEfficiency(ConstraintFactory constraintFactory) {
-        // A teacher prefers to teach sequential lessons and dislikes gaps between lessons.
-        return constraintFactory
-                .forEach(Task.class)
-                .join(Task.class, Joiners.equal(Task::getWorker),
-                        Joiners.equal((task) -> task.getTimeslot().getDayOfWeek()))
-                .filter((task1, task2) -> {
-                    Duration between = Duration.between(task1.getTimeslot().getEndTime(),
-                            task2.getTimeslot().getStartTime());
-                    return !between.isNegative() && between.compareTo(Duration.ofMinutes(30)) <= 0;
-                })
-                .reward("Teacher time efficiency", HardSoftScore.ONE_SOFT);
-    }
+//    Constraint teacherRoomStability(ConstraintFactory constraintFactory) {
+//        // A teacher prefers to teach in a single room.
+//        return constraintFactory
+//                .forEachUniquePair(Task.class,
+//                        Joiners.equal(Task::getWorker))
+//                .filter((task1, task2) -> task1.getWorkGroup() != task2.getWorkGroup())
+//                .penalize("Teacher room stability", HardSoftScore.ONE_SOFT);
+//    }
+//
+//    Constraint teacherTimeEfficiency(ConstraintFactory constraintFactory) {
+//        // A teacher prefers to teach sequential lessons and dislikes gaps between lessons.
+//        return constraintFactory
+//                .forEach(Task.class)
+//                .join(Task.class, Joiners.equal(Task::getWorker),
+//                        Joiners.equal((task) -> task.getTimeslot().getDayOfWeek()))
+//                .filter((task1, task2) -> {
+//                    Duration between = Duration.between(task1.getTimeslot().getEndTime(),
+//                            task2.getTimeslot().getStartTime());
+//                    return !between.isNegative() && between.compareTo(Duration.ofMinutes(30)) <= 0;
+//                })
+//                .reward("Teacher time efficiency", HardSoftScore.ONE_SOFT);
+//    }
 
     Constraint studentGroupSubjectVariety(ConstraintFactory constraintFactory) {
         // A student group dislikes sequential lessons on the same subject.

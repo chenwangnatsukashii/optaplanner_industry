@@ -2,7 +2,7 @@ package com.example.optaplanner_industry.demo;
 
 
 import com.example.optaplanner_industry.demo.domain.Task;
-import com.example.optaplanner_industry.demo.domain.Machine;
+import com.example.optaplanner_industry.demo.domain.WorkGroup;
 import com.example.optaplanner_industry.demo.domain.TimeTable;
 import com.example.optaplanner_industry.demo.domain.Timeslot;
 import com.example.optaplanner_industry.demo.solver.TimeTableConstraintProvider;
@@ -15,10 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TimeTableApp {
@@ -46,7 +43,7 @@ public class TimeTableApp {
     }
 
     public static TimeTable generateDemoData() {
-        List<Timeslot> timeslotList = new ArrayList<>(10);
+        List<Timeslot> timeslotList = new ArrayList<>(16);
         timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(8, 30), LocalTime.of(9, 30)));
         timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(9, 30), LocalTime.of(10, 30)));
         timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(10, 30), LocalTime.of(11, 30)));
@@ -59,60 +56,57 @@ public class TimeTableApp {
         timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(13, 30), LocalTime.of(14, 30)));
         timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(14, 30), LocalTime.of(15, 30)));
 
-        List<Machine> machineList = new ArrayList<>(4);
-        machineList.add(new Machine("机器01"));
-        machineList.add(new Machine("机器02"));
-        machineList.add(new Machine("机器03"));
-        machineList.add(new Machine("机器04"));
+        List<WorkGroup> workGroupList = new ArrayList<>(8);
+        workGroupList.add(new WorkGroup("工作组01", 200));
+        workGroupList.add(new WorkGroup("工作组02", 300));
+        workGroupList.add(new WorkGroup("工作组03", 100));
+        workGroupList.add(new WorkGroup("工作组04", 200));
 
-        List<Task> taskList = new ArrayList<>();
+        List<Task> taskList = new ArrayList<>(32);
         long id = 0;
-        taskList.add(new Task(id++, "机器01", "工人01", "工序01"));
-        taskList.add(new Task(id++, "机器02", "工人02", "工序02"));
-        taskList.add(new Task(id++, "机器03", "工人03", "工序03"));
-        taskList.add(new Task(id++, "机器04", "工人04", "工序04"));
-        taskList.add(new Task(id++, "机器02", "工人02", "工序02"));
-        taskList.add(new Task(id++, "机器01", "工人01", "工序01"));
-        taskList.add(new Task(id++, "机器03", "工人03", "工序03"));
-        taskList.add(new Task(id++, "机器02", "工人02", "工序02"));
-        taskList.add(new Task(id++, "机器01", "工人01", "工序01"));
-        taskList.add(new Task(id++, "机器03", "工人03", "工序03"));
-        taskList.add(new Task(id++, "机器03", "工人03", "工序03"));
-        taskList.add(new Task(id++, "机器02", "工人02", "工序02"));
-        taskList.add(new Task(id++, "机器01", "工人01", "工序01"));
-        taskList.add(new Task(id++, "机器02", "工人02", "工序02"));
-        taskList.add(new Task(id++, "机器03", "工人03", "工序03"));
-        taskList.add(new Task(id++, "机器03", "工人03", "工序03"));
-        taskList.add(new Task(id++, "机器01", "工人01", "工序01"));
-        taskList.add(new Task(id++, "机器03", "工人03", "工序03"));
-        taskList.add(new Task(id++, "机器02", "工人02", "工序02"));
-        taskList.add(new Task(id, "机器02", "工人02", "工序02"));
+        taskList.add(new Task(id++, "工作组01", "工序01"));
+        taskList.add(new Task(id++, "工作组02", "工序02"));
+        taskList.add(new Task(id++, "工作组03", "工序03"));
+        taskList.add(new Task(id++, "工作组04", "工序04"));
+        taskList.add(new Task(id++, "工作组02", "工序02"));
+        taskList.add(new Task(id++, "工作组01", "工序01"));
+        taskList.add(new Task(id++, "工作组03", "工序03"));
+        taskList.add(new Task(id++, "工作组02", "工序02"));
+        taskList.add(new Task(id++, "工作组01", "工序01"));
+        taskList.add(new Task(id++, "工作组03", "工序03"));
+        taskList.add(new Task(id++, "工作组03", "工序03"));
+        taskList.add(new Task(id++, "工作组02", "工序02"));
+        taskList.add(new Task(id++, "工作组01", "工序01"));
+        taskList.add(new Task(id++, "工作组02", "工序02"));
+        taskList.add(new Task(id++, "工作组03", "工序03"));
+        taskList.add(new Task(id++, "工作组03", "工序03"));
+        taskList.add(new Task(id++, "工作组01", "工序01"));
+        taskList.add(new Task(id++, "工作组03", "工序03"));
+        taskList.add(new Task(id++, "工作组02", "工序02"));
+        taskList.add(new Task(id, "工作组02", "工序02"));
 
-        return new TimeTable(timeslotList, machineList, taskList);
+        return new TimeTable(timeslotList, workGroupList, taskList);
     }
 
     private static void printTimetable(TimeTable timeTable) {
         LOGGER.info("");
-        List<Machine> machineList = timeTable.getMachineList();
+        List<WorkGroup> workGroupList = timeTable.getWorkGroupList();
         List<Task> taskList = timeTable.getTaskList();
-        Map<Timeslot, Map<Machine, List<Task>>> lessonMap = taskList.stream()
-                .filter(task -> task.getTimeslot() != null && task.getMachine() != null)
-                .collect(Collectors.groupingBy(Task::getTimeslot, Collectors.groupingBy(Task::getMachine)));
-        LOGGER.info("|            | " + machineList.stream()
-                .map(machine -> String.format("%-10s", machine.getName())).collect(Collectors.joining(" | ")) + " |");
-        LOGGER.info("|" + "------------|".repeat(machineList.size() + 1));
+        Map<Timeslot, Map<WorkGroup, List<Task>>> lessonMap = taskList.stream()
+                .filter(task -> task.getTimeslot() != null && task.getWorkGroup() != null)
+                .collect(Collectors.groupingBy(Task::getTimeslot, Collectors.groupingBy(Task::getWorkGroup)));
+        LOGGER.info("|            | " + workGroupList.stream()
+                .map(workGroup -> String.format("%-10s", workGroup.getName())).collect(Collectors.joining(" | ")) + " |");
+        LOGGER.info("|" + "------------|".repeat(workGroupList.size() + 1));
         for (Timeslot timeslot : timeTable.getTimeslotList()) {
-            List<List<Task>> cellList = machineList.stream()
-                    .map(machine -> {
-                        Map<Machine, List<Task>> byRoomMap = lessonMap.get(timeslot);
+            List<List<Task>> cellList = workGroupList.stream()
+                    .map(workGroup -> {
+                        Map<WorkGroup, List<Task>> byRoomMap = lessonMap.get(timeslot);
                         if (byRoomMap == null) {
                             return Collections.<Task>emptyList();
                         }
-                        List<Task> cellTaskList = byRoomMap.get(machine);
-                        if (cellTaskList == null) {
-                            return Collections.<Task>emptyList();
-                        }
-                        return cellTaskList;
+                        List<Task> cellTaskList = byRoomMap.get(workGroup);
+                        return Objects.requireNonNullElse(cellTaskList, Collections.<Task>emptyList());
                     })
                     .collect(Collectors.toList());
 
@@ -120,28 +114,28 @@ public class TimeTableApp {
                     timeslot.getDayOfWeek().toString().substring(0, 3) + " " + timeslot.getStartTime()) + " | "
                     + cellList.stream().map(cellLessonList -> String.format("%-10s",
                             cellLessonList.stream().map(Task::getSubject).collect(Collectors.joining(", "))))
-                            .collect(Collectors.joining(" | "))
+                    .collect(Collectors.joining(" | "))
                     + " |");
-            LOGGER.info("|            | "
-                    + cellList.stream().map(cellLessonList -> String.format("%-10s",
-                            cellLessonList.stream().map(Task::getWorker).collect(Collectors.joining(", "))))
-                            .collect(Collectors.joining(" | "))
-                    + " |");
+//            LOGGER.info("|            | "
+//                    + cellList.stream().map(cellLessonList -> String.format("%-10s",
+//                            cellLessonList.stream().map(Task::getWorker).collect(Collectors.joining(", "))))
+//                    .collect(Collectors.joining(" | "))
+//                    + " |");
             LOGGER.info("|            | "
                     + cellList.stream().map(cellLessonList -> String.format("%-10s",
                             cellLessonList.stream().map(Task::getTaskOrder).collect(Collectors.joining(", "))))
-                            .collect(Collectors.joining(" | "))
+                    .collect(Collectors.joining(" | "))
                     + " |");
-            LOGGER.info("|" + "------------|".repeat(machineList.size() + 1));
+            LOGGER.info("|" + "------------|".repeat(workGroupList.size() + 1));
         }
         List<Task> unassignedTasks = taskList.stream()
-                .filter(task -> task.getTimeslot() == null || task.getMachine() == null)
+                .filter(task -> task.getTimeslot() == null || task.getWorkGroup() == null)
                 .collect(Collectors.toList());
         if (!unassignedTasks.isEmpty()) {
             LOGGER.info("");
             LOGGER.info("Unassigned lessons");
             for (Task task : unassignedTasks) {
-                LOGGER.info("  " + task.getSubject() + " - " + task.getWorker() + " - " + task.getTaskOrder());
+                LOGGER.info("  " + task.getSubject() + " - " + task.getTaskOrder());
             }
         }
     }

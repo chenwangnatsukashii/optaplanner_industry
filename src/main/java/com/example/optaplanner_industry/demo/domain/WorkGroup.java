@@ -5,9 +5,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Machine {
+public class WorkGroup {
 
     private String name;
+    private Integer speed;
 
     @Override
     public String toString() {

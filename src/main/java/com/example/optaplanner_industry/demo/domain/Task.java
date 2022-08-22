@@ -17,18 +17,16 @@ public class Task {
     private Long id;
 
     private String subject;
-    private String worker;
     private String taskOrder;
 
     @PlanningVariable(valueRangeProviderRefs = "timeslotRange")
     private Timeslot timeslot;
-    @PlanningVariable(valueRangeProviderRefs = "roomRange")
-    private Machine machine;
+    @PlanningVariable(valueRangeProviderRefs = "machineRange")
+    private WorkGroup workGroup;
 
-    public Task(long id, String subject, String worker, String taskOrder) {
+    public Task(long id, String subject, String taskOrder) {
         this.id = id;
         this.subject = subject;
-        this.worker = worker;
         this.taskOrder = taskOrder;
     }
 

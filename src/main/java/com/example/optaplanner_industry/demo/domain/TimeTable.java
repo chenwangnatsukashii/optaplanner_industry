@@ -20,17 +20,17 @@ public class TimeTable {
     @ValueRangeProvider(id = "timeslotRange")
     private List<Timeslot> timeslotList;
     @ProblemFactCollectionProperty
-    @ValueRangeProvider(id = "roomRange")
-    private List<Machine> machineList;
+    @ValueRangeProvider(id = "machineRange")
+    private List<WorkGroup> workGroupList;
     @PlanningEntityCollectionProperty
     private List<Task> taskList;
 
     @PlanningScore
     private HardSoftScore score;
 
-    public TimeTable(List<Timeslot> timeslotList, List<Machine> machineList, List<Task> taskList) {
+    public TimeTable(List<Timeslot> timeslotList, List<WorkGroup> workGroupList, List<Task> taskList) {
         this.timeslotList = timeslotList;
-        this.machineList = machineList;
+        this.workGroupList = workGroupList;
         this.taskList = taskList;
     }
 
