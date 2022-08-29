@@ -109,7 +109,13 @@ public class TimeTableApp {
                             cellLessonList.stream().map(e -> "第0" + e.getLayerNumber() + "层").collect(Collectors.joining(", "))))
                     .collect(Collectors.joining(" | "))
                     + " |");
-            LOGGER.info("|            | "
+//            LOGGER.info("|            | "
+//                    + cellList.stream().map(cellLessonList -> String.format("%-10s",
+//                            cellLessonList.stream().map(Task::getTaskOrder).collect(Collectors.joining(", "))))
+//                    .collect(Collectors.joining(" | "))
+//                    + " |");
+            LOGGER.info("| " + String.format("%-10s",
+                    timeslot.getDayOfWeek().toString().substring(0, 3) + " " + timeslot.getEndTime()) + " | "
                     + cellList.stream().map(cellLessonList -> String.format("%-10s",
                             cellLessonList.stream().map(Task::getTaskOrder).collect(Collectors.joining(", "))))
                     .collect(Collectors.joining(" | "))
