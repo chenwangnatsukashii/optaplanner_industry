@@ -19,7 +19,7 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 workGroupConflict(constraintFactory),
 //                workConflict(constraintFactory),
 //                studentGroupConflict(constraintFactory),
-//                workerMatchMachine(constraintFactory)
+                workerGroupMatch(constraintFactory)
                 // Soft constraints
 //                teacherRoomStability(constraintFactory),
 //                teacherTimeEfficiency(constraintFactory),
@@ -54,11 +54,11 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 .penalize("Student group conflict", HardSoftScore.ONE_HARD);
     }
 
-    Constraint workerMatchMachine(ConstraintFactory constraintFactory) {
+    Constraint workerGroupMatch(ConstraintFactory constraintFactory) {
         // A worker must match to a specific machine.
         return constraintFactory
                 .forEachUniquePair(Task.class,
-                        Joiners.equal(Task::getTimeslot),
+//                        Joiners.equal(Task::getTimeslot),
                         Joiners.equal((task) -> Objects.equals(task.getSubject(), task.getWorkGroup().getName())))
 //                .filter((task1, task2) -> Objects.equals(task1.getSubject(), task2.getWorkGroup().getName()))
                 .penalize("Teacher room stability", HardSoftScore.ONE_HARD);
