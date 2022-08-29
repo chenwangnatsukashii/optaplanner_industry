@@ -1,6 +1,7 @@
 package com.example.optaplanner_industry.industry.builder;
 
-import com.example.optaplanner_industry.industry.domain.Task;
+
+import com.example.optaplanner_industry.demo.domain.Task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class IndustryTaskBuilder extends TaskBuilder {
 
         for (int i = 1; i <= layerNumber; i++) {
             for (int taskOrder = 1; taskOrder <= maxTaskOrder; taskOrder++) {
-                taskList.add(new Task(taskId++, taskName, quantity, taskOrder, i));
+                taskList.add(new Task(taskId++, taskName, quantity, "工作组0" + taskOrder, i));
             }
         }
 

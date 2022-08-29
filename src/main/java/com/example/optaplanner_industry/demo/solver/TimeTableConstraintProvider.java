@@ -27,6 +27,7 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         };
     }
 
+    // 同一时刻，同一工序只能在对应工作组生产
     Constraint workGroupConflict(ConstraintFactory constraintFactory) {
         // A machine can work at most one task at the same time.
         return constraintFactory
@@ -50,18 +51,19 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         return constraintFactory
                 .forEachUniquePair(Task.class,
                         Joiners.equal(Task::getTimeslot),
-                        Joiners.equal(Task::getSubject))
+                        Joiners.equal(Task::getTaskName))
                 .penalize("Student group conflict", HardSoftScore.ONE_HARD);
     }
 
+    // 某一工序只能在对应工作组生产
     Constraint workerGroupMatch(ConstraintFactory constraintFactory) {
         // A worker must match to a specific machine.
         return constraintFactory
                 .forEachUniquePair(Task.class,
 //                        Joiners.equal(Task::getTimeslot),
-                        Joiners.equal((task) -> Objects.equals(task.getSubject(), task.getWorkGroup().getName())))
+                        Joiners.equal((task) -> !Objects.equals(task.getTaskName(), task.getWorkGroup().getName())))
 //                .filter((task1, task2) -> Objects.equals(task1.getSubject(), task2.getWorkGroup().getName()))
-                .penalize("Teacher room stability", HardSoftScore.ONE_HARD);
+                .reward("Teacher room stability", HardSoftScore.ofHard(5));
     }
 
 //    Constraint teacherRoomStability(ConstraintFactory constraintFactory) {
@@ -92,7 +94,7 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         return constraintFactory
                 .forEach(Task.class)
                 .join(Task.class,
-                        Joiners.equal(Task::getSubject),
+                        Joiners.equal(Task::getTaskName),
                         Joiners.equal(Task::getTaskOrder),
                         Joiners.equal((task) -> task.getTimeslot().getDayOfWeek()))
                 .filter((task1, task2) -> {

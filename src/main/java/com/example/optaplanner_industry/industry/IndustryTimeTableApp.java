@@ -17,10 +17,7 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class IndustryTimeTableApp {
@@ -83,10 +80,11 @@ public class IndustryTimeTableApp {
         System.out.println(workerList);
 
         TaskBuilder taskBuilder = new IndustryTaskBuilder();
-        List<Task> taskList = taskBuilder
-                .addTask("产品01(20220819-01)", 300, 10, LocalDate.of(2022, 8, 20), LocalDate.of(2022, 8, 30), 10)
-                .addTask("产品02(20220819-02)", 500, 6, LocalDate.of(2022, 8, 24), LocalDate.of(2022, 8, 28), 4)
-                .builderTask();
+        List<Task> taskList = new ArrayList<>();
+//        List<Task> taskList = taskBuilder
+//                .addTask("产品01(20220819-01)", 300, 10, LocalDate.of(2022, 8, 20), LocalDate.of(2022, 8, 30), 10)
+//                .addTask("产品02(20220819-02)", 500, 6, LocalDate.of(2022, 8, 24), LocalDate.of(2022, 8, 28), 4)
+//                .builderTask();
 
 
         return new IndustryTimeTable(ProcessTimeslotList, workerList, machineList, taskList);
@@ -110,10 +108,7 @@ public class IndustryTimeTableApp {
                             return Collections.<Task>emptyList();
                         }
                         List<Task> cellLessonList = byRoomMap.get(room);
-                        if (cellLessonList == null) {
-                            return Collections.<Task>emptyList();
-                        }
-                        return cellLessonList;
+                        return Objects.requireNonNullElse(cellLessonList, Collections.<Task>emptyList());
                     })
                     .collect(Collectors.toList());
 

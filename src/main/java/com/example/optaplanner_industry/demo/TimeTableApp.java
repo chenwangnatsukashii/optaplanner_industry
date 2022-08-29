@@ -6,6 +6,8 @@ import com.example.optaplanner_industry.demo.domain.WorkGroup;
 import com.example.optaplanner_industry.demo.domain.TimeTable;
 import com.example.optaplanner_industry.demo.domain.Timeslot;
 import com.example.optaplanner_industry.demo.solver.TimeTableConstraintProvider;
+import com.example.optaplanner_industry.industry.builder.IndustryTaskBuilder;
+import com.example.optaplanner_industry.industry.builder.TaskBuilder;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.core.config.solver.SolverConfig;
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.DayOfWeek;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -62,28 +65,13 @@ public class TimeTableApp {
         workGroupList.add(new WorkGroup("工作组03", 100));
         workGroupList.add(new WorkGroup("工作组04", 200));
 
-        List<Task> taskList = new ArrayList<>(32);
-        long id = 0;
-        taskList.add(new Task(id++, "工作组01", "工序01"));
-        taskList.add(new Task(id++, "工作组02", "工序02"));
-        taskList.add(new Task(id++, "工作组03", "工序03"));
-        taskList.add(new Task(id++, "工作组04", "工序04"));
-        taskList.add(new Task(id++, "工作组02", "工序02"));
-        taskList.add(new Task(id++, "工作组01", "工序01"));
-        taskList.add(new Task(id++, "工作组03", "工序03"));
-        taskList.add(new Task(id++, "工作组02", "工序02"));
-        taskList.add(new Task(id++, "工作组01", "工序01"));
-        taskList.add(new Task(id++, "工作组03", "工序03"));
-        taskList.add(new Task(id++, "工作组03", "工序03"));
-        taskList.add(new Task(id++, "工作组02", "工序02"));
-        taskList.add(new Task(id++, "工作组01", "工序01"));
-        taskList.add(new Task(id++, "工作组02", "工序02"));
-        taskList.add(new Task(id++, "工作组03", "工序03"));
-        taskList.add(new Task(id++, "工作组03", "工序03"));
-        taskList.add(new Task(id++, "工作组01", "工序01"));
-        taskList.add(new Task(id++, "工作组03", "工序03"));
-        taskList.add(new Task(id++, "工作组02", "工序02"));
-        taskList.add(new Task(id, "工作组02", "工序02"));
+
+        TaskBuilder taskBuilder = new IndustryTaskBuilder();
+        List<Task> taskList = taskBuilder
+                .addTask("产品01", 300, 2, LocalDate.of(2022, 8, 20), LocalDate.of(2022, 8, 30), 10)
+                .addTask("产品02", 500, 3, LocalDate.of(2022, 8, 24), LocalDate.of(2022, 8, 28), 4)
+                .builderTask();
+
 
         return new TimeTable(timeslotList, workGroupList, taskList);
     }
@@ -113,14 +101,14 @@ public class TimeTableApp {
             LOGGER.info("| " + String.format("%-10s",
                     timeslot.getDayOfWeek().toString().substring(0, 3) + " " + timeslot.getStartTime()) + " | "
                     + cellList.stream().map(cellLessonList -> String.format("%-10s",
-                            cellLessonList.stream().map(Task::getSubject).collect(Collectors.joining(", "))))
+                            cellLessonList.stream().map(Task::getTaskName).collect(Collectors.joining(", "))))
                     .collect(Collectors.joining(" | "))
                     + " |");
-//            LOGGER.info("|            | "
-//                    + cellList.stream().map(cellLessonList -> String.format("%-10s",
-//                            cellLessonList.stream().map(Task::getWorker).collect(Collectors.joining(", "))))
-//                    .collect(Collectors.joining(" | "))
-//                    + " |");
+            LOGGER.info("|            | "
+                    + cellList.stream().map(cellLessonList -> String.format("%-10s",
+                            cellLessonList.stream().map(e -> "第0" + e.getLayerNumber() + "层").collect(Collectors.joining(", "))))
+                    .collect(Collectors.joining(" | "))
+                    + " |");
             LOGGER.info("|            | "
                     + cellList.stream().map(cellLessonList -> String.format("%-10s",
                             cellLessonList.stream().map(Task::getTaskOrder).collect(Collectors.joining(", "))))
@@ -135,7 +123,7 @@ public class TimeTableApp {
             LOGGER.info("");
             LOGGER.info("Unassigned lessons");
             for (Task task : unassignedTasks) {
-                LOGGER.info("  " + task.getSubject() + " - " + task.getTaskOrder());
+                LOGGER.info("  " + task.getTaskName() + " - " + task.getTaskOrder());
             }
         }
     }
