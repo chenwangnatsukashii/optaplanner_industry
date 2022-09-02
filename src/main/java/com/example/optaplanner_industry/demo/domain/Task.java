@@ -18,12 +18,10 @@ public class Task {
 
     // 任务名称
     private String taskName;
-
     // 任务数量
     private Integer quantity;
     // 工序
     private String taskOrder;
-
     // 层
     private Integer layerNumber;
 

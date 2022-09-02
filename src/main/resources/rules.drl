@@ -1,0 +1,34 @@
+package com.example.optaplanner_industry.example.solver;
+import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScoreHolder;
+import com.example.optaplanner_industry.example.domain.Task;
+import com.example.optaplanner_industry.example.domain.WorkGroup;
+global HardSoftScoreHolder scoreHolder;
+
+rule "yarnTypeMatch"
+when
+    Task(workGroup != null, workGroup.yarnType != requiredYarnType)
+then
+    scoreHolder.addHardConstraintMatch(kcontext, -10000);
+end
+
+rule "machineCapacity"
+when
+    workGroup : WorkGroup($capacity : capacity)
+    accumulate(
+        Task(
+            workGroup == workGroup,
+            $amount : amount);
+        $amountTotal : sum($amount);
+        $amountTotal > $capacity
+        )
+then
+    scoreHolder.addHardConstraintMatch(kcontext, $capacity - $amountTotal);
+end
+
+rule "machineCost_used"
+when
+    workGroup : WorkGroup($cost : cost)
+    exists Task(workGroup == workGroup)
+then
+    scoreHolder.addSoftConstraintMatch(kcontext, -$cost);
+end

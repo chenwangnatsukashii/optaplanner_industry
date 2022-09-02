@@ -46,7 +46,7 @@ public class TimeTableApp {
     }
 
     public static TimeTable generateDemoData() {
-        List<Timeslot> timeslotList = new ArrayList<>(16);
+        List<Timeslot> timeslotList = new ArrayList<>(10);
         timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(8, 30), LocalTime.of(9, 30)));
         timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(9, 30), LocalTime.of(10, 30)));
         timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(10, 30), LocalTime.of(11, 30)));
