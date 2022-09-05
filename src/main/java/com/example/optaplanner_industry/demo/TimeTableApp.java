@@ -101,12 +101,12 @@ public class TimeTableApp {
             LOGGER.info("| " + String.format("%-10s",
                     timeslot.getDayOfWeek().toString().substring(0, 3) + " " + timeslot.getStartTime()) + " | "
                     + cellList.stream().map(cellLessonList -> String.format("%-10s",
-                            cellLessonList.stream().map(Task::getTaskName).collect(Collectors.joining(", "))))
+                            cellLessonList.stream().map(Task::getCode).collect(Collectors.joining(", "))))
                     .collect(Collectors.joining(" | "))
                     + " |");
             LOGGER.info("|            | "
                     + cellList.stream().map(cellLessonList -> String.format("%-10s",
-                            cellLessonList.stream().map(e -> "第0" + e.getLayerNumber() + "层").collect(Collectors.joining(", "))))
+                            cellLessonList.stream().map(e -> "第0" + e.getLayerNum() + "层").collect(Collectors.joining(", "))))
                     .collect(Collectors.joining(" | "))
                     + " |");
 //            LOGGER.info("|            | "
@@ -129,7 +129,7 @@ public class TimeTableApp {
             LOGGER.info("");
             LOGGER.info("Unassigned lessons");
             for (Task task : unassignedTasks) {
-                LOGGER.info("  " + task.getTaskName() + " - " + task.getTaskOrder());
+                LOGGER.info("  " + task.getCode() + " - " + task.getTaskOrder());
             }
         }
     }

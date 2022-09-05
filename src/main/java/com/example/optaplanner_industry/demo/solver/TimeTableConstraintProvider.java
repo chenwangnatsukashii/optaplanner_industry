@@ -51,7 +51,7 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         return constraintFactory
                 .forEachUniquePair(Task.class,
                         Joiners.equal(Task::getTimeslot),
-                        Joiners.equal(Task::getTaskName))
+                        Joiners.equal(Task::getCode))
                 .penalize("Student group conflict", HardSoftScore.ONE_HARD);
     }
 
@@ -61,7 +61,7 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         return constraintFactory
                 .forEachUniquePair(Task.class,
 //                        Joiners.equal(Task::getTimeslot),
-                        Joiners.equal((task) -> !Objects.equals(task.getTaskName(), task.getWorkGroup().getName())))
+                        Joiners.equal((task) -> !Objects.equals(task.getCode(), task.getWorkGroup().getName())))
 //                .filter((task1, task2) -> Objects.equals(task1.getSubject(), task2.getWorkGroup().getName()))
                 .reward("Teacher room stability", HardSoftScore.ofHard(5));
     }
@@ -94,7 +94,7 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         return constraintFactory
                 .forEach(Task.class)
                 .join(Task.class,
-                        Joiners.equal(Task::getTaskName),
+                        Joiners.equal(Task::getCode),
                         Joiners.equal(Task::getTaskOrder),
                         Joiners.equal((task) -> task.getTimeslot().getDayOfWeek()))
                 .filter((task1, task2) -> {

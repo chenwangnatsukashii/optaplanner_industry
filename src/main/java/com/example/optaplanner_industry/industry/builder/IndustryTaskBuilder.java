@@ -19,7 +19,7 @@ public class IndustryTaskBuilder extends TaskBuilder {
 
         for (int i = 1; i <= layerNumber; i++) {
             for (int taskOrder = 1; taskOrder <= maxTaskOrder; taskOrder++) {
-                taskList.add(new Task(taskId++, taskName, quantity, "工作组0" + taskOrder, i));
+                taskList.add(new Task(taskId++, taskName, quantity, 0, "工作组0" + taskOrder, i, new ArrayList<>()));
             }
         }
 
