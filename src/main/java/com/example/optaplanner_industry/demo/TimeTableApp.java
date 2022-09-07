@@ -1,10 +1,12 @@
 package com.example.optaplanner_industry.demo;
 
 
+import com.alibaba.fastjson2.JSONObject;
 import com.example.optaplanner_industry.demo.domain.Task;
 import com.example.optaplanner_industry.demo.domain.WorkGroup;
 import com.example.optaplanner_industry.demo.domain.TimeTable;
 import com.example.optaplanner_industry.demo.domain.Timeslot;
+import com.example.optaplanner_industry.demo.jsonUtils.LoadFile;
 import com.example.optaplanner_industry.demo.solver.TimeTableConstraintProvider;
 import com.example.optaplanner_industry.industry.builder.IndustryTaskBuilder;
 import com.example.optaplanner_industry.industry.builder.TaskBuilder;
@@ -46,6 +48,8 @@ public class TimeTableApp {
     }
 
     public static TimeTable generateDemoData() {
+        JSONObject inputJson = LoadFile.readJsonFile("json/input_1.json");
+
         List<Timeslot> timeslotList = new ArrayList<>(10);
         timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(8, 30), LocalTime.of(9, 30)));
         timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(9, 30), LocalTime.of(10, 30)));
@@ -60,10 +64,10 @@ public class TimeTableApp {
         timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(14, 30), LocalTime.of(15, 30)));
 
         List<WorkGroup> workGroupList = new ArrayList<>(8);
-        workGroupList.add(new WorkGroup("工作组01", 200));
-        workGroupList.add(new WorkGroup("工作组02", 300));
-        workGroupList.add(new WorkGroup("工作组03", 100));
-        workGroupList.add(new WorkGroup("工作组04", 200));
+        workGroupList.add(new WorkGroup("工作组01"));
+        workGroupList.add(new WorkGroup("工作组02"));
+        workGroupList.add(new WorkGroup("工作组03"));
+        workGroupList.add(new WorkGroup("工作组04"));
 
 
         TaskBuilder taskBuilder = new IndustryTaskBuilder();

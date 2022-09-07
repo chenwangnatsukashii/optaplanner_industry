@@ -8,7 +8,6 @@ import lombok.Data;
 public class WorkGroup {
 
     private String name;
-    private Integer speed;
 
     @Override
     public String toString() {
