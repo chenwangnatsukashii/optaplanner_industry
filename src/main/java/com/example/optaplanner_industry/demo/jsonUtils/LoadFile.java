@@ -4,6 +4,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONException;
 import com.alibaba.fastjson2.JSONObject;
+import com.example.optaplanner_industry.demo.domain.Input;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,7 +49,7 @@ public class LoadFile {
     }
 
     // 用于读取JSON文件
-    public static JSONObject readJsonFile(String filePath) {
+    public static Input readJsonFile(String filePath) {
 
         StringBuilder readJson = new StringBuilder();
         try (InputStreamReader inputStreamReader = new InputStreamReader(
@@ -65,9 +66,9 @@ public class LoadFile {
         }
 
         // 获取json
-        JSONObject jsonObject = null;
+        Input jsonObject = null;
         try {
-            jsonObject = JSONObject.parseObject(readJson.toString());
+            jsonObject = JSONObject.parseObject(readJson.toString(), Input.class);
             LOGGER.info(JSON.toJSONString(jsonObject));
         } catch (JSONException e) {
             LOGGER.error(e.getMessage());

@@ -1,11 +1,9 @@
 package com.example.optaplanner_industry.demo;
 
 
+import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.optaplanner_industry.demo.domain.Task;
-import com.example.optaplanner_industry.demo.domain.WorkGroup;
-import com.example.optaplanner_industry.demo.domain.TimeTable;
-import com.example.optaplanner_industry.demo.domain.Timeslot;
+import com.example.optaplanner_industry.demo.domain.*;
 import com.example.optaplanner_industry.demo.jsonUtils.LoadFile;
 import com.example.optaplanner_industry.demo.solver.TimeTableConstraintProvider;
 import com.example.optaplanner_industry.industry.builder.IndustryTaskBuilder;
@@ -48,7 +46,8 @@ public class TimeTableApp {
     }
 
     public static TimeTable generateDemoData() {
-        JSONObject inputJson = LoadFile.readJsonFile("json/input_1.json");
+        Input inputJson = LoadFile.readJsonFile("json/input_1.json");
+
 
         List<Timeslot> timeslotList = new ArrayList<>(10);
         timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(8, 30), LocalTime.of(9, 30)));
