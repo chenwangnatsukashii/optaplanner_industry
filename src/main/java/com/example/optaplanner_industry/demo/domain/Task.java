@@ -1,6 +1,5 @@
 package com.example.optaplanner_industry.demo.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -8,10 +7,7 @@ import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -38,6 +34,8 @@ public class Task {
     private Timeslot timeslot;
     @PlanningVariable(valueRangeProviderRefs = "machineRange")
     private WorkGroup workGroup;
+
+    private Product product;
 
     public Task(Long id, String code, Integer speed, Integer unit, String taskOrder, Integer layerNum, List<Integer> relatedLayer) {
         this.id = id;

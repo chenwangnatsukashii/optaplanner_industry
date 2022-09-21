@@ -15,4 +15,6 @@ public class Period {
     private LocalDateTime startTime;
     // 生产计划要求完成时间
     private LocalDateTime endTime;
+    //持续时间
+    private Integer requiredDuration;
 }

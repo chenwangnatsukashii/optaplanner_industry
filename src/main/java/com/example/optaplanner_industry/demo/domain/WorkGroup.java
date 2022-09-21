@@ -9,6 +9,8 @@ public class WorkGroup {
 
     private String name;
 
+    private Product product;
+
     @Override
     public String toString() {
         return name;

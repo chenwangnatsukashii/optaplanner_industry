@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 
 @Data
 @NoArgsConstructor
@@ -32,6 +34,18 @@ public class ManufacturerOrder {
     // 因为产品与工艺信息相关，因此，即命名一个生产计划可对应多个产品，这些产品的工艺路线与资源需求，
     // 也需要一定的限制（工艺路线需要相同才有可能放在一个生产计划）。
     private Product product;
+    //最晚结束时间
+    private LocalDateTime endDate;
+    //排程天数
+    private Integer duration;
+
+    //排程天数+延迟时间
+    public Integer getTotalDays() {
+        if (endDate == null) {
+            return null;
+        }
+        return duration + delayDays;
+    }
 
 
 }
