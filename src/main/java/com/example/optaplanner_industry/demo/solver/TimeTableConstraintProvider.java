@@ -1,6 +1,9 @@
 package com.example.optaplanner_industry.demo.solver;
 
+import com.example.optaplanner_industry.demo.domain.Layer;
+import com.example.optaplanner_industry.demo.domain.ManufacturerOrder;
 import com.example.optaplanner_industry.demo.domain.Task;
+import com.example.optaplanner_industry.demo.domain.WorkGroup;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.core.api.score.stream.Constraint;
 import org.optaplanner.core.api.score.stream.ConstraintFactory;
@@ -10,17 +13,25 @@ import org.optaplanner.core.api.score.stream.Joiners;
 import java.time.Duration;
 import java.util.Objects;
 
+import static org.optaplanner.core.api.score.stream.ConstraintCollectors.count;
+
 public class TimeTableConstraintProvider implements ConstraintProvider {
 
     @Override
     public Constraint[] defineConstraints(ConstraintFactory constraintFactory) {
         return new Constraint[]{
                 // Hard constraints
-                workGroupConflict(constraintFactory),
+//                workGroupConflict(constraintFactory),
 //                workConflict(constraintFactory),
 //                studentGroupConflict(constraintFactory),
-                workerGroupMatch(constraintFactory)
+//                workerGroupMatch(constraintFactory)
+                timeConflict(constraintFactory),
+                delayDaysConflict(constraintFactory),
+                differentLayerConflict(constraintFactory),
+                sameLayerConflict(constraintFactory),
                 // Soft constraints
+                exchangeTimeConflict(constraintFactory),
+                priorityConflict(constraintFactory)
 //                teacherRoomStability(constraintFactory),
 //                teacherTimeEfficiency(constraintFactory),
 //                studentGroupSubjectVariety(constraintFactory)
@@ -103,6 +114,58 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                     return !between.isNegative() && between.compareTo(Duration.ofMinutes(30)) <= 0;
                 })
                 .penalize("Student group subject variety", HardSoftScore.ONE_SOFT);
+    }
+
+    //Hard constraint
+    Constraint timeConflict(ConstraintFactory constraintFactory) {
+        return constraintFactory
+                .forEach(ManufacturerOrder.class)
+                .filter(order -> order.getPeriod().getEndTime().isBefore(order.getEndDate()))
+                .penalize("time late", HardSoftScore.ofHard(1));
+    }
+
+    Constraint delayDaysConflict(ConstraintFactory constraintFactory) {
+        return constraintFactory
+                .forEach(ManufacturerOrder.class)
+                .filter(manufacturerOrder -> manufacturerOrder.getType() == 0)
+                .filter(order -> order.getEndDate() != null &&
+                        order.getTotalDays() > order.getPeriod().getRequiredDuration())
+                .penalize("time late", HardSoftScore.ofHard(1),
+                        order -> order.getTotalDays() - order.getPeriod().getRequiredDuration());
+    }
+
+    Constraint differentLayerConflict(ConstraintFactory constraintFactory) {
+        return constraintFactory
+                .forEach(Task.class)
+                .filter(task -> task.getUnit() == 1)
+                .join(Task.class, Joiners.filtering((task1, task2) -> task1.getRelatedLayer().contains(task2.getLayerNum())))
+                .join(Task.class, Joiners.filtering((task1, task2, task3) -> task2.getLayerNum() < task3.getLayerNum()))
+                .penalize("Different layer conflict", HardSoftScore.ofHard(1));
+
+    }
+
+    Constraint sameLayerConflict(ConstraintFactory constraintFactory) {
+        return constraintFactory
+                .forEachUniquePair(Layer.class, Joiners.equal(Layer::getProduct))
+                .filter(((layer, layer2) -> layer.getLayerNumber() > layer2.getLayerNumber()))
+                .penalize("One layer conflict", HardSoftScore.ofHard(5));
+    }
+
+    //Soft Constraint
+    Constraint exchangeTimeConflict(ConstraintFactory constraintFactory) {
+        return constraintFactory
+                .forEach(WorkGroup.class)
+                .groupBy(WorkGroup::getProduct, count())
+                .penalize("min product change", HardSoftScore.ofSoft(1), (product, integer) -> integer);
+
+    }
+
+    Constraint priorityConflict(ConstraintFactory constraintFactory) {
+        return constraintFactory
+                .forEachUniquePair(ManufacturerOrder.class,
+                        Joiners.lessThanOrEqual(ManufacturerOrder::getPriority))
+                .reward("reward priority", HardSoftScore.ofSoft(1));
+
     }
 
 }
