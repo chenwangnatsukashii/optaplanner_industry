@@ -63,10 +63,10 @@ public class TimeTableApp {
         timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(14, 30), LocalTime.of(15, 30)));
 
         List<WorkGroup> workGroupList = new ArrayList<>(8);
-        workGroupList.add(new WorkGroup("工作组01"));
-        workGroupList.add(new WorkGroup("工作组02"));
-        workGroupList.add(new WorkGroup("工作组03"));
-        workGroupList.add(new WorkGroup("工作组04"));
+        workGroupList.add(new WorkGroup("工作组01", null));
+        workGroupList.add(new WorkGroup("工作组02", null));
+        workGroupList.add(new WorkGroup("工作组03", null));
+        workGroupList.add(new WorkGroup("工作组04", null));
 
 
         TaskBuilder taskBuilder = new IndustryTaskBuilder();
