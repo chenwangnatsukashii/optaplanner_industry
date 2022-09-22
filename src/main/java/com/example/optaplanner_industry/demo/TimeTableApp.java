@@ -106,7 +106,7 @@ public class TimeTableApp {
                     .collect(Collectors.toList());
 
             LOGGER.info("| " + String.format("%-10s",
-                    scheduleDate.getLocalDateTime().toString().substring(0, 3) + " ") + " | "
+                    scheduleDate.getLocalDateTime().toString() + " ") + " | "
                     + cellList.stream().map(cellLessonList -> String.format("%-10s",
                             cellLessonList.stream().map(Task::getCode).collect(Collectors.joining(", "))))
                     .collect(Collectors.joining(" | "))
@@ -122,7 +122,7 @@ public class TimeTableApp {
 //                    .collect(Collectors.joining(" | "))
 //                    + " |");
             LOGGER.info("| " + String.format("%-10s",
-                    scheduleDate.getLocalDateTime().toString().substring(0, 3) + " " ) + " | "
+                    scheduleDate.getLocalDateTime().toString() + " " ) + " | "
                     + cellList.stream().map(cellLessonList -> String.format("%-10s",
                             cellLessonList.stream().map(Task::getTaskOrder).collect(Collectors.joining(", "))))
                     .collect(Collectors.joining(" | "))
