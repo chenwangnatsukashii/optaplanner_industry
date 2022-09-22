@@ -42,7 +42,7 @@ public class Task {
     //加工的数量
     private Integer amount;
 
-    private String productId;
+    private Product product;
 
     private String stepId;
 
