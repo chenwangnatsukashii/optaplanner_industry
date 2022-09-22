@@ -12,7 +12,7 @@ import java.util.List;
 public class Product {
 
     // 产品唯一ID
-    private Integer id;
+    private String id;
     // 产品编号
     private String code;
     // 产品名称

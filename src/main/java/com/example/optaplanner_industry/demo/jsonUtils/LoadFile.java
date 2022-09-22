@@ -2,6 +2,7 @@ package com.example.optaplanner_industry.demo.jsonUtils;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONException;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.optaplanner_industry.demo.domain.Input;
@@ -69,6 +70,12 @@ public class LoadFile {
         Input jsonObject = null;
         try {
             jsonObject = JSONObject.parseObject(readJson.toString(), Input.class);
+//            System.out.println(jsonObject.getResourcePool());
+//            JSONArray objects = JSONArray.parseArray(jsonObject.getResourcePool());
+//            List<JSONObject> jsonObjects = objects.toJavaList(JSONObject.class);
+//            jsonObjects.forEach(i->System.out.println(i.get("id")));
+
+
             LOGGER.info(JSON.toJSONString(jsonObject));
         } catch (JSONException e) {
             LOGGER.error(e.getMessage());
@@ -77,7 +84,7 @@ public class LoadFile {
     }
 
     public static void main(String[] args) {
-        System.out.println(LoadFile.readJsonFile("json/input_1.json"));
+        System.out.println(LoadFile.readJsonFile("json/input_data.json"));
     }
 
 

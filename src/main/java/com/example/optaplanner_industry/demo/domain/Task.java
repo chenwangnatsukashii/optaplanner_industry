@@ -7,6 +7,7 @@ import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -16,7 +17,7 @@ import java.util.List;
 public class Task {
 
     @PlanningId
-    private Long id;
+    private String id;
     // 任务code
     private String code;
     // 任务产能
@@ -31,13 +32,21 @@ public class Task {
     private List<Integer> relatedLayer;
 
     @PlanningVariable(valueRangeProviderRefs = "timeslotRange")
-    private Timeslot timeslot;
-    @PlanningVariable(valueRangeProviderRefs = "machineRange")
-    private WorkGroup workGroup;
+    private ScheduleDate scheduleDate;
+    @PlanningVariable(valueRangeProviderRefs = "resourceRange")
+    private ResourceItem resourceItem;
+    //班次
+    private Integer schedule;
+    //安排好的时间
+    private LocalDateTime time;
+    //加工的数量
+    private Integer amount;
 
-    private Product product;
+    private String productId;
 
-    public Task(Long id, String code, Integer speed, Integer unit, String taskOrder, Integer layerNum, List<Integer> relatedLayer) {
+    private String stepId;
+
+    public Task(String id, String code, Integer speed, Integer unit, String taskOrder, Integer layerNum, List<Integer> relatedLayer) {
         this.id = id;
         this.code = code;
         this.speed = speed;

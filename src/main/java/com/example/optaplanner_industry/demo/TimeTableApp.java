@@ -3,6 +3,7 @@ package com.example.optaplanner_industry.demo;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import com.example.optaplanner_industry.demo.bootstrap.DataGenerator;
 import com.example.optaplanner_industry.demo.domain.*;
 import com.example.optaplanner_industry.demo.jsonUtils.LoadFile;
 import com.example.optaplanner_industry.demo.solver.TimeTableConstraintProvider;
@@ -14,6 +15,7 @@ import org.optaplanner.core.config.solver.SolverConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.crypto.Data;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -47,52 +49,54 @@ public class TimeTableApp {
 
     public static TimeTable generateDemoData() {
         Input inputJson = LoadFile.readJsonFile("json/input_1.json");
+        List<ResourceItem> resourceItemList = DataGenerator.generateResources();
+        List<ScheduleDate> scheduleDates = DataGenerator.generateScheduleDateList();
+
+//
+//        List<Timeslot> timeslotList = new ArrayList<>(10);
+//        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(8, 30), LocalTime.of(9, 30)));
+//        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(9, 30), LocalTime.of(10, 30)));
+//        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(10, 30), LocalTime.of(11, 30)));
+//        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(13, 30), LocalTime.of(14, 30)));
+//        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(14, 30), LocalTime.of(15, 30)));
+//
+//        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(8, 30), LocalTime.of(9, 30)));
+//        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(9, 30), LocalTime.of(10, 30)));
+//        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(10, 30), LocalTime.of(11, 30)));
+//        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(13, 30), LocalTime.of(14, 30)));
+//        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(14, 30), LocalTime.of(15, 30)));
+//
+//        List<WorkGroup> workGroupList = new ArrayList<>(8);
+//        workGroupList.add(new WorkGroup("工作组01", null));
+//        workGroupList.add(new WorkGroup("工作组02", null));
+//        workGroupList.add(new WorkGroup("工作组03", null));
+//        workGroupList.add(new WorkGroup("工作组04", null));
+
+        List<Task> taskList = DataGenerator.generateTaskList();
+//        TaskBuilder taskBuilder = new IndustryTaskBuilder();
+//        List<Task> taskList = taskBuilder
+//                .addTask("产品01", 300, 2, LocalDate.of(2022, 8, 20), LocalDate.of(2022, 8, 30), 10)
+//                .addTask("产品02", 500, 3, LocalDate.of(2022, 8, 24), LocalDate.of(2022, 8, 28), 4)
+//                .builderTask();
 
 
-        List<Timeslot> timeslotList = new ArrayList<>(10);
-        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(8, 30), LocalTime.of(9, 30)));
-        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(9, 30), LocalTime.of(10, 30)));
-        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(10, 30), LocalTime.of(11, 30)));
-        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(13, 30), LocalTime.of(14, 30)));
-        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(14, 30), LocalTime.of(15, 30)));
-
-        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(8, 30), LocalTime.of(9, 30)));
-        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(9, 30), LocalTime.of(10, 30)));
-        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(10, 30), LocalTime.of(11, 30)));
-        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(13, 30), LocalTime.of(14, 30)));
-        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(14, 30), LocalTime.of(15, 30)));
-
-        List<WorkGroup> workGroupList = new ArrayList<>(8);
-        workGroupList.add(new WorkGroup("工作组01", null));
-        workGroupList.add(new WorkGroup("工作组02", null));
-        workGroupList.add(new WorkGroup("工作组03", null));
-        workGroupList.add(new WorkGroup("工作组04", null));
-
-
-        TaskBuilder taskBuilder = new IndustryTaskBuilder();
-        List<Task> taskList = taskBuilder
-                .addTask("产品01", 300, 2, LocalDate.of(2022, 8, 20), LocalDate.of(2022, 8, 30), 10)
-                .addTask("产品02", 500, 3, LocalDate.of(2022, 8, 24), LocalDate.of(2022, 8, 28), 4)
-                .builderTask();
-
-
-        return new TimeTable(timeslotList, workGroupList, taskList);
+        return new TimeTable(scheduleDates, resourceItemList, taskList);
     }
 
     private static void printTimetable(TimeTable timeTable) {
         LOGGER.info("");
-        List<WorkGroup> workGroupList = timeTable.getWorkGroupList();
+        List<ResourceItem> resourceItemList = timeTable.getResourceItemList();
         List<Task> taskList = timeTable.getTaskList();
-        Map<Timeslot, Map<WorkGroup, List<Task>>> lessonMap = taskList.stream()
-                .filter(task -> task.getTimeslot() != null && task.getWorkGroup() != null)
-                .collect(Collectors.groupingBy(Task::getTimeslot, Collectors.groupingBy(Task::getWorkGroup)));
-        LOGGER.info("|            | " + workGroupList.stream()
-                .map(workGroup -> String.format("%-10s", workGroup.getName())).collect(Collectors.joining(" | ")) + " |");
-        LOGGER.info("|" + "------------|".repeat(workGroupList.size() + 1));
-        for (Timeslot timeslot : timeTable.getTimeslotList()) {
-            List<List<Task>> cellList = workGroupList.stream()
+        Map<ScheduleDate, Map<ResourceItem, List<Task>>> lessonMap = taskList.stream()
+                .filter(task -> task.getScheduleDate() != null && task.getResourceItem() != null)
+                .collect(Collectors.groupingBy(Task::getScheduleDate, Collectors.groupingBy(Task::getResourceItem)));
+        LOGGER.info("|            | " + resourceItemList.stream()
+                .map(resourceItem -> String.format("%-10s", resourceItem.getId())).collect(Collectors.joining(" | ")) + " |");
+        LOGGER.info("|" + "------------|".repeat(resourceItemList.size() + 1));
+        for (ScheduleDate scheduleDate : timeTable.getScheduleDateList()) {
+            List<List<Task>> cellList = resourceItemList.stream()
                     .map(workGroup -> {
-                        Map<WorkGroup, List<Task>> byRoomMap = lessonMap.get(timeslot);
+                        Map<ResourceItem, List<Task>> byRoomMap = lessonMap.get(scheduleDate);
                         if (byRoomMap == null) {
                             return Collections.<Task>emptyList();
                         }
@@ -102,7 +106,7 @@ public class TimeTableApp {
                     .collect(Collectors.toList());
 
             LOGGER.info("| " + String.format("%-10s",
-                    timeslot.getDayOfWeek().toString().substring(0, 3) + " " + timeslot.getStartTime()) + " | "
+                    scheduleDate.getLocalDateTime().toString().substring(0, 3) + " ") + " | "
                     + cellList.stream().map(cellLessonList -> String.format("%-10s",
                             cellLessonList.stream().map(Task::getCode).collect(Collectors.joining(", "))))
                     .collect(Collectors.joining(" | "))
@@ -118,15 +122,15 @@ public class TimeTableApp {
 //                    .collect(Collectors.joining(" | "))
 //                    + " |");
             LOGGER.info("| " + String.format("%-10s",
-                    timeslot.getDayOfWeek().toString().substring(0, 3) + " " + timeslot.getEndTime()) + " | "
+                    scheduleDate.getLocalDateTime().toString().substring(0, 3) + " " ) + " | "
                     + cellList.stream().map(cellLessonList -> String.format("%-10s",
                             cellLessonList.stream().map(Task::getTaskOrder).collect(Collectors.joining(", "))))
                     .collect(Collectors.joining(" | "))
                     + " |");
-            LOGGER.info("|" + "------------|".repeat(workGroupList.size() + 1));
+            LOGGER.info("|" + "------------|".repeat(resourceItemList.size() + 1));
         }
         List<Task> unassignedTasks = taskList.stream()
-                .filter(task -> task.getTimeslot() == null || task.getWorkGroup() == null)
+                .filter(task -> task.getResourceItem() == null || task.getScheduleDate() == null)
                 .collect(Collectors.toList());
         if (!unassignedTasks.isEmpty()) {
             LOGGER.info("");

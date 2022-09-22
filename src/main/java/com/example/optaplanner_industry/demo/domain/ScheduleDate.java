@@ -3,14 +3,16 @@ package com.example.optaplanner_industry.demo.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@Data
+import java.time.LocalDateTime;
+@ToString
 @NoArgsConstructor
+@Data
 @AllArgsConstructor
-public class Layer {
-    private Integer layerId;
+public class ScheduleDate {
+    private LocalDateTime localDateTime;
 
-    private Integer layerNumber;
+    private Timeslot timeslot;
 
-    private Product product;
 }

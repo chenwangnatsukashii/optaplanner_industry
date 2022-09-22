@@ -18,19 +18,19 @@ public class TimeTable {
 
     @ProblemFactCollectionProperty
     @ValueRangeProvider(id = "timeslotRange")
-    private List<Timeslot> timeslotList;
+    private List<ScheduleDate> scheduleDateList;
     @ProblemFactCollectionProperty
-    @ValueRangeProvider(id = "machineRange")
-    private List<WorkGroup> workGroupList;
+    @ValueRangeProvider(id = "resourceRange")
+    private List<ResourceItem> resourceItemList;
     @PlanningEntityCollectionProperty
     private List<Task> taskList;
 
     @PlanningScore
     private HardSoftScore score;
 
-    public TimeTable(List<Timeslot> timeslotList, List<WorkGroup> workGroupList, List<Task> taskList) {
-        this.timeslotList = timeslotList;
-        this.workGroupList = workGroupList;
+    public TimeTable(List<ScheduleDate> scheduleDateList, List<ResourceItem> resourceItemList, List<Task> taskList) {
+        this.scheduleDateList = scheduleDateList;
+        this.resourceItemList = resourceItemList;
         this.taskList = taskList;
     }
 
