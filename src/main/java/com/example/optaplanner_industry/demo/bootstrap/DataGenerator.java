@@ -28,7 +28,6 @@ public class DataGenerator {
         resourceItemList.add(new ResourceItem("resource_5","dakongshebei01",
                 null,1));
         resourceItemList.add(new ResourceItem("resource_6","dakongshebei01",
-                null,1));       resourceItemList.add(new ResourceItem("resource_0","dakongshebei01",
                 null,1));
         resourceItemList.add(new ResourceItem("resource_7","dakongshebei01",
                 null,1));
@@ -46,18 +45,23 @@ public class DataGenerator {
         Input input = LoadFile.readJsonFile(FILE_PATH);
         List<ManufacturerOrder> manufacturerOrderList = input.getManufacturerOrderList();
         List<Task> taskList = new ArrayList<>();
-        for(ManufacturerOrder order:manufacturerOrderList){
+        ManufacturerOrder order = manufacturerOrderList.get(0);
+//        for(ManufacturerOrder order:manufacturerOrderList){
             Product product = order.getProduct();
             List<Step> stepList = product.getStepList();
-            for(Step step:stepList){
+            for(int i =0;i<stepList.size();i++){
+                Step step = stepList.get(i);
                 List<Task> stepTaskList = step.getTaskList();
-                stepTaskList.forEach(i->{
-                    i.setProductId(product.getId());
-                    i.setStepId(step.getId());
+                Integer number = i;
+                stepTaskList.forEach(item->{
+                    item.setProductId(product.getId());
+                    item.setStepId(step.getId());
+                    item.setStepIndex(number);
+                    item.setRequiredResourceId(step.getResourceRequirementList().get(0).getResourceId());
                 });
                 taskList.addAll(stepTaskList);
             }
-        }
+//        }
         return taskList;
     }
 
@@ -90,9 +94,11 @@ public class DataGenerator {
     }
 
     public static void main(String[] args) {
-        List<ManufacturerOrder> scheduleDates = generateOrderList();
-        System.out.println(scheduleDates.size());
-        scheduleDates.forEach(i->System.out.println(i.toString()));
+        List<Task> taskList = generateTaskList();
+        for (Task i : taskList) {
+            System.out.println(i.toString());
+        }
+
     }
 
 }

@@ -76,7 +76,7 @@ public class LoadFile {
 //            jsonObjects.forEach(i->System.out.println(i.get("id")));
 
 
-            LOGGER.info(JSON.toJSONString(jsonObject));
+//            LOGGER.info(JSON.toJSONString(jsonObject));
         } catch (JSONException e) {
             LOGGER.error(e.getMessage());
         }

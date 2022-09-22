@@ -31,10 +31,12 @@ public class Task {
     // unit为1且为叠片工序时传入，代表前置层数约束
     private List<Integer> relatedLayer;
 
-    @PlanningVariable(valueRangeProviderRefs = "timeslotRange")
+    @PlanningVariable(valueRangeProviderRefs = "scheduleRange")
     private ScheduleDate scheduleDate;
     @PlanningVariable(valueRangeProviderRefs = "resourceRange")
     private ResourceItem resourceItem;
+
+    private String requiredResourceId;
     //班次
     private Integer schedule;
     //安排好的时间
@@ -45,6 +47,8 @@ public class Task {
     private String productId;
 
     private String stepId;
+
+    private Integer stepIndex;
 
     public Task(String id, String code, Integer speed, Integer unit, String taskOrder, Integer layerNum, List<Integer> relatedLayer) {
         this.id = id;

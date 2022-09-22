@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 public class ManufacturerOrder {
 
     // 生产计划ID
+    @PlanningId
     private String id;
     // 生产计划编号
     private String code;

@@ -17,7 +17,7 @@ import java.util.List;
 public class TimeTable {
 
     @ProblemFactCollectionProperty
-    @ValueRangeProvider(id = "timeslotRange")
+    @ValueRangeProvider(id = "scheduleRange")
     private List<ScheduleDate> scheduleDateList;
     @ProblemFactCollectionProperty
     @ValueRangeProvider(id = "resourceRange")

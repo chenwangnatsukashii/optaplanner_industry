@@ -9,6 +9,9 @@ import com.example.optaplanner_industry.demo.jsonUtils.LoadFile;
 import com.example.optaplanner_industry.demo.solver.TimeTableConstraintProvider;
 import com.example.optaplanner_industry.industry.builder.IndustryTaskBuilder;
 import com.example.optaplanner_industry.industry.builder.TaskBuilder;
+import org.optaplanner.core.api.score.ScoreExplanation;
+import org.optaplanner.core.api.score.ScoreManager;
+import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.core.config.solver.SolverConfig;
@@ -42,7 +45,11 @@ public class TimeTableApp {
         // Solve the problem
         Solver<TimeTable> solver = solverFactory.buildSolver();
         TimeTable solution = solver.solve(problem);
-
+        ScoreManager<TimeTable, HardSoftScore> scoreManager =  ScoreManager.create(solverFactory);
+        System.out.println(scoreManager.explainScore(solution));
+        ScoreExplanation<TimeTable, HardSoftScore> scoreExplanation =  scoreManager.explainScore(problem);
+        HardSoftScore score = scoreExplanation.getScore();
+        System.out.println(score);
         // Visualize the solution
         printTimetable(solution);
     }
@@ -95,20 +102,20 @@ public class TimeTableApp {
         LOGGER.info("|" + "------------|".repeat(resourceItemList.size() + 1));
         for (ScheduleDate scheduleDate : timeTable.getScheduleDateList()) {
             List<List<Task>> cellList = resourceItemList.stream()
-                    .map(workGroup -> {
+                    .map(resourceItem -> {
                         Map<ResourceItem, List<Task>> byRoomMap = lessonMap.get(scheduleDate);
                         if (byRoomMap == null) {
                             return Collections.<Task>emptyList();
                         }
-                        List<Task> cellTaskList = byRoomMap.get(workGroup);
+                        List<Task> cellTaskList = byRoomMap.get(resourceItem);
                         return Objects.requireNonNullElse(cellTaskList, Collections.<Task>emptyList());
                     })
                     .collect(Collectors.toList());
 
             LOGGER.info("| " + String.format("%-10s",
-                    scheduleDate.getLocalDateTime().toString() + " ") + " | "
+                    scheduleDate.getLocalDateTime().toString().substring(0,10)) + " | "
                     + cellList.stream().map(cellLessonList -> String.format("%-10s",
-                            cellLessonList.stream().map(Task::getCode).collect(Collectors.joining(", "))))
+                            cellLessonList.stream().map(Task::getId).collect(Collectors.joining(" "))))
                     .collect(Collectors.joining(" | "))
                     + " |");
             LOGGER.info("|            | "
@@ -121,12 +128,12 @@ public class TimeTableApp {
 //                            cellLessonList.stream().map(Task::getTaskOrder).collect(Collectors.joining(", "))))
 //                    .collect(Collectors.joining(" | "))
 //                    + " |");
-            LOGGER.info("| " + String.format("%-10s",
-                    scheduleDate.getLocalDateTime().toString() + " " ) + " | "
-                    + cellList.stream().map(cellLessonList -> String.format("%-10s",
-                            cellLessonList.stream().map(Task::getTaskOrder).collect(Collectors.joining(", "))))
-                    .collect(Collectors.joining(" | "))
-                    + " |");
+//            LOGGER.info("| " + String.format("%-10s",
+//                    scheduleDate.getLocalDateTime().toString().substring(0,10) ) + " | "
+//                    + cellList.stream().map(cellLessonList -> String.format("%-10s",
+//                            cellLessonList.stream().map(Task::getTaskOrder).collect(Collectors.joining(", "))))
+//                    .collect(Collectors.joining(" | "))
+//                    + " |");
             LOGGER.info("|" + "------------|".repeat(resourceItemList.size() + 1));
         }
         List<Task> unassignedTasks = taskList.stream()
