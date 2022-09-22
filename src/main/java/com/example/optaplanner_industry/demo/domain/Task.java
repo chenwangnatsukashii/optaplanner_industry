@@ -16,7 +16,7 @@ import java.util.List;
 public class Task {
 
     @PlanningId
-    private Long id;
+    private String id;
     // 任务code
     private String code;
     // 任务产能
@@ -37,7 +37,7 @@ public class Task {
 
     private Product product;
 
-    public Task(Long id, String code, Integer speed, Integer unit, String taskOrder, Integer layerNum, List<Integer> relatedLayer) {
+    public Task(String id, String code, Integer speed, Integer unit, String taskOrder, Integer layerNum, List<Integer> relatedLayer) {
         this.id = id;
         this.code = code;
         this.speed = speed;

@@ -18,7 +18,7 @@ public class Input {
     private String outputSetting;
     private String dateTimeFormat;
     private String planningTimeUnit;
-    private String resourcePool;
+    private List<ResourcePool> resourcePool;
     private List<ManufacturerOrder> manufacturerOrderList;
 
 }

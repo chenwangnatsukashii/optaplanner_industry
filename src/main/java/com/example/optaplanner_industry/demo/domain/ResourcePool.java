@@ -9,15 +9,11 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class ResourcePool {
 
-    // 产品唯一ID
     private String id;
-    // 产品编号
     private String code;
-    // 产品名称
-    private String name;
-    // 当前产品的生产步骤列表
-    private List<Step> stepList;
+    private String typeId;
+    private List<AvailableList> availableList;
 
 }

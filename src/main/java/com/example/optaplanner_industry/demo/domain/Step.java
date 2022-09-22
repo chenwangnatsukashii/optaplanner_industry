@@ -12,7 +12,7 @@ import java.util.List;
 public class Step {
 
     // 步骤ID
-    private Integer id;
+    private String id;
     // 步骤编号
     private String code;
     // 步骤名称
