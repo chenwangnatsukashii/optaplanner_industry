@@ -11,61 +11,53 @@ import java.util.List;
 
 public class DataGenerator {
     static String FILE_PATH = "json/input_2.json";
-    LoadFile loadFile = new LoadFile();
+    static Input input;
 
-    public static List<ResourceItem> generateResources(){
-        List<ResourceItem> resourceItemList = new ArrayList<>(9);
-        resourceItemList.add(new ResourceItem("resource_0","dakongshebei01",
-                null,1));
-        resourceItemList.add(new ResourceItem("resource_1","dakongshebei01",
-                null,1));
-        resourceItemList.add(new ResourceItem("resource_2","dakongshebei01",
-                null,1));
-        resourceItemList.add(new ResourceItem("resource_3","dakongshebei01",
-                null,1));
-        resourceItemList.add(new ResourceItem("resource_4","dakongshebei01",
-                null,1));
-        resourceItemList.add(new ResourceItem("resource_5","dakongshebei01",
-                null,1));
-        resourceItemList.add(new ResourceItem("resource_6","dakongshebei01",
-                null,1));
-        resourceItemList.add(new ResourceItem("resource_7","dakongshebei01",
-                null,1));
-        resourceItemList.add(new ResourceItem("resource_8","dakongshebei01",
-                null,1));
+    static {
+        input = LoadFile.readJsonFile(FILE_PATH);
+    }
+
+
+    public static List<ResourceItem> generateResources() {
+        List<ResourceItem> resourceItemList = new ArrayList<>();
+        List<ResourcePool> resourcePool = input.getResourcePool();
+        resourcePool.forEach(each -> {
+            List<ResourceItem> available = each.getAvailableList();
+            resourceItemList.add(available.get(0));
+
+        });
         return resourceItemList;
     }
 
-    public static List<ManufacturerOrder> generateOrderList(){
+    public static List<ManufacturerOrder> generateOrderList() {
         Input input = LoadFile.readJsonFile(FILE_PATH);
         return input.getManufacturerOrderList();
     }
 
-    public static List<Task> generateTaskList(){
-        Input input = LoadFile.readJsonFile(FILE_PATH);
+    public static List<Task> generateTaskList() {
         List<ManufacturerOrder> manufacturerOrderList = input.getManufacturerOrderList();
         List<Task> taskList = new ArrayList<>();
         ManufacturerOrder order = manufacturerOrderList.get(0);
 //        for(ManufacturerOrder order:manufacturerOrderList){
-            Product product = order.getProduct();
-            List<Step> stepList = product.getStepList();
-            for(int i =0;i<stepList.size();i++){
-                Step step = stepList.get(i);
-                List<Task> stepTaskList = step.getTaskList();
-                Integer number = i;
-                stepTaskList.forEach(item->{
-                    item.setProductId(product.getId());
-                    item.setStepId(step.getId());
-                    item.setStepIndex(number);
-                    item.setRequiredResourceId(step.getResourceRequirementList().get(0).getResourceId());
-                });
-                taskList.addAll(stepTaskList);
-            }
+        Product product = order.getProduct();
+        List<Step> stepList = product.getStepList();
+        for (int i = 0; i < stepList.size(); i++) {
+            Step step = stepList.get(i);
+            List<Task> stepTaskList = step.getTaskList();
+            Integer number = i;
+            stepTaskList.forEach(item -> {
+                item.setProductId(product.getId());
+                item.setStepId(step.getId());
+                item.setStepIndex(number);
+                item.setRequiredResourceId(step.getResourceRequirementList().get(0).getResourceId());
+            });
+            taskList.addAll(stepTaskList);
+        }
 //        }
         return taskList;
     }
 
-    public static List<Timeslot> generateTimeSlotList(){
+    public static List<Timeslot> generateTimeSlotList() {
         List<Timeslot> timeslotList = new ArrayList<>(3);
         timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(8, 30), LocalTime.of(12, 30)));
         timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(13, 30), LocalTime.of(17, 30)));
@@ -74,22 +66,14 @@ public class DataGenerator {
     }
 
 
-    public static List<ScheduleDate> generateScheduleDateList(){
+    public static List<ScheduleDate> generateScheduleDateList() {
         List<ScheduleDate> scheduleDateList = new ArrayList<>(14);
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now(),null));
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(1),null));
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(2),null));
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(3),null));
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(4),null));
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(5),null));
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(6),null));
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(7),null));
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(8),null));
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(9),null));
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(10),null));
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(11),null));
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(12),null));
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(13),null));
+        scheduleDateList.add(new ScheduleDate(LocalDateTime.now(), null));
+
+        for (int i = 1; i < 14; i++) {
+            scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(i), null));
+        }
+
         return scheduleDateList;
     }
 

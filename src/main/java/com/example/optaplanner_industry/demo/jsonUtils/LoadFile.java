@@ -2,7 +2,6 @@ package com.example.optaplanner_industry.demo.jsonUtils;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONException;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.optaplanner_industry.demo.domain.Input;
@@ -84,7 +83,7 @@ public class LoadFile {
     }
 
     public static void main(String[] args) {
-        System.out.println(LoadFile.readJsonFile("json/input_data.json"));
+        System.out.println(LoadFile.readJsonFile("json/input_1.json"));
     }
 
 

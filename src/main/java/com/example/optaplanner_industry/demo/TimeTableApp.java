@@ -1,14 +1,9 @@
 package com.example.optaplanner_industry.demo;
 
 
-import com.alibaba.fastjson2.JSONArray;
-import com.alibaba.fastjson2.JSONObject;
 import com.example.optaplanner_industry.demo.bootstrap.DataGenerator;
 import com.example.optaplanner_industry.demo.domain.*;
-import com.example.optaplanner_industry.demo.jsonUtils.LoadFile;
 import com.example.optaplanner_industry.demo.solver.TimeTableConstraintProvider;
-import com.example.optaplanner_industry.industry.builder.IndustryTaskBuilder;
-import com.example.optaplanner_industry.industry.builder.TaskBuilder;
 import org.optaplanner.core.api.score.ScoreExplanation;
 import org.optaplanner.core.api.score.ScoreManager;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
@@ -18,11 +13,7 @@ import org.optaplanner.core.config.solver.SolverConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.crypto.Data;
-import java.time.DayOfWeek;
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -45,9 +36,9 @@ public class TimeTableApp {
         // Solve the problem
         Solver<TimeTable> solver = solverFactory.buildSolver();
         TimeTable solution = solver.solve(problem);
-        ScoreManager<TimeTable, HardSoftScore> scoreManager =  ScoreManager.create(solverFactory);
+        ScoreManager<TimeTable, HardSoftScore> scoreManager = ScoreManager.create(solverFactory);
         System.out.println(scoreManager.explainScore(solution));
-        ScoreExplanation<TimeTable, HardSoftScore> scoreExplanation =  scoreManager.explainScore(problem);
+        ScoreExplanation<TimeTable, HardSoftScore> scoreExplanation = scoreManager.explainScore(problem);
         HardSoftScore score = scoreExplanation.getScore();
         System.out.println(score);
         // Visualize the solution
@@ -55,37 +46,9 @@ public class TimeTableApp {
     }
 
     public static TimeTable generateDemoData() {
-        Input inputJson = LoadFile.readJsonFile("json/input_1.json");
-        List<ResourceItem> resourceItemList = DataGenerator.generateResources();
         List<ScheduleDate> scheduleDates = DataGenerator.generateScheduleDateList();
-
-//
-//        List<Timeslot> timeslotList = new ArrayList<>(10);
-//        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(8, 30), LocalTime.of(9, 30)));
-//        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(9, 30), LocalTime.of(10, 30)));
-//        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(10, 30), LocalTime.of(11, 30)));
-//        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(13, 30), LocalTime.of(14, 30)));
-//        timeslotList.add(new Timeslot(DayOfWeek.MONDAY, LocalTime.of(14, 30), LocalTime.of(15, 30)));
-//
-//        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(8, 30), LocalTime.of(9, 30)));
-//        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(9, 30), LocalTime.of(10, 30)));
-//        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(10, 30), LocalTime.of(11, 30)));
-//        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(13, 30), LocalTime.of(14, 30)));
-//        timeslotList.add(new Timeslot(DayOfWeek.TUESDAY, LocalTime.of(14, 30), LocalTime.of(15, 30)));
-//
-//        List<WorkGroup> workGroupList = new ArrayList<>(8);
-//        workGroupList.add(new WorkGroup("工作组01", null));
-//        workGroupList.add(new WorkGroup("工作组02", null));
-//        workGroupList.add(new WorkGroup("工作组03", null));
-//        workGroupList.add(new WorkGroup("工作组04", null));
-
+        List<ResourceItem> resourceItemList = DataGenerator.generateResources();
         List<Task> taskList = DataGenerator.generateTaskList();
-//        TaskBuilder taskBuilder = new IndustryTaskBuilder();
-//        List<Task> taskList = taskBuilder
-//                .addTask("产品01", 300, 2, LocalDate.of(2022, 8, 20), LocalDate.of(2022, 8, 30), 10)
-//                .addTask("产品02", 500, 3, LocalDate.of(2022, 8, 24), LocalDate.of(2022, 8, 28), 4)
-//                .builderTask();
-
 
         return new TimeTable(scheduleDates, resourceItemList, taskList);
     }
@@ -113,7 +76,7 @@ public class TimeTableApp {
                     .collect(Collectors.toList());
 
             LOGGER.info("| " + String.format("%-10s",
-                    scheduleDate.getLocalDateTime().toString().substring(0,10)) + " | "
+                    scheduleDate.getLocalDateTime().toString().substring(0, 10)) + " | "
                     + cellList.stream().map(cellLessonList -> String.format("%-10s",
                             cellLessonList.stream().map(Task::getId).collect(Collectors.joining(" "))))
                     .collect(Collectors.joining(" | "))

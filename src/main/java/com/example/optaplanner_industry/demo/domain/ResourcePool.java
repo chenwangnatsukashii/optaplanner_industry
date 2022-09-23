@@ -14,6 +14,6 @@ public class ResourcePool {
     private String id;
     private String code;
     private String typeId;
-    private List<AvailableList> availableList;
+    private List<ResourceItem> availableList;
 
 }
