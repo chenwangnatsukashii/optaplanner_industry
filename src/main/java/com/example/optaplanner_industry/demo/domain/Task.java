@@ -16,7 +16,6 @@ import java.util.Optional;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 @PlanningEntity
 public class Task extends TaskOrResource {
 
