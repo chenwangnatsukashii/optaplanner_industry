@@ -84,7 +84,8 @@ public class Task extends TaskOrResource implements Comparable<Task>{
     }
 
     @Override
-    public Integer getEndTime(int quantity) {
+    public Integer getEndTime(int quantity)
+    {
         if (startTime == null) {
             return null;
         }

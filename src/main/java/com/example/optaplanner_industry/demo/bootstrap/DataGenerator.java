@@ -42,22 +42,39 @@ public class DataGenerator {
 //        for(ManufacturerOrder order:manufacturerOrderList){
         Product product = order.getProduct();
         List<Step> stepList = product.getStepList();
-        for (int i = 0; i < stepList.size(); i++) {
+        for (int i = stepList.size()-1; i >=0; i--) {
             Step step = stepList.get(i);
             List<Task> stepTaskList = step.getTaskList();
             int number = i;
-            stepTaskList.forEach(item -> {
-                item.setProductId(product.getId());
-                item.setStepId(step.getId());
-                item.setStepIndex(number);
-                item.setRequiredResourceId(step.getResourceRequirementList().get(0).getResourceId());
-                if (number > 0)
-                    item.setNextTask(taskList.get(taskList.size() - stepTaskList.size()));
-
-            });
+           for(int j  = stepTaskList.size()-1;j>=0;j--){
+               Task item = stepTaskList.get(j);
+               item.setProductId(product.getId());
+               item.setStepId(step.getId());
+               item.setStepIndex(number);
+               item.setRequiredResourceId(step.getResourceRequirementList().get(0).getResourceId());
+               if (number < stepList.size()-1) {
+                   item.setNextTask(taskList.get(taskList.size() - stepTaskList.size()+j));
+               }
+           }
+//            stepTaskList.forEach(item -> {
+//                item.setProductId(product.getId());
+//                item.setStepId(step.getId());
+//                item.setStepIndex(number);
+//                item.setRequiredResourceId(step.getResourceRequirementList().get(0).getResourceId());
+//                if (number > 0)
+//                    item.setNextTask(taskList.get(taskList.size() - stepTaskList.size()+j));
+//            });
             taskList.addAll(stepTaskList);
         }
 //        }
+        taskList.forEach(i->{
+            if (i.getNextTask() != null) {
+                System.out.println(i.getId());
+                System.out.println("next task:");
+                System.out.println(i.getNextTask().getId());
+            }
+        });
+
         return taskList;
     }
 
@@ -83,9 +100,11 @@ public class DataGenerator {
 
     public static void main(String[] args) {
         List<Task> taskList = generateTaskList();
-        for (Task i : taskList) {
-            System.out.println(i.toString());
-        }
+
+
+    }
+
+    private void reverse(Task task){
 
     }
 
