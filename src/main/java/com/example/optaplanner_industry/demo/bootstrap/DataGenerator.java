@@ -22,8 +22,9 @@ public class DataGenerator {
         List<ResourceItem> resourceItemList = new ArrayList<>();
         List<ResourcePool> resourcePool = input.getResourcePool();
         resourcePool.forEach(each -> {
-            List<ResourceItem> available = each.getAvailableList();
-            resourceItemList.add(available.get(0));
+            ResourceItem available = each.getAvailableList().get(0);
+            available.setResourcePoolId(each.getId());
+            resourceItemList.add(available);
 
         });
         return resourceItemList;
@@ -44,12 +45,15 @@ public class DataGenerator {
         for (int i = 0; i < stepList.size(); i++) {
             Step step = stepList.get(i);
             List<Task> stepTaskList = step.getTaskList();
-            Integer number = i;
+            int number = i;
             stepTaskList.forEach(item -> {
                 item.setProductId(product.getId());
                 item.setStepId(step.getId());
                 item.setStepIndex(number);
                 item.setRequiredResourceId(step.getResourceRequirementList().get(0).getResourceId());
+                if (number > 0)
+                    item.setNextTask(taskList.get(taskList.size() - stepTaskList.size()));
+
             });
             taskList.addAll(stepTaskList);
         }

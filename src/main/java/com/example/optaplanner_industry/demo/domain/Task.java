@@ -1,20 +1,24 @@
 package com.example.optaplanner_industry.demo.domain;
 
+import com.example.optaplanner_industry.demo.solver.StartTimeUpdatingVariableListener;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.drools.modelcompiler.util.StringUtil;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
-import org.optaplanner.core.api.domain.variable.PlanningVariable;
+import org.optaplanner.core.api.domain.variable.*;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @PlanningEntity
-public class Task {
+public class Task extends TaskOrResource {
 
     @PlanningId
     private String id;
@@ -31,10 +35,22 @@ public class Task {
     // unit为1且为叠片工序时传入，代表前置层数约束
     private List<Integer> relatedLayer;
 
-    @PlanningVariable(valueRangeProviderRefs = "scheduleRange")
-    private ScheduleDate scheduleDate;
-    @PlanningVariable(valueRangeProviderRefs = "resourceRange")
+    @PlanningVariable(valueRangeProviderRefs = {"resourceRange", "taskRange"}, graphType = PlanningVariableGraphType.CHAINED)
+    private TaskOrResource previousTaskOrResource;
+
+    @AnchorShadowVariable(sourceVariableName = "previousTaskOrResource")
     private ResourceItem resourceItem;
+    @CustomShadowVariable(variableListenerClass = StartTimeUpdatingVariableListener.class,
+            sources = {@PlanningVariableReference(variableName = "previousTaskOrResource")})
+    private Integer startTime;
+
+    private Integer endTime;
+
+    private int readyTime;
+
+//    @PlanningVariable(valueRangeProviderRefs = "scheduleRange")
+//    private ScheduleDate scheduleDate;
+
 
     private String requiredResourceId;
     //班次
@@ -50,6 +66,9 @@ public class Task {
 
     private Integer stepIndex;
 
+    private LocalDateTime taskBeginTime = LocalDateTime.of(2022, 10, 1, 0, 0, 0);
+
+
     public Task(String id, String code, Integer speed, Integer unit, String taskOrder, Integer layerNum, List<Integer> relatedLayer) {
         this.id = id;
         this.code = code;
@@ -59,4 +78,21 @@ public class Task {
         this.layerNum = layerNum;
         this.relatedLayer = relatedLayer;
     }
+
+    public String getFullTaskName() {
+        return this.code + " 开始时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.startTime).orElse(0)) +
+                " 结束时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.endTime).orElse(0));
+    }
+
+    @Override
+    public Integer getEndTime(int quantity) {
+        if (startTime == null) {
+            return null;
+        }
+
+        this.endTime = startTime + (int) Math.ceil(24.0 * 60 * quantity / this.speed);
+        return this.endTime;
+    }
+
+
 }

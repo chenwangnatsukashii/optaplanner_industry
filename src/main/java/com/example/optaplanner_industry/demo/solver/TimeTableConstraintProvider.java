@@ -20,8 +20,8 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         return new Constraint[]{
                 // Hard constraints
 //                workGroupConflict(constraintFactory),
-                sameLayerTaskOrderConflict(constraintFactory),
-//                sameStepResourceConflict(constraintFactory)
+//                sameLayerTaskOrderConflict(constraintFactory),
+                sameStepResourceConflict(constraintFactory)
 //                workConflict(constraintFactory),
 //                studentGroupConflict(constraintFactory),
 //                workerGroupMatch(constraintFactory)
@@ -43,8 +43,8 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         // A machine can work at most one task at the same time.
         return constraintFactory
                 .forEachUniquePair(Task.class,
-                        Joiners.equal(Task::getScheduleDate),
-                        Joiners.equal(Task::getResourceItem))
+                        Joiners.equal(Task::getRequiredResourceId),
+                        Joiners.equal(t -> t.getResourceItem().getResourcePoolId()))
                 .penalize("WorkGroup conflict", HardSoftScore.ONE_HARD);
     }
 
@@ -57,14 +57,14 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
 //                .penalize("Worker conflict", HardSoftScore.ONE_HARD);
 //    }
 
-    Constraint studentGroupConflict(ConstraintFactory constraintFactory) {
-        // A student can attend at most one lesson at the same time.
-        return constraintFactory
-                .forEachUniquePair(Task.class,
-                        Joiners.equal(Task::getScheduleDate),
-                        Joiners.equal(Task::getCode))
-                .penalize("Student group conflict", HardSoftScore.ONE_HARD);
-    }
+//    Constraint studentGroupConflict(ConstraintFactory constraintFactory) {
+//        // A student can attend at most one lesson at the same time.
+//        return constraintFactory
+//                .forEachUniquePair(Task.class,
+//                        Joiners.equal(Task::getScheduleDate),
+//                        Joiners.equal(Task::getCode))
+//                .penalize("Student group conflict", HardSoftScore.ONE_HARD);
+//    }
 
     // 某一工序只能在对应工作组生产
 //    Constraint workerGroupMatch(ConstraintFactory constraintFactory) {
@@ -117,26 +117,24 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
 //    }
 
     //Hard constraint
-    Constraint sameLayerTaskOrderConflict(ConstraintFactory constraintFactory) {
-        return constraintFactory
-                .forEachUniquePair(Task.class,Joiners.equal(Task::getLayerNum),Joiners.filtering((task1,task2)->
-                        task2.getStepIndex()-task1.getStepIndex()==1))
-
-                .filter((task1,task2)->{
-                    System.out.println("task1："+task1.getScheduleDate().getLocalDateTime()+"task2:"+task2.getScheduleDate().getLocalDateTime());
-                           return task1.getScheduleDate().getLocalDateTime().isAfter(task2.getScheduleDate().getLocalDateTime());
-
-                        }
-                        )
-                .penalize("1",HardSoftScore.ofHard(200));
-
-    }
+//    Constraint sameLayerTaskOrderConflict(ConstraintFactory constraintFactory) {
+//        return constraintFactory
+//                .forEachUniquePair(Task.class, Joiners.equal(Task::getLayerNum), Joiners.filtering((task1, task2) ->
+//                        task2.getStepIndex() - task1.getStepIndex() == 1))
+//                .filter((task1, task2) -> {
+//                            return task1.getScheduleDate().getLocalDateTime().isAfter(task2.getScheduleDate().getLocalDateTime());
+//                        }
+//                )
+//                .penalize("1", HardSoftScore.ofHard(200));
+//
+//    }
 
     Constraint sameStepResourceConflict(ConstraintFactory constraintFactory) {
+
         return constraintFactory
                 .forEach(Task.class)
-                .filter(task -> task.getResourceItem().getId().equals(task.getRequiredResourceId()))
-                .reward("sameStepResourceConflict",HardSoftScore.ofHard(100));
+                .filter(task -> task.getResourceItem().getResourcePoolId().equals(task.getRequiredResourceId()))
+                .reward("sameStepResourceConflict", HardSoftScore.ofHard(100));
     }
 
     Constraint timeConflict(ConstraintFactory constraintFactory) {
