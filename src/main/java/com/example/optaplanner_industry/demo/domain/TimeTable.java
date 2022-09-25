@@ -16,9 +16,9 @@ import java.util.List;
 @PlanningSolution
 public class TimeTable {
 
-//    @ProblemFactCollectionProperty
-//    @ValueRangeProvider(id = "scheduleRange")
-//    private List<ScheduleDate> scheduleDateList;
+    @ProblemFactCollectionProperty
+    @ValueRangeProvider(id = "scheduleRange")
+    private List<ScheduleDate> scheduleDateList;
     @ProblemFactCollectionProperty
     @ValueRangeProvider(id = "resourceRange")
     private List<ResourceItem> resourceItemList;
@@ -30,7 +30,7 @@ public class TimeTable {
     private HardSoftScore score;
 
     public TimeTable(List<ScheduleDate> scheduleDateList, List<ResourceItem> resourceItemList, List<Task> taskList) {
-//        this.scheduleDateList = scheduleDateList;
+        this.scheduleDateList = scheduleDateList;
         this.resourceItemList = resourceItemList;
         this.taskList = taskList;
     }

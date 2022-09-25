@@ -12,6 +12,7 @@ import java.time.Duration;
 import java.util.Objects;
 
 import static org.optaplanner.core.api.score.stream.ConstraintCollectors.count;
+import static org.optaplanner.core.api.score.stream.ConstraintCollectors.toList;
 
 public class TimeTableConstraintProvider implements ConstraintProvider {
 
@@ -116,18 +117,30 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
 //                .penalize("Student group subject variety", HardSoftScore.ONE_SOFT);
 //    }
 
-    //Hard constraint
-//    Constraint sameLayerTaskOrderConflict(ConstraintFactory constraintFactory) {
-//        return constraintFactory
-//                .forEachUniquePair(Task.class, Joiners.equal(Task::getLayerNum), Joiners.filtering((task1, task2) ->
-//                        task2.getStepIndex() - task1.getStepIndex() == 1))
-//                .filter((task1, task2) -> {
-//                            return task1.getScheduleDate().getLocalDateTime().isAfter(task2.getScheduleDate().getLocalDateTime());
-//                        }
-//                )
-//                .penalize("1", HardSoftScore.ofHard(200));
-//
-//    }
+//    //Hard constraint
+    Constraint sameLayerTaskOrderConflict(ConstraintFactory constraintFactory) {
+        return constraintFactory
+                .forEachUniquePair(Task.class,Joiners.equal(Task::getLayerNum),Joiners.filtering((task1,task2)->
+                        task2.getStepIndex()-task1.getStepIndex()==1))
+                .filter((task1,task2)->{
+                    System.out.println("task1："+task1.getScheduleDate().getLocalDateTime()+"task2:"+task2.getScheduleDate().getLocalDateTime());
+                           return task1.getScheduleDate().getLocalDateTime().isAfter(task2.getScheduleDate().getLocalDateTime());
+
+                        }
+                        )
+                .penalize("1",HardSoftScore.ofHard(200));
+
+    }
+    Constraint sameLayerTaskOrderConflict1(ConstraintFactory constraintFactory) {
+        return constraintFactory
+                .forEach(Task.class)
+                .groupBy(Task::getLayerNum,toList())
+                .filter((layerNumber,list)->{
+                    return false;
+                })
+                .penalize("1",HardSoftScore.ofHard(200));
+
+    }
 
     Constraint sameStepResourceConflict(ConstraintFactory constraintFactory) {
 
@@ -135,6 +148,15 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 .forEach(Task.class)
                 .filter(task -> task.getResourceItem().getResourcePoolId().equals(task.getRequiredResourceId()))
                 .reward("sameStepResourceConflict", HardSoftScore.ofHard(100));
+    }
+
+    Constraint sameStepResourceConflict1(ConstraintFactory constraintFactory) {
+
+        return constraintFactory
+                .forEach(Task.class)
+                .join(ResourceItem.class,Joiners.filtering((task,item)->task.getRequiredResourceId().equals(item.getResourcePoolId())))
+                .filter((task,item) -> task.getResourceItem().getResourcePoolId().equals(task.getRequiredResourceId()))
+                .reward("sameStepResourceConflict1", HardSoftScore.ofHard(100));
     }
 
     Constraint timeConflict(ConstraintFactory constraintFactory) {

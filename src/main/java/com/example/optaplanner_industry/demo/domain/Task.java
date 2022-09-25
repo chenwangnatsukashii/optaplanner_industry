@@ -17,7 +17,7 @@ import java.util.Optional;
 @Data
 @NoArgsConstructor
 @PlanningEntity
-public class Task extends TaskOrResource {
+public class Task extends TaskOrResource implements Comparable<Task>{
 
     @PlanningId
     private String id;
@@ -47,8 +47,8 @@ public class Task extends TaskOrResource {
 
     private int readyTime;
 
-//    @PlanningVariable(valueRangeProviderRefs = "scheduleRange")
-//    private ScheduleDate scheduleDate;
+    @PlanningVariable(valueRangeProviderRefs = "scheduleRange")
+    private ScheduleDate scheduleDate;
 
 
     private String requiredResourceId;
@@ -94,4 +94,8 @@ public class Task extends TaskOrResource {
     }
 
 
+    @Override
+    public int compareTo(Task task) {
+        return this.getStepIndex()-task.getStepIndex();
+    }
 }

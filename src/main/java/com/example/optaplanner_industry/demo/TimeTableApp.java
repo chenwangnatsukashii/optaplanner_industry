@@ -62,7 +62,7 @@ public class TimeTableApp {
 //                .filter(task -> task.getScheduleDate() != null && task.getResourceItem() != null)
 //                .collect(Collectors.groupingBy(Task::getScheduleDate, Collectors.groupingBy(Task::getResourceItem)));
 //        LOGGER.info("|            | " + resourceItemList.stream()
-//                .map(resourceItem -> String.format("%-10s", resourceItem.getId())).collect(Collectors.joining(" | ")) + " |");
+//                .map(resourceItem -> String.format("%-10s", resourceItem.getResourcePoolId())).collect(Collectors.joining(" | ")) + " |");
 //        LOGGER.info("|" + "------------|".repeat(resourceItemList.size() + 1));
 //        for (ScheduleDate scheduleDate : timeTable.getScheduleDateList()) {
 //            List<List<Task>> cellList = resourceItemList.stream()
