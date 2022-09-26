@@ -17,7 +17,7 @@ import java.util.Optional;
 @Data
 @NoArgsConstructor
 @PlanningEntity
-public class Task extends TaskOrResource implements Comparable<Task>{
+public class Task extends TaskOrResource implements Comparable<Task> {
 
     @PlanningId
     private String id;
@@ -79,13 +79,13 @@ public class Task extends TaskOrResource implements Comparable<Task>{
     }
 
     public String getFullTaskName() {
-        return this.code + " 开始时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.startTime).orElse(0)) +
+        return this.code + " 所在工序组：" + Optional.ofNullable(this.resourceItem.getResourcePoolId()).orElse("错误：工序组为空")
+                + " 开始时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.startTime).orElse(0)) +
                 " 结束时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.endTime).orElse(0));
     }
 
     @Override
-    public Integer getEndTime(int quantity)
-    {
+    public Integer getEndTime(int quantity) {
         if (startTime == null) {
             return null;
         }
@@ -97,6 +97,6 @@ public class Task extends TaskOrResource implements Comparable<Task>{
 
     @Override
     public int compareTo(Task task) {
-        return this.getStepIndex()-task.getStepIndex();
+        return this.getStepIndex() - task.getStepIndex();
     }
 }
