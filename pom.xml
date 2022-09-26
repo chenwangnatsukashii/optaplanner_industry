@@ -22,7 +22,7 @@
             <dependency>
                 <groupId>org.optaplanner</groupId>
                 <artifactId>optaplanner-bom</artifactId>
-                <version>8.20.0.Final</version>
+                <version>8.27.0.Final</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

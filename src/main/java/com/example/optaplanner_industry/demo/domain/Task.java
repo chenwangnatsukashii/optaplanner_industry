@@ -1,20 +1,17 @@
 package com.example.optaplanner_industry.demo.domain;
 
 import com.example.optaplanner_industry.demo.solver.StartTimeUpdatingVariableListener;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import org.drools.modelcompiler.util.StringUtil;
+import lombok.*;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.*;
-import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
-@Data
+@ToString
+@Getter
+@Setter
 @NoArgsConstructor
 @PlanningEntity
 public class Task extends TaskOrResource implements Comparable<Task> {
@@ -68,6 +65,14 @@ public class Task extends TaskOrResource implements Comparable<Task> {
     private LocalDateTime taskBeginTime = LocalDateTime.of(2022, 10, 1, 0, 0, 0);
 
 
+    public LocalDateTime getActualStartTime(){
+        return taskBeginTime.plusMinutes(Optional.ofNullable(this.startTime).orElse(0));
+    }
+    public LocalDateTime getActualEndTime(){
+        return taskBeginTime.plusMinutes(Optional.ofNullable(this.endTime).orElse(0));
+    }
+
+
     public Task(String id, String code, Integer speed, Integer unit, String taskOrder, Integer layerNum, List<Integer> relatedLayer) {
         this.id = id;
         this.code = code;
@@ -79,7 +84,7 @@ public class Task extends TaskOrResource implements Comparable<Task> {
     }
 
     public String getFullTaskName() {
-        return this.code + " 所在工序组：" + Optional.ofNullable(this.resourceItem.getResourcePoolId()).orElse("错误：工序组为空")
+        return this.code + " 所在工序组：" + Optional.ofNullable(this.requiredResourceId).orElse("错误：工序组为空")
                 + " 开始时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.startTime).orElse(0)) +
                 " 结束时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.endTime).orElse(0));
     }

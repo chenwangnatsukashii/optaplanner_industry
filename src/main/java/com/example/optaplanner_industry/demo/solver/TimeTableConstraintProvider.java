@@ -22,7 +22,10 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 // Hard constraints
 //                workGroupConflict(constraintFactory),
 //                sameLayerTaskOrderConflict(constraintFactory),
-                sameStepResourceConflict(constraintFactory)
+                sameStepResourceConflict(constraintFactory),
+                sameStepResourceConflict2(constraintFactory),
+//                sameStepResourceConflict1(constraintFactory)
+
 //                workConflict(constraintFactory),
 //                studentGroupConflict(constraintFactory),
 //                workerGroupMatch(constraintFactory)
@@ -149,11 +152,26 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 .filter(task -> task.getResourceItem().getResourcePoolId().equals(task.getRequiredResourceId()))
                 .reward("sameStepResourceConflict", HardSoftScore.ofHard(100));
     }
+    Constraint sameStepResourceConflict2(ConstraintFactory constraintFactory) {
+
+        return constraintFactory
+                .forEach(Task.class)
+                .filter(task -> task.getEndTime()==null)
+
+              .penalize("dasd",HardSoftScore.ofHard(100));
+    }
+    Constraint sameStepResourceConflict3(ConstraintFactory constraintFactory) {
+
+        return constraintFactory
+                .forEachUniquePair(Task.class,Joiners.equal(Task::getActualStartTime),Joiners.equal(Task::getActualEndTime))
+                .penalize("dasd",HardSoftScore.ofHard(100));
+    }
 
     Constraint sameStepResourceConflict1(ConstraintFactory constraintFactory) {
 
         return constraintFactory
                 .forEach(Task.class)
+                .filter(task -> task.getResourceItem()!=null)
                 .join(ResourceItem.class,Joiners.filtering((task,item)->task.getRequiredResourceId().equals(item.getResourcePoolId())))
                 .filter((task,item) -> task.getResourceItem().getResourcePoolId().equals(task.getRequiredResourceId()))
                 .reward("sameStepResourceConflict1", HardSoftScore.ofHard(100));

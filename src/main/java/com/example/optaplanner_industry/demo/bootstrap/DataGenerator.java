@@ -7,7 +7,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DataGenerator {
     static String FILE_PATH = "json/input_2.json";
@@ -45,6 +48,7 @@ public class DataGenerator {
         for (int i = stepList.size()-1; i >=0; i--) {
             Step step = stepList.get(i);
             List<Task> stepTaskList = step.getTaskList();
+            Collections.reverse(stepTaskList);
             int number = i;
            for(int j  = stepTaskList.size()-1;j>=0;j--){
                Task item = stepTaskList.get(j);
@@ -64,17 +68,19 @@ public class DataGenerator {
 //                if (number > 0)
 //                    item.setNextTask(taskList.get(taskList.size() - stepTaskList.size()+j));
 //            });
+
             taskList.addAll(stepTaskList);
         }
 //        }
-        taskList.forEach(i->{
-            if (i.getNextTask() != null) {
-                System.out.println(i.getId());
-                System.out.println("next task:");
-                System.out.println(i.getNextTask().getId());
-            }
-        });
 
+        Collections.reverse(taskList);
+//        taskList.forEach(i->{
+//
+//            System.out.println(i.getId()+" "+i.getStepIndex());
+//            if(i.getNextTask()!=null){
+//                System.out.println("next is:"+i.getNextTask().getId());
+//            }
+//        });
         return taskList;
     }
 
