@@ -10,6 +10,7 @@ import org.optaplanner.core.api.score.stream.bi.BiConstraintStream;
 
 import java.time.Duration;
 import java.util.Objects;
+import java.util.function.Function;
 
 import static org.optaplanner.core.api.score.stream.ConstraintCollectors.count;
 import static org.optaplanner.core.api.score.stream.ConstraintCollectors.toList;
@@ -23,7 +24,11 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
 //                workGroupConflict(constraintFactory),
 //                sameLayerTaskOrderConflict(constraintFactory),
                 sameStepResourceConflict(constraintFactory),
-                sameStepResourceConflict2(constraintFactory),
+//                sameStepResourceConflict5(constraintFactory),
+                sameStepResourceConflict4(constraintFactory),
+//                sameStepResourceConflict3(constraintFactory),
+//                sameStepResourceConflict1(constraintFactory),
+//                sameStepResourceConflict2(constraintFactory)
 //                sameStepResourceConflict1(constraintFactory)
 
 //                workConflict(constraintFactory),
@@ -156,15 +161,43 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
 
         return constraintFactory
                 .forEach(Task.class)
-                .filter(task -> task.getEndTime()==null)
+                .filter(task -> task.getActualEndTime().equals(task.getTaskBeginTime()))
 
-              .penalize("dasd",HardSoftScore.ofHard(100));
+              .penalize("dasd312123",HardSoftScore.ofHard(100));
     }
+    Constraint sameStepResourceConflict4(ConstraintFactory constraintFactory) {
+
+        return constraintFactory
+                .forEach(Task.class)
+                .groupBy(Task::getActualStartTime,count())
+
+                .penalize("dasd",HardSoftScore.ofHard(100),(time,count)->
+                {if(count>1){ return count;}
+                return 0;});
+    }
+    Constraint sameStepResourceConflict5(ConstraintFactory constraintFactory) {
+
+        return constraintFactory
+                .forEach(Task.class)
+                .map(Task::getActualStartTime)
+                .distinct()
+                .penalize("41234214234",HardSoftScore.ofHard(500));
+    }
+    Constraint sameStepResourceConflict6(ConstraintFactory constraintFactory) {
+
+        return constraintFactory
+                .forEach(Task.class)
+                .ifExists(Task.class,Joiners.equal(Task::getStepId))
+                .ifExists(Task.class,Joiners.equal(Task::getActualStartTime))
+                .penalize("41234241241414234",HardSoftScore.ofHard(100));
+    }
+
     Constraint sameStepResourceConflict3(ConstraintFactory constraintFactory) {
 
         return constraintFactory
-                .forEachUniquePair(Task.class,Joiners.equal(Task::getActualStartTime),Joiners.equal(Task::getActualEndTime))
-                .penalize("dasd",HardSoftScore.ofHard(100));
+                .forEachUniquePair(Task.class,Joiners.equal(Task::getStepId))
+                .filter((task, task2) -> !task.getActualStartTime().equals(task2.getActualStartTime()))
+                .reward("dasd",HardSoftScore.ofHard(100));
     }
 
     Constraint sameStepResourceConflict1(ConstraintFactory constraintFactory) {

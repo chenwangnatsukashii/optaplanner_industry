@@ -48,7 +48,7 @@ public class DataGenerator {
         for (int i = stepList.size()-1; i >=0; i--) {
             Step step = stepList.get(i);
             List<Task> stepTaskList = step.getTaskList();
-            Collections.reverse(stepTaskList);
+//            Collections.reverse(stepTaskList);
             int number = i;
            for(int j  = stepTaskList.size()-1;j>=0;j--){
                Task item = stepTaskList.get(j);
@@ -73,14 +73,14 @@ public class DataGenerator {
         }
 //        }
 
-        Collections.reverse(taskList);
-//        taskList.forEach(i->{
-//
-//            System.out.println(i.getId()+" "+i.getStepIndex());
-//            if(i.getNextTask()!=null){
-//                System.out.println("next is:"+i.getNextTask().getId());
-//            }
-//        });
+//        Collections.reverse(taskList);
+        taskList.forEach(i->{
+
+            System.out.println(i.getId()+" "+i.getStepIndex());
+            if(i.getNextTask()!=null){
+                System.out.println("next is:"+i.getNextTask().getId());
+            }
+        });
         return taskList;
     }
 
