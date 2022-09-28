@@ -23,6 +23,7 @@ import org.optaplanner.core.api.domain.variable.VariableListener;
 import org.optaplanner.core.api.score.director.ScoreDirector;
 
 import java.util.Objects;
+import java.util.Optional;
 
 
 //每次,有Task对象的previousTaskOrEmployee的property发生更改后,这个监听类就会监听到,然后执行相应操作
@@ -95,7 +96,8 @@ public class StartTimeUpdatingVariableListener implements VariableListener<TimeT
         if (task == null || previousEndTime == null) {
             return null;
         }
-        return Math.max(task.getReadyTime(), previousEndTime);
+        if (task.getPreTask() == null) return previousEndTime;
+        return Math.max(task.getPreTask().getEndTime(), previousEndTime);
     }
 
 }

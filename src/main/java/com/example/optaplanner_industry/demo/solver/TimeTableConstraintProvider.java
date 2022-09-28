@@ -23,7 +23,7 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
 //                workGroupConflict(constraintFactory),
 //                sameLayerTaskOrderConflict(constraintFactory),
                 sameStepResourceConflict(constraintFactory),
-                sameStepResourceConflict2(constraintFactory),
+//                sameStepResourceConflict2(constraintFactory),
 //                sameStepResourceConflict1(constraintFactory)
 
 //                workConflict(constraintFactory),

@@ -9,7 +9,6 @@ import org.optaplanner.core.api.domain.variable.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-@ToString
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,6 +32,8 @@ public class Task extends TaskOrResource implements Comparable<Task> {
 
     @PlanningVariable(valueRangeProviderRefs = {"resourceRange", "taskRange"}, graphType = PlanningVariableGraphType.CHAINED)
     private TaskOrResource previousTaskOrResource;
+
+    private Task preTask;
 
     @AnchorShadowVariable(sourceVariableName = "previousTaskOrResource")
     private ResourceItem resourceItem;
