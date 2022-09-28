@@ -40,8 +40,8 @@ public class DataGenerator {
     public static List<Task> generateTaskList() {
         List<ManufacturerOrder> manufacturerOrderList = input.getManufacturerOrderList();
         List<Task> taskList = new ArrayList<>();
-        ManufacturerOrder order = manufacturerOrderList.get(0);
-//        for(ManufacturerOrder order:manufacturerOrderList){
+//        ManufacturerOrder order = manufacturerOrderList.get(0);
+        for(ManufacturerOrder order:manufacturerOrderList){
         Product product = order.getProduct();
         List<Step> stepList = product.getStepList();
         for (int i = stepList.size()-1; i >=0; i--) {
@@ -81,7 +81,18 @@ public class DataGenerator {
 
             taskList.addAll(stepTaskList);
         }
-//        }
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.get(i);
+                if (i == 0) {
+                    task.setTaskType(TaskType.SOURCE);
+                } else if (i == taskList.size() - 1) {
+                    task.setTaskType(TaskType.SINK);
+                } else {
+                    task.setTaskType(TaskType.STANDARD);
+                }
+            }
+            order.setTaskList(taskList);
+        }
 
         Collections.reverse(taskList);
 //        taskList.forEach(i->{
@@ -91,17 +102,7 @@ public class DataGenerator {
 //                System.out.println("next is:"+i.getNextTask().getId());
 //            }
 //        });
-        for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.get(i);
-            if (i == 0) {
-                task.setTaskType(TaskType.SOURCE);
-            } else if (i == taskList.size() - 1) {
-                task.setTaskType(TaskType.SINK);
-            } else {
-                task.setTaskType(TaskType.STANDARD);
-            }
-        }
-        order.setTaskList(taskList);
+
         return taskList;
     }
 
@@ -138,8 +139,8 @@ public class DataGenerator {
 //        List<Task> taskList = generateTaskList();
         List<Allocation> allocationList = new ArrayList<>(taskList.size());
         Map<String, Allocation> taskToAllocationMap = new HashMap<>(taskList.size());
-        Map<ManufacturerOrder, Allocation> orderToSourceAllocationMap = new HashMap<>(1);
-        Map<ManufacturerOrder, Allocation> orderToSinkAllocationMap = new HashMap<>(1);
+        Map<ManufacturerOrder, Allocation> orderToSourceAllocationMap = new HashMap<>(orderListSize);
+        Map<ManufacturerOrder, Allocation> orderToSinkAllocationMap = new HashMap<>(orderListSize);
         for (Task task : taskList) {
             Allocation allocation = new Allocation();
             allocation.setId(task.getId());

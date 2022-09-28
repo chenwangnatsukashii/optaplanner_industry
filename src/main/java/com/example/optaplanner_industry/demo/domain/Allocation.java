@@ -153,7 +153,7 @@ public class Allocation{
 //
     @ValueRangeProvider(id = "delayRange")
     public CountableValueRange<Integer> getDelayRange() {
-        return ValueRangeFactory.createIntValueRange(0, 500);
+        return ValueRangeFactory.createIntValueRange(0, 10);
     }
 
 }

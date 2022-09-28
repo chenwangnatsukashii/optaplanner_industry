@@ -22,7 +22,9 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         return new Constraint[]{
                 // Hard constraints
 //                nonRenewableResourceCapacity(constraintFactory),
-                nonRenewableResourceCapacity1(constraintFactory)
+//                nonRenewableResourceCapacity(constraintFactory),
+        nonRenewableResourceCapacity1(constraintFactory)
+
 //                workGroupConflict(constraintFactory),
 //                sameLayerTaskOrderConflict(constraintFactory),
 //                sameStepResourceConflict(constraintFactory),
