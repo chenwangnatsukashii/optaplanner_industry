@@ -25,14 +25,14 @@ public class IndustryTimeTableApp {
     private static final Logger LOGGER = LoggerFactory.getLogger(IndustryTimeTableApp.class);
 
     public static void main(String[] args) {
-        SolverFactory<IndustryTimeTable> solverFactory = SolverFactory.create(new SolverConfig()
-                .withSolutionClass(IndustryTimeTable.class)
-                .withEntityClasses(Task.class)
-                .withConstraintProviderClass(IndustryTimeTableConstraintProvider.class)
-                // The solver runs only for 5 seconds on this small dataset.
-                // It's recommended to run for at least 5 minutes ("5m") otherwise.
-                .withTerminationSpentLimit(Duration.ofSeconds(5)));
-
+//        SolverFactory<IndustryTimeTable> solverFactory = SolverFactory.create(new SolverConfig()
+//                .withSolutionClass(IndustryTimeTable.class)
+//                .withEntityClasses(Task.class)
+//                .withConstraintProviderClass(IndustryTimeTableConstraintProvider.class)
+//                // The solver runs only for 5 seconds on this small dataset.
+//                // It's recommended to run for at least 5 minutes ("5m") otherwise.
+//                .withTerminationSpentLimit(Duration.ofSeconds(5)));
+        SolverFactory<IndustryTimeTable> solverFactory = SolverFactory.createFromXmlResource("projectJobSchedulingSolverConfig.xml");
         // Load the problem
         IndustryTimeTable problem = generateDemoData();
 

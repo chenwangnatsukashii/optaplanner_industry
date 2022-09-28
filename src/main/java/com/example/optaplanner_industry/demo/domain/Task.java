@@ -1,20 +1,19 @@
 package com.example.optaplanner_industry.demo.domain;
 
-import com.example.optaplanner_industry.demo.solver.StartTimeUpdatingVariableListener;
 import lombok.*;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @ToString
 @Getter
 @Setter
 @NoArgsConstructor
-@PlanningEntity
-public class Task extends TaskOrResource implements Comparable<Task> {
+public class Task extends TaskOrResource {
 
     @PlanningId
     private String id;
@@ -31,20 +30,26 @@ public class Task extends TaskOrResource implements Comparable<Task> {
     // unit为1且为叠片工序时传入，代表前置层数约束
     private List<Integer> relatedLayer;
 
-    @PlanningVariable(valueRangeProviderRefs = {"resourceRange", "taskRange"}, graphType = PlanningVariableGraphType.CHAINED)
+    private List<Task> successorTaskList = new ArrayList<>();
+
+    private Product product;
+
+    private TaskType taskType;
+
+//    @PlanningVariable(valueRangeProviderRefs = {"resourceRange", "taskRange"}, graphType = PlanningVariableGraphType.CHAINED)
     private TaskOrResource previousTaskOrResource;
 
-    @AnchorShadowVariable(sourceVariableName = "previousTaskOrResource")
+//    @AnchorShadowVariable(sourceVariableName = "previousTaskOrResource")
     private ResourceItem resourceItem;
-    @CustomShadowVariable(variableListenerClass = StartTimeUpdatingVariableListener.class,
-            sources = {@PlanningVariableReference(variableName = "previousTaskOrResource")})
+//    @CustomShadowVariable(variableListenerClass = StartTimeUpdatingVariableListener.class,
+//            sources = {@PlanningVariableReference(variableName = "previousTaskOrResource")})
     private Integer startTime;
 
     private Integer endTime;
 
     private int readyTime;
 
-    @PlanningVariable(valueRangeProviderRefs = "scheduleRange")
+//    @PlanningVariable(valueRangeProviderRefs = "scheduleRange")
     private ScheduleDate scheduleDate;
 
 
@@ -61,6 +66,8 @@ public class Task extends TaskOrResource implements Comparable<Task> {
     private String stepId;
 
     private Integer stepIndex;
+
+    private ManufacturerOrder manufacturerOrder;
 
     private LocalDateTime taskBeginTime = LocalDateTime.of(2022, 10, 1, 0, 0, 0);
 
@@ -100,8 +107,5 @@ public class Task extends TaskOrResource implements Comparable<Task> {
     }
 
 
-    @Override
-    public int compareTo(Task task) {
-        return this.getStepIndex() - task.getStepIndex();
-    }
+
 }

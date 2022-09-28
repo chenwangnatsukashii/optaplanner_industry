@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @ToString
 @Data
@@ -42,6 +43,8 @@ public class ManufacturerOrder {
     //排程天数
     private Integer duration;
 
+    private Integer releaseDate = 0;
+
     //排程天数+延迟时间
     public Integer getTotalDays() {
         if (endDate == null) {
@@ -49,6 +52,8 @@ public class ManufacturerOrder {
         }
         return duration + delayDays;
     }
+
+    private List<Task> taskList;
 
 
 }

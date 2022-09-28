@@ -1,16 +1,16 @@
 package com.example.optaplanner_industry.demo.solver;
 
 import com.example.optaplanner_industry.demo.domain.*;
+import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
-import org.optaplanner.core.api.score.stream.Constraint;
-import org.optaplanner.core.api.score.stream.ConstraintFactory;
-import org.optaplanner.core.api.score.stream.ConstraintProvider;
-import org.optaplanner.core.api.score.stream.Joiners;
+import org.optaplanner.core.api.score.stream.*;
 import org.optaplanner.core.api.score.stream.bi.BiConstraintStream;
 
 import java.time.Duration;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.optaplanner.core.api.score.stream.ConstraintCollectors.count;
 import static org.optaplanner.core.api.score.stream.ConstraintCollectors.toList;
@@ -21,11 +21,13 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
     public Constraint[] defineConstraints(ConstraintFactory constraintFactory) {
         return new Constraint[]{
                 // Hard constraints
+//                nonRenewableResourceCapacity(constraintFactory),
+                nonRenewableResourceCapacity1(constraintFactory)
 //                workGroupConflict(constraintFactory),
 //                sameLayerTaskOrderConflict(constraintFactory),
-                sameStepResourceConflict(constraintFactory),
+//                sameStepResourceConflict(constraintFactory),
 //                sameStepResourceConflict5(constraintFactory),
-                sameStepResourceConflict4(constraintFactory),
+//                sameStepResourceConflict4(constraintFactory),
 //                sameStepResourceConflict3(constraintFactory),
 //                sameStepResourceConflict1(constraintFactory),
 //                sameStepResourceConflict2(constraintFactory)
@@ -260,5 +262,67 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 .reward("reward priority", HardSoftScore.ofSoft(1));
 
     }
+
+    protected Constraint nonRenewableResourceCapacity(ConstraintFactory constraintFactory) {
+        return constraintFactory.forEach(ResourceItem.class)
+                .join(Allocation.class)
+                .filter((requirement,allocation)->{
+                   return  requirement.getResourcePoolId().equals(allocation.getTask().getRequiredResourceId());
+                })
+                .reward("11",HardSoftScore.ONE_HARD);
+    }
+    protected Constraint nonRenewableResourceCapacity1(ConstraintFactory constraintFactory) {
+        return constraintFactory
+                .forEach(Allocation.class)
+                .groupBy(Allocation::getStartDate, count())
+
+                .penalize("31414423", HardSoftScore.ofHard(1), (time, count) ->
+                {
+                    System.out.println("count:"+count);
+                    if (count > 1) {
+                        return count;
+                    }
+                    return 0;
+                });
+    }
+
+
+
+//
+//    protected Constraint renewableResourceCapacity(ConstraintFactory constraintFactory) {
+//        return constraintFactory.forEach(ResourceRequirement.class)
+//                .filter(ResourceRequirement::isResourceRenewable)
+//                .join(Allocation.class,
+//                        Joiners.equal(ResourceRequirement::getExecutionMode, Allocation::getExecutionMode))
+//                .flattenLast(a -> IntStream.range(a.getStartDate(), a.getEndDate())
+//                        .boxed()
+//                        .collect(Collectors.toList()))
+//                .groupBy((resourceReq, date) -> resourceReq.getResource(),
+//                        (resourceReq, date) -> date,
+//                        ConstraintCollectors.sum((resourceReq, date) -> resourceReq.getRequirement()))
+//                .filter((resourceReq, date, totalRequirement) -> totalRequirement > resourceReq.getCapacity())
+//                .penalize("Renewable resource capacity",
+//                        HardMediumSoftScore.ofHard(1),
+//                        (resourceReq, date, totalRequirement) -> totalRequirement - resourceReq.getCapacity());
+//    }
+//
+//    protected Constraint totalProjectDelay(ConstraintFactory constraintFactory) {
+//        return constraintFactory.forEach(Allocation.class)
+//                .filter(allocation -> allocation.getEndDate() != null)
+//                .filter(allocation -> allocation.getJobType() == JobType.SINK)
+//                .impact("Total project delay",
+//                        HardMediumSoftScore.ofMedium(1),
+//                        allocation -> allocation.getProjectCriticalPathEndDate() - allocation.getEndDate());
+//    }
+//
+//    protected Constraint totalMakespan(ConstraintFactory constraintFactory) {
+//        return constraintFactory.forEach(Allocation.class)
+//                .filter(allocation -> allocation.getEndDate() != null)
+//                .filter(allocation -> allocation.getJobType() == JobType.SINK)
+//                .groupBy(ConstraintCollectors.max(Allocation::getEndDate))
+//                .penalize("Total makespan",
+//                        HardMediumSoftScore.ofSoft(1),
+//                        maxEndDate -> maxEndDate);
+//    }
 
 }
