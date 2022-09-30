@@ -22,8 +22,11 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         return new Constraint[]{
                 // Hard constraints
 //                nonRenewableResourceCapacity(constraintFactory),
+//                sameStepResourceConflict(constraintFactory),
 //                nonRenewableResourceCapacity(constraintFactory),
-        nonRenewableResourceCapacity1(constraintFactory)
+        nonRenewableResourceCapacity2(constraintFactory),
+//                nonRenewableResourceCapacity1(constraintFactory)
+
 
 //                workGroupConflict(constraintFactory),
 //                sameLayerTaskOrderConflict(constraintFactory),
@@ -159,7 +162,7 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         return constraintFactory
                 .forEach(Task.class)
                 .filter(task -> task.getResourceItem().getResourcePoolId().equals(task.getRequiredResourceId()))
-                .reward("sameStepResourceConflict", HardSoftScore.ofHard(100));
+                .reward("123123213312313123123", HardSoftScore.ofHard(100));
     }
     Constraint sameStepResourceConflict2(ConstraintFactory constraintFactory) {
 
@@ -266,12 +269,26 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
     }
 
     protected Constraint nonRenewableResourceCapacity(ConstraintFactory constraintFactory) {
-        return constraintFactory.forEach(ResourceItem.class)
-                .join(Allocation.class)
-                .filter((requirement,allocation)->{
-                   return  requirement.getResourcePoolId().equals(allocation.getTask().getRequiredResourceId());
+        return constraintFactory.forEach(Allocation.class)
+                .join(Task.class)
+                .filter((allocation,task)->{
+                   return  allocation.getId().equals(task.getId());
                 })
                 .reward("11",HardSoftScore.ONE_HARD);
+    }
+    protected Constraint nonRenewableResourceCapacity2(ConstraintFactory constraintFactory) {
+        return constraintFactory
+                .forEachUniquePair(Allocation.class,Joiners.equal(Allocation::getStepIndex)
+                ,Joiners.equal(Allocation::getActualStartTime))
+                .penalize("22",HardSoftScore.ONE_HARD);
+
+    }
+    protected Constraint nonRenewableResourceCapacity3(ConstraintFactory constraintFactory) {
+        return constraintFactory
+                .forEachUniquePair(Allocation.class,Joiners.equal(Allocation::getStepIndex))
+                .filter(((allocation, allocation2) -> allocation.getActualStartTime().equals(allocation2.getActualStartTime())))
+                .penalize("33",HardSoftScore.ONE_HARD);
+
     }
     protected Constraint nonRenewableResourceCapacity1(ConstraintFactory constraintFactory) {
         return constraintFactory
@@ -280,7 +297,6 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
 
                 .penalize("31414423", HardSoftScore.ofHard(1), (time, count) ->
                 {
-                    System.out.println("count:"+count);
                     if (count > 1) {
                         return count;
                     }

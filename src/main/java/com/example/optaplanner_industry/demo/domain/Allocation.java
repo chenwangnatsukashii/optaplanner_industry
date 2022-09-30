@@ -4,6 +4,7 @@ import com.example.optaplanner_industry.demo.domain.solver.DelayStrengthComparat
 import com.example.optaplanner_industry.demo.domain.solver.NotSourceOrSinkAllocationFilter;
 import com.example.optaplanner_industry.demo.domain.solver.PredecessorsDoneDateUpdatingVariableListener;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
+import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.valuerange.CountableValueRange;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeFactory;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
@@ -12,14 +13,16 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import org.optaplanner.core.api.domain.variable.PlanningVariableReference;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @PlanningEntity(pinningFilter = NotSourceOrSinkAllocationFilter.class)
 public class Allocation{
 
+    @PlanningId
     private String id;
 
-    @PlanningVariable(valueRangeProviderRefs = "taskRange")
     private Task task;
 
     private Allocation sourceAllocation;
@@ -98,7 +101,6 @@ public class Allocation{
     }
 
     @CustomShadowVariable(variableListenerClass = PredecessorsDoneDateUpdatingVariableListener.class, sources = {
-            @PlanningVariableReference(variableName = "task"),
             @PlanningVariableReference(variableName = "delay") })
     public Integer getPredecessorsDoneDate() {
         return predecessorsDoneDate;
@@ -153,7 +155,24 @@ public class Allocation{
 //
     @ValueRangeProvider(id = "delayRange")
     public CountableValueRange<Integer> getDelayRange() {
-        return ValueRangeFactory.createIntValueRange(0, 10);
+        return ValueRangeFactory.createIntValueRange(1, 20);
     }
+
+
+    private Integer stepIndex;
+
+    public void setStepIndex(int stepIndex){
+        this.stepIndex=stepIndex;
+    }
+    public Integer getStepIndex(){
+        return stepIndex;
+    }
+
+    private final LocalDateTime actualStartedTime = LocalDateTime.of(2022,10,1,0,0,0);
+
+    public LocalDateTime getActualStartTime() { return actualStartedTime.plusDays(Optional.ofNullable(getStartDate()).orElse(0)); }
+
+    public LocalDateTime getActualEndTime() { return actualStartedTime.plusDays(Optional.ofNullable(getEndDate(150)).orElse(0)); }
+
 
 }

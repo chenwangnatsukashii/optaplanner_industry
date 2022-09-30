@@ -17,7 +17,7 @@ import java.util.List;
 public class Schedule{
 
     private List<ManufacturerOrder> manufacturerOrderList;
-    @ValueRangeProvider(id = "taskRange")
+
     private List<Task> taskList;
     private List<ResourceItem> resourceList;
 //    private List<ResourceRequirement> resourceRequirementList;

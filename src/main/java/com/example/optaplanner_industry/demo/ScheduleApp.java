@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import javax.xml.crypto.Data;
 import java.awt.dnd.DropTarget;
 import java.time.Duration;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ScheduleApp {
@@ -62,12 +64,14 @@ public class ScheduleApp {
             LOGGER.info("");
 //            List<ResourceItem> resourceItemList = schedule.getResourceItemList();
             List<Allocation> allocationList = schedule.getAllocationList();
+            allocationList.sort(Comparator.comparing(Allocation::getActualStartTime));
             allocationList.forEach(i->{
                 System.out.println("id: "+i.getId()+" "+
-                        "resouce: "+i.getTask().getRequiredResourceId()+" "+
-                        "start_date: "+i.getStartDate()+" "+
+                        "task: "+i.getTask().getId()+" "+
+                        "resource: "+i.getTask().getRequiredResourceId()+" "+
+                        "start_date: "+i.getActualStartTime()+" "+
                         "delay: "+i.getDelay()+" "+
-                        "end_date :"+i.getEndDate(150)+" "+
+                        "end_date :"+i.getActualEndTime()+" "+
                         "speed: "+i.getTask().getSpeed()
                 );
             });

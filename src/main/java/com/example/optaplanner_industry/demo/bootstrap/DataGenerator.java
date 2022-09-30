@@ -145,6 +145,7 @@ public class DataGenerator {
             Allocation allocation = new Allocation();
             allocation.setId(task.getId());
             allocation.setTask(task);
+            allocation.setStepIndex(task.getStepIndex());
             allocation.setPredecessorAllocationList(new ArrayList<>(task.getSuccessorTaskList().size()));
             allocation.setSuccessorAllocationList(new ArrayList<>(task.getSuccessorTaskList().size()));
             // Uninitialized allocations take no time, but don't break the predecessorsDoneDate cascade to sink.
