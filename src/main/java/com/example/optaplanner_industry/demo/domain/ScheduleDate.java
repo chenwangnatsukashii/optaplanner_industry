@@ -5,14 +5,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+
 @ToString
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
-public class ScheduleDate {
-    private LocalDateTime localDateTime;
+public class ScheduleDate implements Serializable {
 
+    private LocalDateTime localDateTime;
     private Timeslot timeslot;
 
 }

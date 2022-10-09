@@ -10,11 +10,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product implements Serializable {
+public class Output implements Serializable {
 
-    private String id; // 产品唯一ID
-    private String code; // 产品编号
-    private String name; // 产品名称
-    private List<Step> stepList; // 当前产品的生产步骤列表
+    private Integer code;
+    private String message;
+    private int status;
+    private String requestId;
+    private List<OutputManufacturerOrder> manufacturerOrderList;
 
 }

@@ -10,7 +10,16 @@ import java.util.List;
 
 public class DataGenerator {
     protected final static String FILE_PATH = "json/input_2.json";
-    protected final static Input input = LoadFile.readJsonFile(FILE_PATH);
+    public final static String OUTPUT_PATH = "output.json";
+    private final static Input input = LoadFile.readJsonFile(FILE_PATH);
+
+    public static Input getInput() {
+        return input;
+    }
+
+    public static void writeObjectToFile(Object output) {
+        LoadFile.writeJsonFile(output, OUTPUT_PATH);
+    }
 
     public static List<ResourceItem> generateResources() {
         List<ResourceItem> resourceItemList = new ArrayList<>();
@@ -28,30 +37,33 @@ public class DataGenerator {
     public static List<Task> generateTaskList() {
         List<ManufacturerOrder> manufacturerOrderList = input.getManufacturerOrderList();
         List<Task> taskList = new ArrayList<>();
-        ManufacturerOrder order = manufacturerOrderList.get(0);
-//        for(ManufacturerOrder order:manufacturerOrderList){
-        Product product = order.getProduct();
-        List<Step> stepList = product.getStepList();
-        for (int i = stepList.size() - 1; i >= 0; i--) {
-            Step step = stepList.get(i);
-            List<Task> stepTaskList = step.getTaskList();
-            Collections.reverse(stepTaskList);
-            for (int j = stepTaskList.size() - 1; j >= 0; j--) {
-                Task item = stepTaskList.get(j);
-                item.setProductId(product.getId());
-                item.setStepId(step.getId());
-                item.setStepIndex(i);
-                item.setRequiredResourceId(step.getResourceRequirementList().get(0).getResourceId());
-                if (i < stepList.size() - 1) {
-                    Task one = taskList.get(taskList.size() - stepTaskList.size() + j);
-                    item.setNextTask(one);
-                    one.setPreTask(item);
+        for (ManufacturerOrder order : manufacturerOrderList) {
+            Product product = order.getProduct();
+            List<Step> stepList = product.getStepList();
+            for (int i = stepList.size() - 1; i >= 0; i--) {
+                Step step = stepList.get(i);
+                List<Task> stepTaskList = step.getTaskList();
+//            Collections.reverse(stepTaskList);
+                for (int j = stepTaskList.size() - 1; j >= 0; j--) {
+                    Task item = stepTaskList.get(j);
+                    item.setId(order.getCode() + '_' + item.getId());
+                    item.setProductId(product.getId());
+                    item.setStepId(step.getId());
+                    item.setStepIndex(i);
+                    item.setRequiredResourceId(step.getResourceRequirementList().get(0).getResourceId());
+                    item.setManufactureOrderId(order.getId());
+                    item.setQuantity(order.getQuantity());
+                    item.setTaskBeginTime(order.getPeriod().getStartTime());
+                    if (i < stepList.size() - 1) {
+                        Task one = taskList.get(taskList.size() - stepTaskList.size() + j);
+                        item.setNextTask(one);
+                        one.setPreTask(item);
+                    }
                 }
-            }
 
-            taskList.addAll(stepTaskList);
+                taskList.addAll(stepTaskList);
+            }
         }
-//        }
 
         Collections.reverse(taskList);
         return taskList;

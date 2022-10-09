@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResourceRequirement {
+public class ResourceRequirement implements Serializable {
 
     // 资源需求对象ID
     private String id;
