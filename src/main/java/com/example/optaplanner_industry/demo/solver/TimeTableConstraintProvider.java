@@ -278,8 +278,8 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
     }
     protected Constraint nonRenewableResourceCapacity2(ConstraintFactory constraintFactory) {
         return constraintFactory
-                .forEachUniquePair(Allocation.class,Joiners.equal(Allocation::getStepIndex)
-                ,Joiners.equal(Allocation::getActualStartTime))
+                .forEachUniquePair(Allocation.class,Joiners.equal(Allocation::getRequiredResourceId)
+                ,Joiners.overlapping(Allocation::getActualStartTime,Allocation::getActualEndTime))
                 .penalize("22",HardSoftScore.ONE_HARD);
 
     }

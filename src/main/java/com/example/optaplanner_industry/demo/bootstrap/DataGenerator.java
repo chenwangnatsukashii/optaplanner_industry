@@ -145,6 +145,7 @@ public class DataGenerator {
             Allocation allocation = new Allocation();
             allocation.setId(task.getId());
             allocation.setTask(task);
+            allocation.setRequiredResourceId(task.getRequiredResourceId());
             allocation.setStepIndex(task.getStepIndex());
             allocation.setPredecessorAllocationList(new ArrayList<>(task.getSuccessorTaskList().size()));
             allocation.setSuccessorAllocationList(new ArrayList<>(task.getSuccessorTaskList().size()));

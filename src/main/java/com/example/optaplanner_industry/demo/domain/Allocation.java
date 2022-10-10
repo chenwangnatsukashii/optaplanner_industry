@@ -29,6 +29,7 @@ public class Allocation{
     private Allocation sinkAllocation;
     private List<Allocation> predecessorAllocationList;
     private List<Allocation> successorAllocationList;
+    private String requiredResourceId;
 
     // Planning variables: changes during planning, between score calculations.
 //    private ExecutionMode executionMode;
@@ -168,11 +169,18 @@ public class Allocation{
         return stepIndex;
     }
 
+
     private final LocalDateTime actualStartedTime = LocalDateTime.of(2022,10,1,0,0,0);
 
     public LocalDateTime getActualStartTime() { return actualStartedTime.plusDays(Optional.ofNullable(getStartDate()).orElse(0)); }
 
     public LocalDateTime getActualEndTime() { return actualStartedTime.plusDays(Optional.ofNullable(getEndDate(150)).orElse(0)); }
 
+    public void setRequiredResourceId(String requiredResourceId){
+        this.requiredResourceId = requiredResourceId;
+    }
 
+    public String getRequiredResourceId() {
+        return requiredResourceId;
+    }
 }
