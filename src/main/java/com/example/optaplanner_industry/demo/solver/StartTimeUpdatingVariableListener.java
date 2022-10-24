@@ -65,7 +65,7 @@ public class StartTimeUpdatingVariableListener implements VariableListener<TimeT
         Task shadowTask = sourceTask;
         //取得前面的截止时间
         //刚开始的时候，前面是没有的，所以就是null
-        Integer previousEndTime = (previous == null ? null : previous.getEndTime(150));
+        Integer previousEndTime = (previous == null ? null : previous.getEndTime(shadowTask.getQuantity()));
         //开始时间取，前面的截止时间和当前任务的准备时间的最大值，因为在这里认为task的准备过程不需要算在任务里面，所以取的较大值，如果是认为需要算在任务时间里面，那么就需要相加了
         //刚开始的时候，previousEndTime是null，所以startTime也是null
         Integer startTime = calculateStartTime(shadowTask, previousEndTime);
@@ -82,7 +82,7 @@ public class StartTimeUpdatingVariableListener implements VariableListener<TimeT
             //这个函数不知道干了什么
             scoreDirector.afterVariableChanged(shadowTask, "startTime");
             //前面的截止时间设置为当前任务的截止时间
-            previousEndTime = shadowTask.getEndTime(150);
+            previousEndTime = shadowTask.getEndTime(shadowTask.getQuantity());
             //shadowTask继续向后取task
             shadowTask = shadowTask.getNextTask();
             //开始时间取，前面的截止时间和当前任务的准备时间的最大值

@@ -64,14 +64,20 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 .penalize("WorkGroup conflict", HardSoftScore.ONE_HARD);
     }
 
-//    Constraint workConflict(ConstraintFactory constraintFactory) {
-//        // A worker can operate at most one machine at the same time.
-//        return constraintFactory
-//                .forEachUniquePair(Task.class,
-//                        Joiners.equal(Task::getTimeslot),
-//                        Joiners.equal(Task::getWorker))
-//                .penalize("Worker conflict", HardSoftScore.ONE_HARD);
-//    }
+    Constraint readyForNextTask(ConstraintFactory constraintFactory) {
+        // A worker can operate at most one machine at the same time.
+        return constraintFactory
+                .forEach(Task.class)
+                .filter(e->{
+                    if (e.getUnit()==1){
+
+                    }
+                    return false;
+                })
+
+
+                .penalize("Worker conflict", HardSoftScore.ONE_HARD);
+    }
 
 //    Constraint studentGroupConflict(ConstraintFactory constraintFactory) {
 //        // A student can attend at most one lesson at the same time.
@@ -159,7 +165,6 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
     }
 
     Constraint sameStepResourceConflict(ConstraintFactory constraintFactory) {
-
         return constraintFactory
                 .forEach(Task.class)
                 .filter(task -> task.getResourceItem().getResourcePoolId().equals(task.getRequiredResourceId()))

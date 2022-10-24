@@ -26,4 +26,10 @@ public class OutputTask implements Serializable {
     private LocalDate runTime;
     private Integer schedule;
 
+    private String StepId;
+
+    public String printInfo() {
+        return "日期:" + runTime + " 班次:" + schedule + " 工序组:" + StepId + " 生产总数:" + amount + " speed:" + speed;
+    }
+
 }

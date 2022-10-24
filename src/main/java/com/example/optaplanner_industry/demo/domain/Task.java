@@ -7,6 +7,7 @@ import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,6 +26,7 @@ public class Task extends TaskOrResource implements Comparable<Task>, Serializab
     private Integer unit; // 单位：0代表层，1代表套
     private Integer layerNum; // 层
     private List<Integer> relatedLayer; // unit为1且为叠片工序时传入，代表前置层数约束
+    private int readyTaskNum; // 完成的前置任务数量
 
     @PlanningVariable(valueRangeProviderRefs = {"resourceRange", "taskRange"}, graphType = PlanningVariableGraphType.CHAINED)
     private TaskOrResource previousTaskOrResource;
@@ -55,11 +57,19 @@ public class Task extends TaskOrResource implements Comparable<Task>, Serializab
     private Integer quantity; // 工单生产个数
     private LocalDateTime taskBeginTime; // 工单开始时间
 
-//    public String getFullTaskName() {
-//        return this.code + " 所在工序组：" + Optional.ofNullable(this.requiredResourceId).orElse("错误：工序组为空")
-//                + " 开始时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.startTime).orElse(0)) +
-//                " 结束时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.endTime).orElse(0));
-//    }
+    private Product product;
+    private String orderId;
+    private Integer duration;
+    private BigDecimal singleTimeSlotSpeed;
+    private BigDecimal timeSlotDuration;
+    private Integer minutesDuration;
+    private ManufacturerOrder manufacturerOrder;
+
+    public String getFullTaskName() {
+        return this.code + " 所在工序组：" + Optional.ofNullable(this.requiredResourceId).orElse("错误：工序组为空")
+                + " 开始时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.startTime).orElse(0)) +
+                " 结束时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.endTime).orElse(0));
+    }
 
     @Override
     public Integer getEndTime(int quantity) {
