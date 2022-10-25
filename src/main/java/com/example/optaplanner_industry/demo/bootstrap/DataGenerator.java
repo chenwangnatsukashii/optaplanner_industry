@@ -43,7 +43,6 @@ public class DataGenerator {
         return resourceItemList;
     }
 
-
     public static List<Task> generateTaskList() {
         List<ManufacturerOrder> manufacturerOrderList = input.getManufacturerOrderList();
         List<Task> taskList = new ArrayList<>();
@@ -54,17 +53,19 @@ public class DataGenerator {
                 List<ResourceRequirement> resourceRequirementList = step.getResourceRequirementList();
                 List<Task> list = step.getTaskList();
                 for (Task task : list) {
+                    task.setId(order.getCode() + '_' + task.getId());
                     task.setProduct(product);
                     task.setProductId(product.getId());
                     task.setStepId(step.getId());
                     task.setOrderId(order.getId());
-                    //duration 还得修改
+                    // duration 还得修改
                     task.setDuration((int) Math.ceil((double) order.getQuantity() / task.getSpeed()));
                     task.setSingleTimeSlotSpeed(BigDecimal.valueOf(task.getSpeed()).divide(BigDecimal.valueOf(3), 4, RoundingMode.CEILING));
                     task.setTimeSlotDuration(BigDecimal.valueOf(order.getQuantity()).divide(task.getSingleTimeSlotSpeed(), 4, RoundingMode.CEILING));
                     task.setMinutesDuration((int) Math.ceil(24.0 * 60 * order.getQuantity() / task.getSpeed()));
                     task.setManufacturerOrder(order);
                     task.setRequiredResourceId(resourceRequirementList.get(0).getResourceId());
+                    task.setTaskBeginTime(order.getPeriod().getStartTime());
                 }
                 taskList.addAll(list);
             }
@@ -73,19 +74,17 @@ public class DataGenerator {
         Map<String, Map<Integer, List<Task>>> orderIdToLayerNumberToTasks =
                 taskList.parallelStream().filter(task -> task.getLayerNum() != null).collect(Collectors.groupingBy(Task::getOrderId, Collectors.groupingBy(Task::getLayerNum)));
         orderIdToLayerNumberToTasks.forEach(
-                (orderId, map) -> {
-                    map.forEach((layerNumber, tasks) -> {
-                        //看是否需要对tasks按照id进行排序
-                        for (int i = 0; i < tasks.size(); i++) {
-                            if (i != tasks.size() - 1) {
-                                Task current = tasks.get(i);
-                                Task next = tasks.get(i + 1);
-                                current.setNextTask(next);
-                                next.setPreTask(current);
-                            }
+                (orderId, map) -> map.forEach((layerNumber, tasks) -> {
+                    //看是否需要对tasks按照id进行排序
+                    for (int i = 0; i < tasks.size(); i++) {
+                        if (i != tasks.size() - 1) {
+                            Task current = tasks.get(i);
+                            Task next = tasks.get(i + 1);
+                            current.setNextTask(next);
+                            next.setPreTask(current);
                         }
-                    });
-                }
+                    }
+                })
         );
         //对每个unit=1的套型任务的设置
         Map<String, List<Task>> orderIdToTasks =
@@ -110,7 +109,7 @@ public class DataGenerator {
                     Map<Integer, List<Task>> layerNumberToTasks = taskList.parallelStream().
                             filter(task1 -> task1.getLayerNum() != null && task1.getOrderId().equals(orderId) && relatedLayer.contains(task1.getLayerNum()))
                             .collect(Collectors.groupingBy(Task::getLayerNum));
-                    List<List<Task>> taskGroups = layerNumberToTasks.values().stream().collect(Collectors.toList());
+                    List<List<Task>> taskGroups = new ArrayList<>(layerNumberToTasks.values());
                     for (int i = 0; i < taskGroups.size(); i++) {
                         if (i != taskGroups.size() - 1) {
                             List<Task> preTasks = taskGroups.get(i);

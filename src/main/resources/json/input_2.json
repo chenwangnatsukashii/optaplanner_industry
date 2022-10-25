@@ -1722,6 +1722,48 @@
                 "layerNum": 19
               }
             ]
+          },
+          {
+            "id": "step_10",
+            "code": "MO01.Product01-Task11(Process11)",
+            "name": "叠片",
+            "resourceRequirementList": [
+              {
+                "id": "resourceChild_5",
+                "resourceId": "resource_5",
+                "requirement": 1
+              }
+            ],
+            "taskList": [
+              {
+                "id": "task_10_0",
+                "code": "MO01.Product01.Process11-RRG01",
+                "speed": 10,
+                "unit": 1,
+                "relatedLayer": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19
+                ]
+              }
+            ]
           }
         ]
       }
@@ -3280,6 +3322,48 @@
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 19
+              }
+            ]
+          },
+          {
+            "id": "step_10",
+            "code": "MO01.Product01-Task11(Process11)",
+            "name": "叠片",
+            "resourceRequirementList": [
+              {
+                "id": "resourceChild_5",
+                "resourceId": "resource_5",
+                "requirement": 1
+              }
+            ],
+            "taskList": [
+              {
+                "id": "task_10_0",
+                "code": "MO01.Product01.Process11-RRG01",
+                "speed": 10,
+                "unit": 1,
+                "relatedLayer": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19
+                ]
               }
             ]
           }
