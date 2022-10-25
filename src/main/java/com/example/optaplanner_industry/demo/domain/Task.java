@@ -65,11 +65,6 @@ public class Task extends TaskOrResource implements Comparable<Task>, Serializab
     private Integer minutesDuration;
     private ManufacturerOrder manufacturerOrder;
 
-    public String getFullTaskName() {
-        return this.code + " 所在工序组：" + Optional.ofNullable(this.requiredResourceId).orElse("错误：工序组为空")
-                + " 开始时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.startTime).orElse(0)) +
-                " 结束时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.endTime).orElse(0));
-    }
 
     @Override
     public Integer getEndTime(int quantity) {

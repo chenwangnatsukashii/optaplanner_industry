@@ -105,6 +105,7 @@ public class TimeTableApp {
 //            System.out.println(e.getFullTaskName());
             LocalDateTime actualStartTime = e.getActualStartTime();
             LocalDateTime actualEndTime = e.getActualEndTime();
+            System.out.println(actualStartTime + " :" + actualEndTime);
 
             Duration duration = Duration.between(actualStartTime, actualEndTime);
             long totalMinutes = duration.toMinutes();

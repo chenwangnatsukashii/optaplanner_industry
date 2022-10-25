@@ -50,7 +50,6 @@ public class DataGenerator {
             Product product = order.getProduct();
             List<Step> stepList = product.getStepList();
             for (Step step : stepList) {
-                List<ResourceRequirement> resourceRequirementList = step.getResourceRequirementList();
                 List<Task> list = step.getTaskList();
                 for (Task task : list) {
                     task.setId(order.getCode() + '_' + task.getId());
@@ -64,7 +63,9 @@ public class DataGenerator {
                     task.setTimeSlotDuration(BigDecimal.valueOf(order.getQuantity()).divide(task.getSingleTimeSlotSpeed(), 4, RoundingMode.CEILING));
                     task.setMinutesDuration((int) Math.ceil(24.0 * 60 * order.getQuantity() / task.getSpeed()));
                     task.setManufacturerOrder(order);
-                    task.setRequiredResourceId(resourceRequirementList.get(0).getResourceId());
+                    task.setRequiredResourceId(step.getResourceRequirementList().get(0).getResourceId());
+                    task.setManufactureOrderId(order.getId());
+                    task.setQuantity(order.getQuantity());
                     task.setTaskBeginTime(order.getPeriod().getStartTime());
                 }
                 taskList.addAll(list);
