@@ -38,9 +38,9 @@ public class TimeTableApp {
 
     public static void main(String[] args) {
         SolverFactory<TimeTable> solverFactory = SolverFactory.create(new SolverConfig()
-                .withSolutionClass(TimeTable.class)
-                .withEntityClasses(Task.class)
-                .withConstraintProviderClass(TimeTableConstraintProvider.class)
+                .withSolutionClass(TimeTable.class) // 初始化资源和任务列表
+                .withEntityClasses(Task.class) // 初始化任务
+                .withConstraintProviderClass(TimeTableConstraintProvider.class) // 初始化约束
                 // The solver runs only for 5 seconds on this small dataset.
                 // It's recommended to run for at least 5 minutes ("5m") otherwise.
                 .withTerminationSpentLimit(Duration.ofSeconds(5)));
@@ -61,9 +61,9 @@ public class TimeTableApp {
     }
 
     public static TimeTable generateDemoData() {
-        List<ScheduleDate> scheduleDates = DataGenerator.generateScheduleDateList();
-        List<ResourceItem> resourceItemList = DataGenerator.generateResources();
-        List<Task> taskList = DataGenerator.generateTaskList();
+        List<ScheduleDate> scheduleDates = DataGenerator.generateScheduleDateList(); // 暂时没有用到
+        List<ResourceItem> resourceItemList = DataGenerator.generateResources(); // 生成资源列表
+        List<Task> taskList = DataGenerator.generateTaskList(); // 生成任务列表
 
         return new TimeTable(scheduleDates, resourceItemList, taskList);
     }
