@@ -1,18 +1,16 @@
 package com.example.optaplanner_industry.demo.jsonUtils;
 
-import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONException;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.optaplanner_industry.demo.domain.Input;
-import com.example.optaplanner_industry.demo.domain.Output;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Objects;
 
 public class LoadFile {
 
@@ -41,8 +39,6 @@ public class LoadFile {
     }
 
     public static void write(String str, String path) {
-
-
         try (FileWriter writer = new FileWriter(path)) {
             writer.write("");//清空原文件内容
             writer.write(str);
@@ -50,7 +46,6 @@ public class LoadFile {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -97,19 +92,11 @@ public class LoadFile {
         Input jsonObject = null;
         try {
             jsonObject = JSONObject.parseObject(readJson.toString(), Input.class);
-//            System.out.println(jsonObject.getResourcePool());
-//            JSONArray objects = JSONArray.parseArray(jsonObject.getResourcePool());
-//            List<JSONObject> jsonObjects = objects.toJavaList(JSONObject.class);
-//            jsonObjects.forEach(i->System.out.println(i.get("id")));
-
-
-//            LOGGER.info(JSON.toJSONString(jsonObject));
         } catch (JSONException e) {
             LOGGER.error(e.getMessage());
         }
         return jsonObject;
     }
-
 
 }
 
