@@ -43,7 +43,7 @@ public class DataGenerator {
         return resourceItemList;
     }
 
-    public static List<Task> generateTaskList() {
+    public static List<Task> generateTaskLists() {
         List<ManufacturerOrder> manufacturerOrderList = input.getManufacturerOrderList();
         List<Task> taskList = new ArrayList<>();
         for (ManufacturerOrder order : manufacturerOrderList) {
@@ -112,32 +112,27 @@ public class DataGenerator {
                             .collect(Collectors.groupingBy(Task::getLayerNum));
                     List<List<Task>> taskGroups = new ArrayList<>(layerNumberToTasks.values());
                     for (int i = 0; i < taskGroups.size(); i++) {
+                        List<Task> preTasks = taskGroups.get(i);
+                        Task preTask = preTasks.get(preTasks.size() - 1);
                         if (i != taskGroups.size() - 1) {
-                            List<Task> preTasks = taskGroups.get(i);
-                            Task preTask = preTasks.get(preTasks.size() - 1);
                             List<Task> nextTasks = taskGroups.get(i + 1);
                             Task nextTask = nextTasks.get(0);
                             preTask.setNextTask(nextTask);
                             nextTask.setPreTask(preTask);
 
                         } else {
-                            List<Task> preTasks = taskGroups.get(i);
-                            Task preTask = preTasks.get(preTasks.size() - 1);
                             preTask.setNextTask(task);
                             task.setPreTask(preTask);
                         }
                     }
-
-
                 }
-
             }
         }
 
         return taskList;
     }
 
-    public static List<Task> generateTaskListBak() {
+    public static List<Task> generateTaskList() {
         List<ManufacturerOrder> manufacturerOrderList = input.getManufacturerOrderList();
         List<Task> taskList = new ArrayList<>();
         for (ManufacturerOrder order : manufacturerOrderList) {

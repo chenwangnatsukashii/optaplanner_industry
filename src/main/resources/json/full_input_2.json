@@ -106,7 +106,7 @@
       "typeId": "type_5",
       "availableList": [
         {
-          "id": "resourceChild_5",
+          "id": ",resourceChild_5",
           "code": "diepianshebei01",
           "period": {
             "startTime": "2022/01/01 00:00:00",
@@ -1722,6 +1722,128 @@
                 "layerNum": 19
               }
             ]
+          },
+          {
+            "id": "step_10",
+            "code": "MO01.Product01-Task11(Process11)",
+            "name": "叠片",
+            "resourceRequirementList": [
+              {
+                "id": "resourceChild_5",
+                "resourceId": "resource_5",
+                "requirement": 1
+              }
+            ],
+            "taskList": [
+              {
+                "id": "task_10_0",
+                "code": "MO01.Product01.Process11-RRG01",
+                "speed": 10,
+                "unit": 1,
+                "relatedLayer": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19
+                ]
+              }
+            ]
+          },
+          {
+            "id": "step_11",
+            "code": "MO01.Product01-Task12(Process12)",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "resourceChild_8",
+                "resourceId": "resource_8",
+                "requirement": 1
+              }
+            ],
+            "taskList": [
+              {
+                "id": "task_11_0",
+                "code": "MO01.Product01.Process12-RRG01",
+                "speed": 10,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "id": "step_12",
+            "code": "MO01.Product01-Task13(Process13)",
+            "name": "层压",
+            "resourceRequirementList": [
+              {
+                "id": "resourceChild_6",
+                "resourceId": "resource_6",
+                "requirement": 1
+              }
+            ],
+            "taskList": [
+              {
+                "id": "task_12_0",
+                "code": "MO01.Product01.Process13-RRG01",
+                "speed": 10,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "id": "step_13",
+            "code": "MO01.Product01-Task14(Process14)",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "resourceChild_8",
+                "resourceId": "resource_8",
+                "requirement": 1
+              }
+            ],
+            "taskList": [
+              {
+                "id": "task_13_0",
+                "code": "MO01.Product01.Process14-RRG01",
+                "speed": 10,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "id": "step_14",
+            "code": "MO01.Product01-Task15(Process15)",
+            "name": "热切",
+            "resourceRequirementList": [
+              {
+                "id": "resourceChild_7",
+                "resourceId": "resource_7",
+                "requirement": 1
+              }
+            ],
+            "taskList": [
+              {
+                "id": "task_14_0",
+                "code": "MO01.Product01.Process15-RRG01",
+                "speed": 10,
+                "unit": 1
+              }
+            ]
           }
         ]
       }
@@ -1729,23 +1851,23 @@
     {
       "id": "manufactureOrder_1",
       "code": "MO02",
-      "name": "Sk200-20220301生产计划",
-      "quantity": 200,
+      "name": "Sk100-20220301样1生产计划",
+      "quantity": 1,
       "priority": 10,
-      "type": 0,
+      "type": 1,
       "relatedManufactureOrderId": "manufactureOrder_0",
       "period": {
         "startTime": "2022/03/11 08:00:00",
         "endTime": "2022/03/25 08:00:00"
       },
       "product": {
-        "id": "product_1",
-        "code": "MO02.Product01",
-        "name": "Sk200-20220301",
+        "id": "product_0",
+        "code": "MO01.Product01",
+        "name": "Sk100-20220301",
         "stepList": [
           {
-            "id": "step_0",
-            "code": "MO02.Product01-Task01(Process01)",
+            "id": "step_0_y_0",
+            "code": "MO01.Product01-Task01(Process01)_y_0",
             "name": "打孔",
             "resourceRequirementList": [
               {
@@ -1756,141 +1878,141 @@
             ],
             "taskList": [
               {
-                "id": "task_0_0",
-                "code": "MO02.Product01.Process01-RRG01",
+                "id": "task_0_0_y_0",
+                "code": "MO01.Product01.Process01-RRG01_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 0
               },
               {
-                "id": "task_0_1",
-                "code": "MO02.Product01.Process01-RRG02",
+                "id": "task_0_1_y_0",
+                "code": "MO01.Product01.Process01-RRG02_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 1
               },
               {
-                "id": "task_0_2",
-                "code": "MO02.Product01.Process01-RRG03",
+                "id": "task_0_2_y_0",
+                "code": "MO01.Product01.Process01-RRG03_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 2
               },
               {
-                "id": "task_0_3",
-                "code": "MO02.Product01.Process01-RRG04",
+                "id": "task_0_3_y_0",
+                "code": "MO01.Product01.Process01-RRG04_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 3
               },
               {
-                "id": "task_0_4",
-                "code": "MO02.Product01.Process01-RRG05",
+                "id": "task_0_4_y_0",
+                "code": "MO01.Product01.Process01-RRG05_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 4
               },
               {
-                "id": "task_0_5",
-                "code": "MO02.Product01.Process01-RRG06",
+                "id": "task_0_5_y_0",
+                "code": "MO01.Product01.Process01-RRG06_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 5
               },
               {
-                "id": "task_0_6",
-                "code": "MO02.Product01.Process01-RRG07",
+                "id": "task_0_6_y_0",
+                "code": "MO01.Product01.Process01-RRG07_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 6
               },
               {
-                "id": "task_0_7",
-                "code": "MO02.Product01.Process01-RRG08",
+                "id": "task_0_7_y_0",
+                "code": "MO01.Product01.Process01-RRG08_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 7
               },
               {
-                "id": "task_0_8",
-                "code": "MO02.Product01.Process01-RRG09",
+                "id": "task_0_8_y_0",
+                "code": "MO01.Product01.Process01-RRG09_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 8
               },
               {
-                "id": "task_0_9",
-                "code": "MO02.Product01.Process01-RRG10",
+                "id": "task_0_9_y_0",
+                "code": "MO01.Product01.Process01-RRG10_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 9
               },
               {
-                "id": "task_0_10",
-                "code": "MO02.Product01.Process01-RRG11",
+                "id": "task_0_10_y_0",
+                "code": "MO01.Product01.Process01-RRG11_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 10
               },
               {
-                "id": "task_0_11",
-                "code": "MO02.Product01.Process01-RRG12",
+                "id": "task_0_11_y_0",
+                "code": "MO01.Product01.Process01-RRG12_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 11
               },
               {
-                "id": "task_0_12",
-                "code": "MO02.Product01.Process01-RRG13",
+                "id": "task_0_12_y_0",
+                "code": "MO01.Product01.Process01-RRG13_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 12
               },
               {
-                "id": "task_0_13",
-                "code": "MO02.Product01.Process01-RRG14",
+                "id": "task_0_13_y_0",
+                "code": "MO01.Product01.Process01-RRG14_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 13
               },
               {
-                "id": "task_0_14",
-                "code": "MO02.Product01.Process01-RRG15",
+                "id": "task_0_14_y_0",
+                "code": "MO01.Product01.Process01-RRG15_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 14
               },
               {
-                "id": "task_0_15",
-                "code": "MO02.Product01.Process01-RRG16",
+                "id": "task_0_15_y_0",
+                "code": "MO01.Product01.Process01-RRG16_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 15
               },
               {
-                "id": "task_0_16",
-                "code": "MO02.Product01.Process01-RRG17",
+                "id": "task_0_16_y_0",
+                "code": "MO01.Product01.Process01-RRG17_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 16
               },
               {
-                "id": "task_0_17",
-                "code": "MO02.Product01.Process01-RRG18",
+                "id": "task_0_17_y_0",
+                "code": "MO01.Product01.Process01-RRG18_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 17
               },
               {
-                "id": "task_0_18",
-                "code": "MO02.Product01.Process01-RRG19",
+                "id": "task_0_18_y_0",
+                "code": "MO01.Product01.Process01-RRG19_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 18
               },
               {
-                "id": "task_0_19",
-                "code": "MO02.Product01.Process01-RRG20",
+                "id": "task_0_19_y_0",
+                "code": "MO01.Product01.Process01-RRG20_y_0",
                 "speed": 50,
                 "unit": 0,
                 "layerNum": 19
@@ -1898,8 +2020,8 @@
             ]
           },
           {
-            "id": "step_1",
-            "code": "MO02.Product01-Task02(Process02)",
+            "id": "step_1_y_0",
+            "code": "MO01.Product01-Task02(Process02)_y_0",
             "name": "质检",
             "resourceRequirementList": [
               {
@@ -1910,141 +2032,141 @@
             ],
             "taskList": [
               {
-                "id": "task_1_0",
-                "code": "MO02.Product01.Process02-RRG01",
+                "id": "task_1_0_y_0",
+                "code": "MO01.Product01.Process02-RRG01_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 0
               },
               {
-                "id": "task_1_1",
-                "code": "MO02.Product01.Process02-RRG02",
+                "id": "task_1_1_y_0",
+                "code": "MO01.Product01.Process02-RRG02_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 1
               },
               {
-                "id": "task_1_2",
-                "code": "MO02.Product01.Process02-RRG03",
+                "id": "task_1_2_y_0",
+                "code": "MO01.Product01.Process02-RRG03_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 2
               },
               {
-                "id": "task_1_3",
-                "code": "MO02.Product01.Process02-RRG04",
+                "id": "task_1_3_y_0",
+                "code": "MO01.Product01.Process02-RRG04_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 3
               },
               {
-                "id": "task_1_4",
-                "code": "MO02.Product01.Process02-RRG05",
+                "id": "task_1_4_y_0",
+                "code": "MO01.Product01.Process02-RRG05_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 4
               },
               {
-                "id": "task_1_5",
-                "code": "MO02.Product01.Process02-RRG06",
+                "id": "task_1_5_y_0",
+                "code": "MO01.Product01.Process02-RRG06_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 5
               },
               {
-                "id": "task_1_6",
-                "code": "MO02.Product01.Process02-RRG07",
+                "id": "task_1_6_y_0",
+                "code": "MO01.Product01.Process02-RRG07_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 6
               },
               {
-                "id": "task_1_7",
-                "code": "MO02.Product01.Process02-RRG08",
+                "id": "task_1_7_y_0",
+                "code": "MO01.Product01.Process02-RRG08_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 7
               },
               {
-                "id": "task_1_8",
-                "code": "MO02.Product01.Process02-RRG09",
+                "id": "task_1_8_y_0",
+                "code": "MO01.Product01.Process02-RRG09_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 8
               },
               {
-                "id": "task_1_9",
-                "code": "MO02.Product01.Process02-RRG10",
+                "id": "task_1_9_y_0",
+                "code": "MO01.Product01.Process02-RRG10_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 9
               },
               {
-                "id": "task_1_10",
-                "code": "MO02.Product01.Process02-RRG11",
+                "id": "task_1_10_y_0",
+                "code": "MO01.Product01.Process02-RRG11_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 10
               },
               {
-                "id": "task_1_11",
-                "code": "MO02.Product01.Process02-RRG12",
+                "id": "task_1_11_y_0",
+                "code": "MO01.Product01.Process02-RRG12_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 11
               },
               {
-                "id": "task_1_12",
-                "code": "MO02.Product01.Process02-RRG13",
+                "id": "task_1_12_y_0",
+                "code": "MO01.Product01.Process02-RRG13_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 12
               },
               {
-                "id": "task_1_13",
-                "code": "MO02.Product01.Process02-RRG14",
+                "id": "task_1_13_y_0",
+                "code": "MO01.Product01.Process02-RRG14_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 13
               },
               {
-                "id": "task_1_14",
-                "code": "MO02.Product01.Process02-RRG15",
+                "id": "task_1_14_y_0",
+                "code": "MO01.Product01.Process02-RRG15_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 14
               },
               {
-                "id": "task_1_15",
-                "code": "MO02.Product01.Process02-RRG16",
+                "id": "task_1_15_y_0",
+                "code": "MO01.Product01.Process02-RRG16_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 15
               },
               {
-                "id": "task_1_16",
-                "code": "MO02.Product01.Process02-RRG17",
+                "id": "task_1_16_y_0",
+                "code": "MO01.Product01.Process02-RRG17_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 16
               },
               {
-                "id": "task_1_17",
-                "code": "MO02.Product01.Process02-RRG18",
+                "id": "task_1_17_y_0",
+                "code": "MO01.Product01.Process02-RRG18_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 17
               },
               {
-                "id": "task_1_18",
-                "code": "MO02.Product01.Process02-RRG19",
+                "id": "task_1_18_y_0",
+                "code": "MO01.Product01.Process02-RRG19_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 18
               },
               {
-                "id": "task_1_19",
-                "code": "MO02.Product01.Process02-RRG20",
+                "id": "task_1_19_y_0",
+                "code": "MO01.Product01.Process02-RRG20_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 19
@@ -2052,8 +2174,8 @@
             ]
           },
           {
-            "id": "step_2",
-            "code": "MO02.Product01-Task03(Process02)",
+            "id": "step_2_y_0",
+            "code": "MO01.Product01-Task03(Process02)_y_0",
             "name": "填孔",
             "resourceRequirementList": [
               {
@@ -2064,141 +2186,141 @@
             ],
             "taskList": [
               {
-                "id": "task_2_0",
-                "code": "MO02.Product01.Process03-RRG01",
+                "id": "task_2_0_y_0",
+                "code": "MO01.Product01.Process03-RRG01_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 0
               },
               {
-                "id": "task_2_1",
-                "code": "MO02.Product01.Process03-RRG02",
+                "id": "task_2_1_y_0",
+                "code": "MO01.Product01.Process03-RRG02_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 1
               },
               {
-                "id": "task_2_2",
-                "code": "MO02.Product01.Process03-RRG03",
+                "id": "task_2_2_y_0",
+                "code": "MO01.Product01.Process03-RRG03_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 2
               },
               {
-                "id": "task_2_3",
-                "code": "MO02.Product01.Process03-RRG04",
+                "id": "task_2_3_y_0",
+                "code": "MO01.Product01.Process03-RRG04_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 3
               },
               {
-                "id": "task_2_4",
-                "code": "MO02.Product01.Process03-RRG05",
+                "id": "task_2_4_y_0",
+                "code": "MO01.Product01.Process03-RRG05_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 4
               },
               {
-                "id": "task_2_5",
-                "code": "MO02.Product01.Process03-RRG06",
+                "id": "task_2_5_y_0",
+                "code": "MO01.Product01.Process03-RRG06_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 5
               },
               {
-                "id": "task_2_6",
-                "code": "MO02.Product01.Process03-RRG07",
+                "id": "task_2_6_y_0",
+                "code": "MO01.Product01.Process03-RRG07_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 6
               },
               {
-                "id": "task_2_7",
-                "code": "MO02.Product01.Process03-RRG08",
+                "id": "task_2_7_y_0",
+                "code": "MO01.Product01.Process03-RRG08_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 7
               },
               {
-                "id": "task_2_8",
-                "code": "MO02.Product01.Process03-RRG09",
+                "id": "task_2_8_y_0",
+                "code": "MO01.Product01.Process03-RRG09_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 8
               },
               {
-                "id": "task_2_9",
-                "code": "MO02.Product01.Process03-RRG10",
+                "id": "task_2_9_y_0",
+                "code": "MO01.Product01.Process03-RRG10_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 9
               },
               {
-                "id": "task_2_10",
-                "code": "MO02.Product01.Process03-RRG11",
+                "id": "task_2_10_y_0",
+                "code": "MO01.Product01.Process03-RRG11_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 10
               },
               {
-                "id": "task_2_11",
-                "code": "MO02.Product01.Process03-RRG12",
+                "id": "task_2_11_y_0",
+                "code": "MO01.Product01.Process03-RRG12_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 11
               },
               {
-                "id": "task_2_12",
-                "code": "MO02.Product01.Process03-RRG13",
+                "id": "task_2_12_y_0",
+                "code": "MO01.Product01.Process03-RRG13_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 12
               },
               {
-                "id": "task_2_13",
-                "code": "MO02.Product01.Process03-RRG14",
+                "id": "task_2_13_y_0",
+                "code": "MO01.Product01.Process03-RRG14_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 13
               },
               {
-                "id": "task_2_14",
-                "code": "MO02.Product01.Process03-RRG15",
+                "id": "task_2_14_y_0",
+                "code": "MO01.Product01.Process03-RRG15_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 14
               },
               {
-                "id": "task_2_15",
-                "code": "MO02.Product01.Process03-RRG16",
+                "id": "task_2_15_y_0",
+                "code": "MO01.Product01.Process03-RRG16_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 15
               },
               {
-                "id": "task_2_16",
-                "code": "MO02.Product01.Process03-RRG17",
+                "id": "task_2_16_y_0",
+                "code": "MO01.Product01.Process03-RRG17_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 16
               },
               {
-                "id": "task_2_17",
-                "code": "MO02.Product01.Process03-RRG18",
+                "id": "task_2_17_y_0",
+                "code": "MO01.Product01.Process03-RRG18_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 17
               },
               {
-                "id": "task_2_18",
-                "code": "MO02.Product01.Process03-RRG19",
+                "id": "task_2_18_y_0",
+                "code": "MO01.Product01.Process03-RRG19_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 18
               },
               {
-                "id": "task_2_19",
-                "code": "MO02.Product01.Process03-RRG20",
+                "id": "task_2_19_y_0",
+                "code": "MO01.Product01.Process03-RRG20_y_0",
                 "speed": 100,
                 "unit": 0,
                 "layerNum": 19
@@ -2206,8 +2328,8 @@
             ]
           },
           {
-            "id": "step_3",
-            "code": "MO02.Product01-Task04(Process04)",
+            "id": "step_3_y_0",
+            "code": "MO01.Product01-Task04(Process04)_y_0",
             "name": "烘干",
             "resourceRequirementList": [
               {
@@ -2218,141 +2340,141 @@
             ],
             "taskList": [
               {
-                "id": "task_3_0",
-                "code": "MO02.Product01.Process04-RRG01",
+                "id": "task_3_0_y_0",
+                "code": "MO01.Product01.Process04-RRG01_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 0
               },
               {
-                "id": "task_3_1",
-                "code": "MO02.Product01.Process04-RRG02",
+                "id": "task_3_1_y_0",
+                "code": "MO01.Product01.Process04-RRG02_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 1
               },
               {
-                "id": "task_3_2",
-                "code": "MO02.Product01.Process04-RRG03",
+                "id": "task_3_2_y_0",
+                "code": "MO01.Product01.Process04-RRG03_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 2
               },
               {
-                "id": "task_3_3",
-                "code": "MO02.Product01.Process04-RRG04",
+                "id": "task_3_3_y_0",
+                "code": "MO01.Product01.Process04-RRG04_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 3
               },
               {
-                "id": "task_3_4",
-                "code": "MO02.Product01.Process04-RRG05",
+                "id": "task_3_4_y_0",
+                "code": "MO01.Product01.Process04-RRG05_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 4
               },
               {
-                "id": "task_3_5",
-                "code": "MO02.Product01.Process04-RRG06",
+                "id": "task_3_5_y_0",
+                "code": "MO01.Product01.Process04-RRG06_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 5
               },
               {
-                "id": "task_3_6",
-                "code": "MO02.Product01.Process04-RRG07",
+                "id": "task_3_6_y_0",
+                "code": "MO01.Product01.Process04-RRG07_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 6
               },
               {
-                "id": "task_3_7",
-                "code": "MO02.Product01.Process04-RRG08",
+                "id": "task_3_7_y_0",
+                "code": "MO01.Product01.Process04-RRG08_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 7
               },
               {
-                "id": "task_3_8",
-                "code": "MO02.Product01.Process04-RRG09",
+                "id": "task_3_8_y_0",
+                "code": "MO01.Product01.Process04-RRG09_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 8
               },
               {
-                "id": "task_3_9",
-                "code": "MO02.Product01.Process04-RRG10",
+                "id": "task_3_9_y_0",
+                "code": "MO01.Product01.Process04-RRG10_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 9
               },
               {
-                "id": "task_3_10",
-                "code": "MO02.Product01.Process04-RRG11",
+                "id": "task_3_10_y_0",
+                "code": "MO01.Product01.Process04-RRG11_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 10
               },
               {
-                "id": "task_3_11",
-                "code": "MO02.Product01.Process04-RRG12",
+                "id": "task_3_11_y_0",
+                "code": "MO01.Product01.Process04-RRG12_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 11
               },
               {
-                "id": "task_3_12",
-                "code": "MO02.Product01.Process04-RRG13",
+                "id": "task_3_12_y_0",
+                "code": "MO01.Product01.Process04-RRG13_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 12
               },
               {
-                "id": "task_3_13",
-                "code": "MO02.Product01.Process04-RRG14",
+                "id": "task_3_13_y_0",
+                "code": "MO01.Product01.Process04-RRG14_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 13
               },
               {
-                "id": "task_3_14",
-                "code": "MO02.Product01.Process04-RRG15",
+                "id": "task_3_14_y_0",
+                "code": "MO01.Product01.Process04-RRG15_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 14
               },
               {
-                "id": "task_3_15",
-                "code": "MO02.Product01.Process04-RRG16",
+                "id": "task_3_15_y_0",
+                "code": "MO01.Product01.Process04-RRG16_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 15
               },
               {
-                "id": "task_3_16",
-                "code": "MO02.Product01.Process04-RRG17",
+                "id": "task_3_16_y_0",
+                "code": "MO01.Product01.Process04-RRG17_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 16
               },
               {
-                "id": "task_3_17",
-                "code": "MO02.Product01.Process04-RRG18",
+                "id": "task_3_17_y_0",
+                "code": "MO01.Product01.Process04-RRG18_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 17
               },
               {
-                "id": "task_3_18",
-                "code": "MO02.Product01.Process04-RRG19",
+                "id": "task_3_18_y_0",
+                "code": "MO01.Product01.Process04-RRG19_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 18
               },
               {
-                "id": "task_3_19",
-                "code": "MO02.Product01.Process04-RRG20",
+                "id": "task_3_19_y_0",
+                "code": "MO01.Product01.Process04-RRG20_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 19
@@ -2360,8 +2482,8 @@
             ]
           },
           {
-            "id": "step_4",
-            "code": "MO02.Product01-Task05(Process05)",
+            "id": "step_4_y_0",
+            "code": "MO01.Product01-Task05(Process05)_y_0",
             "name": "质检",
             "resourceRequirementList": [
               {
@@ -2372,141 +2494,141 @@
             ],
             "taskList": [
               {
-                "id": "task_4_0",
-                "code": "MO02.Product01.Process05-RRG01",
+                "id": "task_4_0_y_0",
+                "code": "MO01.Product01.Process05-RRG01_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 0
               },
               {
-                "id": "task_4_1",
-                "code": "MO02.Product01.Process05-RRG02",
+                "id": "task_4_1_y_0",
+                "code": "MO01.Product01.Process05-RRG02_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 1
               },
               {
-                "id": "task_4_2",
-                "code": "MO02.Product01.Process05-RRG03",
+                "id": "task_4_2_y_0",
+                "code": "MO01.Product01.Process05-RRG03_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 2
               },
               {
-                "id": "task_4_3",
-                "code": "MO02.Product01.Process05-RRG04",
+                "id": "task_4_3_y_0",
+                "code": "MO01.Product01.Process05-RRG04_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 3
               },
               {
-                "id": "task_4_4",
-                "code": "MO02.Product01.Process05-RRG05",
+                "id": "task_4_4_y_0",
+                "code": "MO01.Product01.Process05-RRG05_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 4
               },
               {
-                "id": "task_4_5",
-                "code": "MO02.Product01.Process05-RRG06",
+                "id": "task_4_5_y_0",
+                "code": "MO01.Product01.Process05-RRG06_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 5
               },
               {
-                "id": "task_4_6",
-                "code": "MO02.Product01.Process05-RRG07",
+                "id": "task_4_6_y_0",
+                "code": "MO01.Product01.Process05-RRG07_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 6
               },
               {
-                "id": "task_4_7",
-                "code": "MO02.Product01.Process05-RRG08",
+                "id": "task_4_7_y_0",
+                "code": "MO01.Product01.Process05-RRG08_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 7
               },
               {
-                "id": "task_4_8",
-                "code": "MO02.Product01.Process05-RRG09",
+                "id": "task_4_8_y_0",
+                "code": "MO01.Product01.Process05-RRG09_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 8
               },
               {
-                "id": "task_4_9",
-                "code": "MO02.Product01.Process05-RRG10",
+                "id": "task_4_9_y_0",
+                "code": "MO01.Product01.Process05-RRG10_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 9
               },
               {
-                "id": "task_4_10",
-                "code": "MO02.Product01.Process05-RRG11",
+                "id": "task_4_10_y_0",
+                "code": "MO01.Product01.Process05-RRG11_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 10
               },
               {
-                "id": "task_4_11",
-                "code": "MO02.Product01.Process05-RRG12",
+                "id": "task_4_11_y_0",
+                "code": "MO01.Product01.Process05-RRG12_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 11
               },
               {
-                "id": "task_4_12",
-                "code": "MO02.Product01.Process05-RRG13",
+                "id": "task_4_12_y_0",
+                "code": "MO01.Product01.Process05-RRG13_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 12
               },
               {
-                "id": "task_4_13",
-                "code": "MO02.Product01.Process05-RRG14",
+                "id": "task_4_13_y_0",
+                "code": "MO01.Product01.Process05-RRG14_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 13
               },
               {
-                "id": "task_4_14",
-                "code": "MO02.Product01.Process05-RRG15",
+                "id": "task_4_14_y_0",
+                "code": "MO01.Product01.Process05-RRG15_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 14
               },
               {
-                "id": "task_4_15",
-                "code": "MO02.Product01.Process05-RRG16",
+                "id": "task_4_15_y_0",
+                "code": "MO01.Product01.Process05-RRG16_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 15
               },
               {
-                "id": "task_4_16",
-                "code": "MO02.Product01.Process05-RRG17",
+                "id": "task_4_16_y_0",
+                "code": "MO01.Product01.Process05-RRG17_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 16
               },
               {
-                "id": "task_4_17",
-                "code": "MO02.Product01.Process05-RRG18",
+                "id": "task_4_17_y_0",
+                "code": "MO01.Product01.Process05-RRG18_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 17
               },
               {
-                "id": "task_4_18",
-                "code": "MO02.Product01.Process05-RRG19",
+                "id": "task_4_18_y_0",
+                "code": "MO01.Product01.Process05-RRG19_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 18
               },
               {
-                "id": "task_4_19",
-                "code": "MO02.Product01.Process05-RRG20",
+                "id": "task_4_19_y_0",
+                "code": "MO01.Product01.Process05-RRG20_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 19
@@ -2514,8 +2636,8 @@
             ]
           },
           {
-            "id": "step_5",
-            "code": "MO02.Product01-Task06(Process06)",
+            "id": "step_5_y_0",
+            "code": "MO01.Product01-Task06(Process06)_y_0",
             "name": "压平",
             "resourceRequirementList": [
               {
@@ -2526,141 +2648,141 @@
             ],
             "taskList": [
               {
-                "id": "task_5_0",
-                "code": "MO02.Product01.Process06-RRG01",
+                "id": "task_5_0_y_0",
+                "code": "MO01.Product01.Process06-RRG01_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 0
               },
               {
-                "id": "task_5_1",
-                "code": "MO02.Product01.Process06-RRG02",
+                "id": "task_5_1_y_0",
+                "code": "MO01.Product01.Process06-RRG02_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 1
               },
               {
-                "id": "task_5_2",
-                "code": "MO02.Product01.Process06-RRG03",
+                "id": "task_5_2_y_0",
+                "code": "MO01.Product01.Process06-RRG03_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 2
               },
               {
-                "id": "task_5_3",
-                "code": "MO02.Product01.Process06-RRG04",
+                "id": "task_5_3_y_0",
+                "code": "MO01.Product01.Process06-RRG04_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 3
               },
               {
-                "id": "task_5_4",
-                "code": "MO02.Product01.Process06-RRG05",
+                "id": "task_5_4_y_0",
+                "code": "MO01.Product01.Process06-RRG05_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 4
               },
               {
-                "id": "task_5_5",
-                "code": "MO02.Product01.Process06-RRG06",
+                "id": "task_5_5_y_0",
+                "code": "MO01.Product01.Process06-RRG06_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 5
               },
               {
-                "id": "task_5_6",
-                "code": "MO02.Product01.Process06-RRG07",
+                "id": "task_5_6_y_0",
+                "code": "MO01.Product01.Process06-RRG07_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 6
               },
               {
-                "id": "task_5_7",
-                "code": "MO02.Product01.Process06-RRG08",
+                "id": "task_5_7_y_0",
+                "code": "MO01.Product01.Process06-RRG08_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 7
               },
               {
-                "id": "task_5_8",
-                "code": "MO02.Product01.Process06-RRG09",
+                "id": "task_5_8_y_0",
+                "code": "MO01.Product01.Process06-RRG09_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 8
               },
               {
-                "id": "task_5_9",
-                "code": "MO02.Product01.Process06-RRG10",
+                "id": "task_5_9_y_0",
+                "code": "MO01.Product01.Process06-RRG10_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 9
               },
               {
-                "id": "task_5_10",
-                "code": "MO02.Product01.Process06-RRG11",
+                "id": "task_5_10_y_0",
+                "code": "MO01.Product01.Process06-RRG11_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 10
               },
               {
-                "id": "task_5_11",
-                "code": "MO02.Product01.Process06-RRG12",
+                "id": "task_5_11_y_0",
+                "code": "MO01.Product01.Process06-RRG12_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 11
               },
               {
-                "id": "task_5_12",
-                "code": "MO02.Product01.Process06-RRG13",
+                "id": "task_5_12_y_0",
+                "code": "MO01.Product01.Process06-RRG13_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 12
               },
               {
-                "id": "task_5_13",
-                "code": "MO02.Product01.Process06-RRG14",
+                "id": "task_5_13_y_0",
+                "code": "MO01.Product01.Process06-RRG14_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 13
               },
               {
-                "id": "task_5_14",
-                "code": "MO02.Product01.Process06-RRG15",
+                "id": "task_5_14_y_0",
+                "code": "MO01.Product01.Process06-RRG15_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 14
               },
               {
-                "id": "task_5_15",
-                "code": "MO02.Product01.Process06-RRG16",
+                "id": "task_5_15_y_0",
+                "code": "MO01.Product01.Process06-RRG16_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 15
               },
               {
-                "id": "task_5_16",
-                "code": "MO02.Product01.Process06-RRG17",
+                "id": "task_5_16_y_0",
+                "code": "MO01.Product01.Process06-RRG17_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 16
               },
               {
-                "id": "task_5_17",
-                "code": "MO02.Product01.Process06-RRG18",
+                "id": "task_5_17_y_0",
+                "code": "MO01.Product01.Process06-RRG18_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 17
               },
               {
-                "id": "task_5_18",
-                "code": "MO02.Product01.Process06-RRG19",
+                "id": "task_5_18_y_0",
+                "code": "MO01.Product01.Process06-RRG19_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 18
               },
               {
-                "id": "task_5_19",
-                "code": "MO02.Product01.Process06-RRG20",
+                "id": "task_5_19_y_0",
+                "code": "MO01.Product01.Process06-RRG20_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 19
@@ -2668,8 +2790,8 @@
             ]
           },
           {
-            "id": "step_6",
-            "code": "MO02.Product01-Task07(Process07)",
+            "id": "step_6_y_0",
+            "code": "MO01.Product01-Task07(Process07)_y_0",
             "name": "质检",
             "resourceRequirementList": [
               {
@@ -2680,141 +2802,141 @@
             ],
             "taskList": [
               {
-                "id": "task_6_0",
-                "code": "MO02.Product01.Process07-RRG01",
+                "id": "task_6_0_y_0",
+                "code": "MO01.Product01.Process07-RRG01_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 0
               },
               {
-                "id": "task_6_1",
-                "code": "MO02.Product01.Process07-RRG02",
+                "id": "task_6_1_y_0",
+                "code": "MO01.Product01.Process07-RRG02_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 1
               },
               {
-                "id": "task_6_2",
-                "code": "MO02.Product01.Process07-RRG03",
+                "id": "task_6_2_y_0",
+                "code": "MO01.Product01.Process07-RRG03_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 2
               },
               {
-                "id": "task_6_3",
-                "code": "MO02.Product01.Process07-RRG04",
+                "id": "task_6_3_y_0",
+                "code": "MO01.Product01.Process07-RRG04_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 3
               },
               {
-                "id": "task_6_4",
-                "code": "MO02.Product01.Process07-RRG05",
+                "id": "task_6_4_y_0",
+                "code": "MO01.Product01.Process07-RRG05_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 4
               },
               {
-                "id": "task_6_5",
-                "code": "MO02.Product01.Process07-RRG06",
+                "id": "task_6_5_y_0",
+                "code": "MO01.Product01.Process07-RRG06_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 5
               },
               {
-                "id": "task_6_6",
-                "code": "MO02.Product01.Process07-RRG07",
+                "id": "task_6_6_y_0",
+                "code": "MO01.Product01.Process07-RRG07_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 6
               },
               {
-                "id": "task_6_7",
-                "code": "MO02.Product01.Process07-RRG08",
+                "id": "task_6_7_y_0",
+                "code": "MO01.Product01.Process07-RRG08_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 7
               },
               {
-                "id": "task_6_8",
-                "code": "MO02.Product01.Process07-RRG09",
+                "id": "task_6_8_y_0",
+                "code": "MO01.Product01.Process07-RRG09_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 8
               },
               {
-                "id": "task_6_9",
-                "code": "MO02.Product01.Process07-RRG10",
+                "id": "task_6_9_y_0",
+                "code": "MO01.Product01.Process07-RRG10_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 9
               },
               {
-                "id": "task_6_10",
-                "code": "MO02.Product01.Process07-RRG11",
+                "id": "task_6_10_y_0",
+                "code": "MO01.Product01.Process07-RRG11_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 10
               },
               {
-                "id": "task_6_11",
-                "code": "MO02.Product01.Process07-RRG12",
+                "id": "task_6_11_y_0",
+                "code": "MO01.Product01.Process07-RRG12_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 11
               },
               {
-                "id": "task_6_12",
-                "code": "MO02.Product01.Process07-RRG13",
+                "id": "task_6_12_y_0",
+                "code": "MO01.Product01.Process07-RRG13_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 12
               },
               {
-                "id": "task_6_13",
-                "code": "MO02.Product01.Process07-RRG14",
+                "id": "task_6_13_y_0",
+                "code": "MO01.Product01.Process07-RRG14_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 13
               },
               {
-                "id": "task_6_14",
-                "code": "MO02.Product01.Process07-RRG15",
+                "id": "task_6_14_y_0",
+                "code": "MO01.Product01.Process07-RRG15_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 14
               },
               {
-                "id": "task_6_15",
-                "code": "MO02.Product01.Process07-RRG16",
+                "id": "task_6_15_y_0",
+                "code": "MO01.Product01.Process07-RRG16_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 15
               },
               {
-                "id": "task_6_16",
-                "code": "MO02.Product01.Process07-RRG17",
+                "id": "task_6_16_y_0",
+                "code": "MO01.Product01.Process07-RRG17_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 16
               },
               {
-                "id": "task_6_17",
-                "code": "MO02.Product01.Process07-RRG18",
+                "id": "task_6_17_y_0",
+                "code": "MO01.Product01.Process07-RRG18_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 17
               },
               {
-                "id": "task_6_18",
-                "code": "MO02.Product01.Process07-RRG19",
+                "id": "task_6_18_y_0",
+                "code": "MO01.Product01.Process07-RRG19_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 18
               },
               {
-                "id": "task_6_19",
-                "code": "MO02.Product01.Process07-RRG20",
+                "id": "task_6_19_y_0",
+                "code": "MO01.Product01.Process07-RRG20_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 19
@@ -2822,8 +2944,8 @@
             ]
           },
           {
-            "id": "step_7",
-            "code": "MO02.Product01-Task08(Process08)",
+            "id": "step_7_y_0",
+            "code": "MO01.Product01-Task08(Process08)_y_0",
             "name": "印刷",
             "resourceRequirementList": [
               {
@@ -2834,141 +2956,141 @@
             ],
             "taskList": [
               {
-                "id": "task_7_0",
-                "code": "MO02.Product01.Process08-RRG01",
+                "id": "task_7_0_y_0",
+                "code": "MO01.Product01.Process08-RRG01_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 0
               },
               {
-                "id": "task_7_1",
-                "code": "MO02.Product01.Process08-RRG02",
+                "id": "task_7_1_y_0",
+                "code": "MO01.Product01.Process08-RRG02_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 1
               },
               {
-                "id": "task_7_2",
-                "code": "MO02.Product01.Process08-RRG03",
+                "id": "task_7_2_y_0",
+                "code": "MO01.Product01.Process08-RRG03_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 2
               },
               {
-                "id": "task_7_3",
-                "code": "MO02.Product01.Process08-RRG04",
+                "id": "task_7_3_y_0",
+                "code": "MO01.Product01.Process08-RRG04_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 3
               },
               {
-                "id": "task_7_4",
-                "code": "MO02.Product01.Process08-RRG05",
+                "id": "task_7_4_y_0",
+                "code": "MO01.Product01.Process08-RRG05_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 4
               },
               {
-                "id": "task_7_5",
-                "code": "MO02.Product01.Process08-RRG06",
+                "id": "task_7_5_y_0",
+                "code": "MO01.Product01.Process08-RRG06_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 5
               },
               {
-                "id": "task_7_6",
-                "code": "MO02.Product01.Process08-RRG07",
+                "id": "task_7_6_y_0",
+                "code": "MO01.Product01.Process08-RRG07_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 6
               },
               {
-                "id": "task_7_7",
-                "code": "MO02.Product01.Process08-RRG08",
+                "id": "task_7_7_y_0",
+                "code": "MO01.Product01.Process08-RRG08_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 7
               },
               {
-                "id": "task_7_8",
-                "code": "MO02.Product01.Process08-RRG09",
+                "id": "task_7_8_y_0",
+                "code": "MO01.Product01.Process08-RRG09_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 8
               },
               {
-                "id": "task_7_9",
-                "code": "MO02.Product01.Process08-RRG10",
+                "id": "task_7_9_y_0",
+                "code": "MO01.Product01.Process08-RRG10_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 9
               },
               {
-                "id": "task_7_10",
-                "code": "MO02.Product01.Process08-RRG11",
+                "id": "task_7_10_y_0",
+                "code": "MO01.Product01.Process08-RRG11_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 10
               },
               {
-                "id": "task_7_11",
-                "code": "MO02.Product01.Process08-RRG12",
+                "id": "task_7_11_y_0",
+                "code": "MO01.Product01.Process08-RRG12_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 11
               },
               {
-                "id": "task_7_12",
-                "code": "MO02.Product01.Process08-RRG13",
+                "id": "task_7_12_y_0",
+                "code": "MO01.Product01.Process08-RRG13_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 12
               },
               {
-                "id": "task_7_13",
-                "code": "MO02.Product01.Process08-RRG14",
+                "id": "task_7_13_y_0",
+                "code": "MO01.Product01.Process08-RRG14_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 13
               },
               {
-                "id": "task_7_14",
-                "code": "MO02.Product01.Process08-RRG15",
+                "id": "task_7_14_y_0",
+                "code": "MO01.Product01.Process08-RRG15_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 14
               },
               {
-                "id": "task_7_15",
-                "code": "MO02.Product01.Process08-RRG16",
+                "id": "task_7_15_y_0",
+                "code": "MO01.Product01.Process08-RRG16_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 15
               },
               {
-                "id": "task_7_16",
-                "code": "MO02.Product01.Process08-RRG17",
+                "id": "task_7_16_y_0",
+                "code": "MO01.Product01.Process08-RRG17_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 16
               },
               {
-                "id": "task_7_17",
-                "code": "MO02.Product01.Process08-RRG18",
+                "id": "task_7_17_y_0",
+                "code": "MO01.Product01.Process08-RRG18_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 17
               },
               {
-                "id": "task_7_18",
-                "code": "MO02.Product01.Process08-RRG19",
+                "id": "task_7_18_y_0",
+                "code": "MO01.Product01.Process08-RRG19_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 18
               },
               {
-                "id": "task_7_19",
-                "code": "MO02.Product01.Process08-RRG20",
+                "id": "task_7_19_y_0",
+                "code": "MO01.Product01.Process08-RRG20_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 19
@@ -2976,8 +3098,8 @@
             ]
           },
           {
-            "id": "step_8",
-            "code": "MO02.Product01-Task09(Process09)",
+            "id": "step_8_y_0",
+            "code": "MO01.Product01-Task09(Process09)_y_0",
             "name": "烘干",
             "resourceRequirementList": [
               {
@@ -2988,141 +3110,141 @@
             ],
             "taskList": [
               {
-                "id": "task_8_0",
-                "code": "MO02.Product01.Process09-RRG01",
+                "id": "task_8_0_y_0",
+                "code": "MO01.Product01.Process09-RRG01_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 0
               },
               {
-                "id": "task_8_1",
-                "code": "MO02.Product01.Process09-RRG02",
+                "id": "task_8_1_y_0",
+                "code": "MO01.Product01.Process09-RRG02_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 1
               },
               {
-                "id": "task_8_2",
-                "code": "MO02.Product01.Process09-RRG03",
+                "id": "task_8_2_y_0",
+                "code": "MO01.Product01.Process09-RRG03_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 2
               },
               {
-                "id": "task_8_3",
-                "code": "MO02.Product01.Process09-RRG04",
+                "id": "task_8_3_y_0",
+                "code": "MO01.Product01.Process09-RRG04_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 3
               },
               {
-                "id": "task_8_4",
-                "code": "MO02.Product01.Process09-RRG05",
+                "id": "task_8_4_y_0",
+                "code": "MO01.Product01.Process09-RRG05_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 4
               },
               {
-                "id": "task_8_5",
-                "code": "MO02.Product01.Process09-RRG06",
+                "id": "task_8_5_y_0",
+                "code": "MO01.Product01.Process09-RRG06_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 5
               },
               {
-                "id": "task_8_6",
-                "code": "MO02.Product01.Process09-RRG07",
+                "id": "task_8_6_y_0",
+                "code": "MO01.Product01.Process09-RRG07_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 6
               },
               {
-                "id": "task_8_7",
-                "code": "MO02.Product01.Process09-RRG08",
+                "id": "task_8_7_y_0",
+                "code": "MO01.Product01.Process09-RRG08_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 7
               },
               {
-                "id": "task_8_8",
-                "code": "MO02.Product01.Process09-RRG09",
+                "id": "task_8_8_y_0",
+                "code": "MO01.Product01.Process09-RRG09_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 8
               },
               {
-                "id": "task_8_9",
-                "code": "MO02.Product01.Process09-RRG10",
+                "id": "task_8_9_y_0",
+                "code": "MO01.Product01.Process09-RRG10_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 9
               },
               {
-                "id": "task_8_10",
-                "code": "MO02.Product01.Process09-RRG11",
+                "id": "task_8_10_y_0",
+                "code": "MO01.Product01.Process09-RRG11_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 10
               },
               {
-                "id": "task_8_11",
-                "code": "MO02.Product01.Process09-RRG12",
+                "id": "task_8_11_y_0",
+                "code": "MO01.Product01.Process09-RRG12_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 11
               },
               {
-                "id": "task_8_12",
-                "code": "MO02.Product01.Process09-RRG13",
+                "id": "task_8_12_y_0",
+                "code": "MO01.Product01.Process09-RRG13_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 12
               },
               {
-                "id": "task_8_13",
-                "code": "MO02.Product01.Process09-RRG14",
+                "id": "task_8_13_y_0",
+                "code": "MO01.Product01.Process09-RRG14_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 13
               },
               {
-                "id": "task_8_14",
-                "code": "MO02.Product01.Process09-RRG15",
+                "id": "task_8_14_y_0",
+                "code": "MO01.Product01.Process09-RRG15_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 14
               },
               {
-                "id": "task_8_15",
-                "code": "MO02.Product01.Process09-RRG16",
+                "id": "task_8_15_y_0",
+                "code": "MO01.Product01.Process09-RRG16_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 15
               },
               {
-                "id": "task_8_16",
-                "code": "MO02.Product01.Process09-RRG17",
+                "id": "task_8_16_y_0",
+                "code": "MO01.Product01.Process09-RRG17_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 16
               },
               {
-                "id": "task_8_17",
-                "code": "MO02.Product01.Process09-RRG18",
+                "id": "task_8_17_y_0",
+                "code": "MO01.Product01.Process09-RRG18_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 17
               },
               {
-                "id": "task_8_18",
-                "code": "MO02.Product01.Process09-RRG19",
+                "id": "task_8_18_y_0",
+                "code": "MO01.Product01.Process09-RRG19_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 18
               },
               {
-                "id": "task_8_19",
-                "code": "MO02.Product01.Process09-RRG20",
+                "id": "task_8_19_y_0",
+                "code": "MO01.Product01.Process09-RRG20_y_0",
                 "speed": 150,
                 "unit": 0,
                 "layerNum": 19
@@ -3130,8 +3252,8 @@
             ]
           },
           {
-            "id": "step_9",
-            "code": "MO02.Product01-Task10(Process10)",
+            "id": "step_9_y_0",
+            "code": "MO01.Product01-Task10(Process10)_y_0",
             "name": "质检",
             "resourceRequirementList": [
               {
@@ -3142,144 +3264,266 @@
             ],
             "taskList": [
               {
-                "id": "task_9_0",
-                "code": "MO02.Product01.Process10-RRG01",
+                "id": "task_9_0_y_0",
+                "code": "MO01.Product01.Process10-RRG01_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 0
               },
               {
-                "id": "task_9_1",
-                "code": "MO02.Product01.Process10-RRG02",
+                "id": "task_9_1_y_0",
+                "code": "MO01.Product01.Process10-RRG02_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 1
               },
               {
-                "id": "task_9_2",
-                "code": "MO02.Product01.Process10-RRG03",
+                "id": "task_9_2_y_0",
+                "code": "MO01.Product01.Process10-RRG03_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 2
               },
               {
-                "id": "task_9_3",
-                "code": "MO02.Product01.Process10-RRG04",
+                "id": "task_9_3_y_0",
+                "code": "MO01.Product01.Process10-RRG04_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 3
               },
               {
-                "id": "task_9_4",
-                "code": "MO02.Product01.Process10-RRG05",
+                "id": "task_9_4_y_0",
+                "code": "MO01.Product01.Process10-RRG05_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 4
               },
               {
-                "id": "task_9_5",
-                "code": "MO02.Product01.Process10-RRG06",
+                "id": "task_9_5_y_0",
+                "code": "MO01.Product01.Process10-RRG06_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 5
               },
               {
-                "id": "task_9_6",
-                "code": "MO02.Product01.Process10-RRG07",
+                "id": "task_9_6_y_0",
+                "code": "MO01.Product01.Process10-RRG07_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 6
               },
               {
-                "id": "task_9_7",
-                "code": "MO02.Product01.Process10-RRG08",
+                "id": "task_9_7_y_0",
+                "code": "MO01.Product01.Process10-RRG08_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 7
               },
               {
-                "id": "task_9_8",
-                "code": "MO02.Product01.Process10-RRG09",
+                "id": "task_9_8_y_0",
+                "code": "MO01.Product01.Process10-RRG09_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 8
               },
               {
-                "id": "task_9_9",
-                "code": "MO02.Product01.Process10-RRG10",
+                "id": "task_9_9_y_0",
+                "code": "MO01.Product01.Process10-RRG10_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 9
               },
               {
-                "id": "task_9_10",
-                "code": "MO02.Product01.Process10-RRG11",
+                "id": "task_9_10_y_0",
+                "code": "MO01.Product01.Process10-RRG11_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 10
               },
               {
-                "id": "task_9_11",
-                "code": "MO02.Product01.Process10-RRG12",
+                "id": "task_9_11_y_0",
+                "code": "MO01.Product01.Process10-RRG12_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 11
               },
               {
-                "id": "task_9_12",
-                "code": "MO02.Product01.Process10-RRG13",
+                "id": "task_9_12_y_0",
+                "code": "MO01.Product01.Process10-RRG13_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 12
               },
               {
-                "id": "task_9_13",
-                "code": "MO02.Product01.Process10-RRG14",
+                "id": "task_9_13_y_0",
+                "code": "MO01.Product01.Process10-RRG14_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 13
               },
               {
-                "id": "task_9_14",
-                "code": "MO02.Product01.Process10-RRG15",
+                "id": "task_9_14_y_0",
+                "code": "MO01.Product01.Process10-RRG15_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 14
               },
               {
-                "id": "task_9_15",
-                "code": "MO02.Product01.Process10-RRG16",
+                "id": "task_9_15_y_0",
+                "code": "MO01.Product01.Process10-RRG16_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 15
               },
               {
-                "id": "task_9_16",
-                "code": "MO02.Product01.Process10-RRG17",
+                "id": "task_9_16_y_0",
+                "code": "MO01.Product01.Process10-RRG17_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 16
               },
               {
-                "id": "task_9_17",
-                "code": "MO02.Product01.Process10-RRG18",
+                "id": "task_9_17_y_0",
+                "code": "MO01.Product01.Process10-RRG18_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 17
               },
               {
-                "id": "task_9_18",
-                "code": "MO02.Product01.Process10-RRG19",
+                "id": "task_9_18_y_0",
+                "code": "MO01.Product01.Process10-RRG19_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 18
               },
               {
-                "id": "task_9_19",
-                "code": "MO02.Product01.Process10-RRG20",
+                "id": "task_9_19_y_0",
+                "code": "MO01.Product01.Process10-RRG20_y_0",
                 "speed": 500,
                 "unit": 0,
                 "layerNum": 19
+              }
+            ]
+          },
+          {
+            "id": "step_10_y_0",
+            "code": "MO01.Product01-Task11(Process11)_y_0",
+            "name": "叠片",
+            "resourceRequirementList": [
+              {
+                "id": "resourceChild_5",
+                "resourceId": "resource_5",
+                "requirement": 1
+              }
+            ],
+            "taskList": [
+              {
+                "id": "task_10_0_y_0",
+                "code": "MO01.Product01.Process11-RRG01_y_0",
+                "speed": 10,
+                "unit": 1,
+                "relatedLayer": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19
+                ]
+              }
+            ]
+          },
+          {
+            "id": "step_11_y_0",
+            "code": "MO01.Product01-Task12(Process12)_y_0",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "resourceChild_8",
+                "resourceId": "resource_8",
+                "requirement": 1
+              }
+            ],
+            "taskList": [
+              {
+                "id": "task_11_0_y_0",
+                "code": "MO01.Product01.Process12-RRG01_y_0",
+                "speed": 10,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "id": "step_12_y_0",
+            "code": "MO01.Product01-Task13(Process13)_y_0",
+            "name": "层压",
+            "resourceRequirementList": [
+              {
+                "id": "resourceChild_6",
+                "resourceId": "resource_6",
+                "requirement": 1
+              }
+            ],
+            "taskList": [
+              {
+                "id": "task_12_0_y_0",
+                "code": "MO01.Product01.Process13-RRG01_y_0",
+                "speed": 10,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "id": "step_13_y_0",
+            "code": "MO01.Product01-Task14(Process14)_y_0",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "resourceChild_8",
+                "resourceId": "resource_8",
+                "requirement": 1
+              }
+            ],
+            "taskList": [
+              {
+                "id": "task_13_0_y_0",
+                "code": "MO01.Product01.Process14-RRG01_y_0",
+                "speed": 10,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "id": "step_14_y_0",
+            "code": "MO01.Product01-Task15(Process15)_y_0",
+            "name": "热切",
+            "resourceRequirementList": [
+              {
+                "id": "resourceChild_7",
+                "resourceId": "resource_7",
+                "requirement": 1
+              }
+            ],
+            "taskList": [
+              {
+                "id": "task_14_0_y_0",
+                "code": "MO01.Product01.Process15-RRG01_y_0",
+                "speed": 10,
+                "unit": 1
               }
             ]
           }
