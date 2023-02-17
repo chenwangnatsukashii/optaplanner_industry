@@ -1,8 +1,6 @@
 package com.example.optaplanner_industry.demo;
 
 
-import com.alibaba.fastjson2.JSONArray;
-import com.alibaba.fastjson2.JSONObject;
 import com.example.optaplanner_industry.demo.bootstrap.DataGenerator;
 import com.example.optaplanner_industry.demo.domain.*;
 import com.example.optaplanner_industry.demo.solver.TimeTableConstraintProvider;
@@ -30,11 +28,12 @@ public class TimeTableApp {
     private static final int SCHEDULE_TWO = 1;
     private static final int SCHEDULE_THREE = 2;
 
-
     private static int tempTotal = 0;
     private static OutputTask tempTask;
 
     private static int index;
+
+    private static List<OutputTask> outputTaskList = new ArrayList<>();
 
     public static void main(String[] args) {
         SolverFactory<TimeTable> solverFactory = SolverFactory.create(new SolverConfig()
@@ -71,12 +70,6 @@ public class TimeTableApp {
     private static void printTimetable(TimeTable timeTable) {
         List<Task> taskList = timeTable.getTaskList();
 
-        Output out = new Output();
-        out.setCode(200);
-        out.setMessage("成功");
-        out.setStatus(0);
-        out.setRequestId(UUID.randomUUID().toString());
-
         List<OutputManufacturerOrder> manufacturerOrderList = new ArrayList<>();
         DataGenerator.getInput().getManufacturerOrderList().forEach(e -> {
 
@@ -98,15 +91,18 @@ public class TimeTableApp {
             manufacturerOrderList.add(outputManufacturerOrder);
         });
 
+        Output out = new Output();
+        out.setCode(200);
+        out.setMessage("成功");
+        out.setStatus(0);
+        out.setRequestId(UUID.randomUUID().toString());
         out.setManufacturerOrderList(manufacturerOrderList);
 
-
         taskList.forEach(e -> {
-//            System.out.println(e.getFullTaskName());
             LocalDateTime actualStartTime = e.getActualStartTime();
             LocalDateTime actualEndTime = e.getActualEndTime();
-            System.out.println(actualStartTime + " :" + actualEndTime);
 
+            // 如果一个生产可能跨班次，那就拆分成相邻的2个班次排程
             Duration duration = Duration.between(actualStartTime, actualEndTime);
             long totalMinutes = duration.toMinutes();
 
@@ -119,7 +115,9 @@ public class TimeTableApp {
                 final LocalDateTime tempStartTime = a[0];
                 final LocalDateTime tempEndTime = a[1];
 
+                // 当开始时间早于第二班次
                 if (tempStartTime.toLocalTime().isBefore(scheduleTwo)) {
+                    // 当结束时间晚于第三班次
                     if (tempEndTime.toLocalTime().isAfter(scheduleThree)) {
                         setTask(out, e, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(e.getQuantity() * Duration.between(tempStartTime.toLocalTime(),
                                 scheduleTwo).toMinutes(), totalMinutes) + 1));
@@ -136,8 +134,9 @@ public class TimeTableApp {
                         setTask(out, e, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(e.getQuantity() * Duration.between(tempStartTime.toLocalTime(),
                                 tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
                     }
-
+                    // 当开始时间早于第三班次
                 } else if (tempStartTime.toLocalTime().isBefore(scheduleThree)) {
+                    // 当结束时间晚于第三班次
                     if (tempEndTime.toLocalTime().isAfter(scheduleThree)) {
                         setTask(out, e, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(e.getQuantity() * Duration.between(tempStartTime.toLocalTime(),
                                 scheduleThree).toMinutes(), totalMinutes) + 1));
@@ -192,16 +191,6 @@ public class TimeTableApp {
                 }
         ).collect(Collectors.toList());
 
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
-
-        collect11.forEach(e -> array.add(e.printInfo()));
-
-        json.put("result", array);
-
-        DataGenerator.writeResult(json);
-
-
         Map<String, List<OutputTask>> collect = collect11.stream().collect(Collectors.groupingBy(e -> "日期:" + e.getRunTime() + " 班次:" + e.getSchedule() + " 工序组:" + e.getStepId()));
 
         TreeMap<LocalDate, String> rrrr = new TreeMap<>((o1, o2) -> {
@@ -211,18 +200,21 @@ public class TimeTableApp {
                 return 1;
             return 0;
         });
+
         collect.forEach((k, v) -> {
-//            System.out.println(k);
             int sum = v.stream().mapToInt(OutputTask::getAmount).sum();
-//            System.out.println(k + " 生产总数:" + sum + " speed:" + v.get(0).getSpeed());
             String date = k.split(" ")[0].split(":")[1];
             String[] daaaa = date.split("-");
             rrrr.put(LocalDate.of(Integer.parseInt(daaaa[0]), Integer.parseInt(daaaa[1]), Integer.parseInt(daaaa[2])), k + " 生产总数:" + sum + " speed:" + v.get(0).getSpeed());
         });
-        System.out.println("-----------------------------------------------");
-//        rrrr.forEach((k, v) -> System.out.println(v));
+
 
         DataGenerator.writeObjectToFile(out);
+
+        System.out.println("-----------------------------------------------");
+
+        List<OutputTask> collect1 = outputTaskList.stream().sorted(Comparator.comparing(OutputTask::getRunTime)).collect(Collectors.toList());
+        collect1.forEach(System.out::println);
 
 //        taskList.sort(Comparator.comparingInt(Task::getStartTime));
 //        taskList.stream().filter(e -> e.getManufactureOrderId().equals("manufactureOrder_0"))
@@ -243,6 +235,7 @@ public class TimeTableApp {
         OutputTask oTask = new OutputTask(task.getId(), index++, task.getCode(), task.getSpeed(), task.getUnit(),
                 task.getLayerNum(), 0, task.getRelatedLayer(), amount, runTime.toLocalDate(), schedule, task.getStepId());
         tempTask = oTask;
+        outputTaskList.add(oTask);
         out.getManufacturerOrderList().get(Integer.parseInt(task.getManufactureOrderId().split("_")[1]))
                 .getProduct().getStepList().get(Integer.parseInt(task.getStepId().split("_")[1]))
                 .getTaskList().add(oTask);

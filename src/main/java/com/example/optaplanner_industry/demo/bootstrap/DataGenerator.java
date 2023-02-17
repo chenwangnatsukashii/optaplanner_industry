@@ -23,12 +23,9 @@ public class DataGenerator {
         return input;
     }
 
+    // 把Java对象输出到文件中
     public static void writeObjectToFile(Object output) {
         LoadFile.writeJsonFile(output, OUTPUT_PATH);
-    }
-
-    public static void writeResult(Object output) {
-        LoadFile.writeJsonFile(output, RESULT_PATH);
     }
 
     public static List<ResourceItem> generateResources() {

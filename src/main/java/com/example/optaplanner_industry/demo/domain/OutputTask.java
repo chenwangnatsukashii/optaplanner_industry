@@ -25,11 +25,12 @@ public class OutputTask implements Serializable {
     private Integer amount;
     private LocalDate runTime;
     private Integer schedule;
+    private String stepId;
 
-    private String StepId;
-
-    public String printInfo() {
-        return "日期:" + runTime + " 班次:" + schedule + " 工序组:" + StepId + " 生产总数:" + amount + " speed:" + speed;
+    @Override
+    public String toString() {
+        return "日期: " + this.runTime + " 任务code: " + this.code + " 班次: " + this.schedule + " 工序组: " +
+                this.stepId + " 层数: " + this.layerNum + " 生产数: " + this.amount + " 产量速度: " + this.speed;
     }
 
 }

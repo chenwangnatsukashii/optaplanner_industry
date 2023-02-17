@@ -56,7 +56,6 @@ public class Task extends TaskOrResource implements Comparable<Task>, Serializab
     private String manufactureOrderId; // 工单ID
     private Integer quantity; // 工单生产个数
     private LocalDateTime taskBeginTime; // 工单开始时间
-
     private Product product;
     private String orderId;
     private Integer duration;
@@ -80,9 +79,10 @@ public class Task extends TaskOrResource implements Comparable<Task>, Serializab
         return this.endTime;
     }
 
-
     @Override
     public int compareTo(Task task) {
         return this.getStepIndex() - task.getStepIndex();
     }
+
+
 }
